@@ -14,12 +14,10 @@ import NavigationWrapper from "./componenets/navigation-wrapper";
 const router =  createBrowserRouter([
     {
         element : <Layout />,
-        children : [{
-            path : "*",
-            element: <NotFound /> ,
-        },
+        path: '/'
+        children : [
         {
-            path : '/',
+            path : '',
             element : <Home/> 
         },
         {
