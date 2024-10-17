@@ -5,13 +5,15 @@ import About from "./pages/about";
 import PropertyForm from "./pages/propertyForm";
 import InfrastructureForm from "./pages/infrastructureForm";
 import Home from "./pages/home";
+//import NavigationWrapper from "./componenets/navigation-wrapper";
+import Layout from "./componenets/commonLayout";
 import NavigationWrapper from "./componenets/navigation-wrapper";
 
 
 
 const router =  createBrowserRouter([
     {
-        element : <NavigationWrapper />,
+        element : <Layout />,
         children : [{
             path : "*",
             element: <NotFound /> ,
@@ -43,6 +45,6 @@ const router =  createBrowserRouter([
     }
 ]);
 
-export function Routes() {
-    return <RouterProvider router= {router} />
+export default function Routes() {
+    return <RouterProvider router= {router} />;
 };
