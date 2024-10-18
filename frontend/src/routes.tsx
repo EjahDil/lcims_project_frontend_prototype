@@ -14,7 +14,7 @@ import NavigationWrapper from "./componenets/navigation-wrapper";
 const router =  createBrowserRouter([
     {
         element : <Layout />,
-        path: '/'
+        path: '/',
         children : [
         {
             path : '',
