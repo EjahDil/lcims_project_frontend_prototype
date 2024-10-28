@@ -8,7 +8,7 @@ const NavigationWrapper = () => {
 
     return (
         <React.Fragment>
-            <h1>About Page</h1>
+            <h1>Navigation Wrapper</h1>
         </React.Fragment>
     )
 }

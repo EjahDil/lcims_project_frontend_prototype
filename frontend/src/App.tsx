@@ -1,12 +1,13 @@
 import React from 'react'
-import {Routes } from 'react-router-dom'
+import {BrowserRouter, Routes } from 'react-router-dom'
+import Route from './routes';
 
 
 
 function App() {
   return (
     <React.Fragment>
-        <Routes/>
+        <Route />
     </React.Fragment>
   )
 }

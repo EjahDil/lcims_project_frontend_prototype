@@ -8,7 +8,7 @@ const NotFound  = () => {
 
     return (
         <React.Fragment>
-            <h1>Not Found Page</h1>
+            <h1 className="font-bold text-center">Not Found Page</h1>
         </React.Fragment>
     )
 }

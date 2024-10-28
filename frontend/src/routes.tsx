@@ -2,22 +2,24 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/not-found";
 import Login from "./pages/login";
 import About from "./pages/about";
-import PropertyForm from "./pages/propertyForm";
-import InfrastructureForm from "./pages/infrastructureForm";
 import Home from "./pages/home";
 //import NavigationWrapper from "./componenets/navigation-wrapper";
-import Layout from "./componenets/commonLayout";
-import NavigationWrapper from "./componenets/navigation-wrapper";
+import Layout from "./components/commonLayout";
+import NavigationWrapper from "./components/navigation-wrapper";
+import TaxIdentification from "./pages/taxIdentification";
+import RevenueManagement from "./pages/revenueManagement";
+import Form from "./pages/form";
+import WindowDimensions from "./components/windowSize";
+
 
 
 
 const router =  createBrowserRouter([
     {
         element : <Layout />,
-        path: '/',
         children : [
         {
-            path : '',
+            path : '/',
             element : <Home/> 
         },
         {
@@ -27,22 +29,34 @@ const router =  createBrowserRouter([
         },
         {
             path: '/about',
-            element: <About/> 
+            element: <About /> 
         },
         {
-            path: "/propertyform",
-            element :  <PropertyForm/>
+            path: '/form',
+            element:<Form />,
         },
         {
-            path: "/infrastructureform",
-            element : <InfrastructureForm/>,
-        
-        }
-            
+            path: "/tax-identification",
+            element: <TaxIdentification/>,
+        },
+        {
+            path: "/revenue-management",
+            element: <RevenueManagement/>,
+        },
         ]
-    }
+
+    },
+    {
+        path: "window-size",
+        element: <WindowDimensions />
+    },
+    {
+        path: "*",
+        element: <NotFound/>
+    },
+    
 ]);
 
-export default function Routes() {
+export default function Route() {
     return <RouterProvider router= {router} />;
 };

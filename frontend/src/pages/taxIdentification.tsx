@@ -1,14 +1,17 @@
+
+
+
 import React from "react"
 
 
 
-const PropertyForm = () => {
+const TaxIdentification  = () => {
 
     return (
         <React.Fragment>
-            <h1>Infrastructure Form Page</h1>
+            <h1>Login</h1>
         </React.Fragment>
     )
 }
 
-export default PropertyForm;
+export default TaxIdentification;

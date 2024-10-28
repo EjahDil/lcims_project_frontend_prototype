@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./navbar";
 import { Outlet } from "react-router-dom";
+import Footer from "./footer";
 
 
 
@@ -13,6 +14,8 @@ const Layout: React.FC = () => {
             <main>
                 <Outlet />
             </main>
+
+            <Footer/>
         </React.Fragment>
     )
 };
