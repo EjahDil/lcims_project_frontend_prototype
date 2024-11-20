@@ -5,15 +5,15 @@ import { FaTwitter, FaFacebook, FaYoutube, FaLinkedin, FaEnvelope, FaGithub } fr
 const Footer: React.FC = () => {
   return (
     <div className="bg-[#709ec9] text-white py-6 mt-12">
-      <div className="max-w-7xl mx-auto mb-10 px-4 flex flex-wrap justify-between gap-5">
+      <div className="max-w-8xl mx-auto px-4 flex flex-wrap justify-between gap-5">
         
         {/* Logo Section */}
-        <div className="flex-1 max-w-xs ml-6 pt-20 pr-4 justify-center">
-          <img src="assets/img/seal_new.png" alt="Seal" className="w-1/3 h-auto p-1" />
+        <div className="flex flex-1 ml-6 pt-20 pr-4 justify-start">
+          <img src="assets/img/seal_new.png" alt="Seal" className="w-1/7 h-1/5 p-1" />
         </div>
 
         {/* Quick Links */}
-        <div className="flex-1 max-w-xs pt-10 px-4 flex flex-col">
+        <div className="flex flex-1 pt-10 px-4 flex-col sm-732:hidden">
           <h4 className="mb-4 text-lg font-semibold">Quick Links</h4>
           <ul>
             <li><a href="/propertyform" className="block mb-2">Forms</a></li>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="flex-1 max-w-xs pt-10 px-4 flex flex-col">
+        <div className="flex flex-1 pt-10 px-4 flex-col sm-732:hidden">
           <h4 className="mb-4 text-lg font-semibold">Contact</h4>
           <p className="flex items-center mb-2">
             <MapPinIcon className="h-5 w-5 mr-2" aria-hidden="true" />
@@ -58,23 +58,23 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Logo Section 2 */}
-        <div className="flex-1 max-w-xs ml-auto pr-4 pt-20 justify-center">
-          <img src="assets/img/lcims_new.png" alt="LCIMS" className="w-1/3 h-auto p-1" />
+        <div className="flex flex-1 ml-auto pr-4 pt-20 justify-end">
+          <img src="assets/img/lcims_new.png" alt="LCIMS" className="w-1/7 h-1/4 p-1" />
         </div>
       </div>
 
       {/* White Line Divider */}
-      <hr className="border-t border-white opacity-50 mx-4" />
+      <hr className="border-t border-white opacity-50 mx-4 sm-732:hidden" />
 
       {/* Copyright Section */}
       <div className="bg-[#709ec9] py-4 text-center">
-        <div className="max-w-7xl mx-auto flex justify-between px-4">
-          <div className="text-left whitespace-nowrap">
+        <div className="max-w-7xl mx-auto flex justify-between px-4 flex-wrap sm-732:flex-col">
+          <div className="flex flex-wrap text-left whitespace-nowrap">
             &copy;{" "}
-            <a href="#" className="underline">Your Site Name</a>, All Rights Reserved.
-            Designed By <a href="https://htmlcodex.com" className="underline">HTML Codex</a>
+            <a href="#" className="underline break-words">Your Site Name</a>, All Rights Reserved.
+            Designed By <a href="https://htmlcodex.com" className="underline ml-3">HTML Codex</a>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 mt-4 sm-732:item-start">
             <a href="/" className="text-white">Home</a>
             <a href="#" className="text-white">Cookies</a>
             <a href="#" className="text-white">Help</a>
@@ -83,12 +83,13 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-    {/* Signatures Section */}
-    <div className="max-w-7xl mx-auto px-4 pt-2">
-      <h4 className="text-lg font-semibold">Developed By:</h4>
-      <div className="flex items-center space-x-2 pt-2">
-        <p className="mr-2">Dilan - Software Engineer / Data Scientist</p>
-        <div className="flex space-x-2">
+      {/* Signatures Section */}
+      <div className="flex flex-col max-w-7xl mx-auto px-4 pt-2 space-y-4">
+        <h4 className="text-lg font-semibold">Developed By:</h4>
+
+        {/* Dilan's Section */}
+        <div className="flex items-center space-x-2">
+          <p>Dilan - Software Engineer / Data Scientist</p>
           <a
             href="https://www.linkedin.com/in/ejah-dilan-a1259b26b"
             target="_blank"
@@ -106,10 +107,10 @@ const Footer: React.FC = () => {
             <FaGithub className="h-5 w-5" aria-hidden="true" />
           </a>
         </div>
-      </div>
-      <div className="flex items-center space-x-2 pt-2">
-        <p className="mr-2">Michel - Data Scientist / Cybersecurity Engineer</p>
-        <div className="flex space-x-2">
+
+        {/* Michel's Section */}
+        <div className="flex items-center space-x-2">
+          <p>Michel - Data Scientist / Cybersecurity Engineer</p>
           <a
             href="https://www.linkedin.com/in/michel"
             target="_blank"
@@ -128,8 +129,6 @@ const Footer: React.FC = () => {
           </a>
         </div>
       </div>
-</div>
-
     </div>
   );
 };

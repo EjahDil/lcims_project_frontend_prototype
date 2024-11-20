@@ -59,6 +59,11 @@ const PropertyForm: React.FC = () => {
             </div>
           </div>
 
+          <div className="space-y-2">
+            <label className="block text-lg font-semibold">Category</label>
+            <input type="text" placeholder="Property Category" required className="input w-full p-4 rounded-lg" />
+          </div>
+
           <div className="text-right">
             <button type="submit" className="text-black-700 bg-[#575447] hover:bg-white px-6 py-3 rounded-lg text-lg">
               Submit

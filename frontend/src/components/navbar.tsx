@@ -26,10 +26,13 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile login button and hamburger */}
-          <div className="flex items-center ml-auto custom-md:hidden space-x-2">
+          <div className="flex items-center ml-auto custom-md:hidden space-x-2 sm-168:hidden">
             {!isOpen && (
-              <a href="#" className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded">
-                Log in or Sign up
+              <a
+                href="#"
+                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
+              >
+                Log in
                 <i className="fa fa-arrow-right ml-2"></i>
               </a>
             )}
@@ -77,7 +80,7 @@ const Navbar: React.FC = () => {
 
           {/* Mobile Dropdown Menu */}
           {isOpen && (
-            <div className="absolute top-16 right-0 bg-white shadow-lg w-64 p-4 z-40">
+            <div className="absolute top-16 right-0 bg-white shadow-lg w-64 p-4 z-40 sm-168:hidden">
               <div className="flex flex-col space-y-2">
                 <a href="/" className="block py-2 text-gray-700 hover:text-[#709ec9]">Home</a>
                 <a href="/form" className="block py-2 text-gray-700 hover:text-[#709ec9]">Forms</a>
@@ -85,15 +88,18 @@ const Navbar: React.FC = () => {
                 <a href="courses.html" className="block py-2 text-gray-700 hover:text-[#709ec9]">Limbe GIS</a>
                 <Dropdown label="Revenue Management" options={dropDownOptions} />
                 <a href="contact.html" className="block py-2 text-gray-700 hover:text-[#709ec9]">Contact</a>
-                <a href="" className="block py-2 text-gray-700 hover:text-[#709ec9]">Log in or Signup</a>
+                <a href="" className="block py-2 text-gray-700 hover:text-[#709ec9]">Log in</a>
               </div>
             </div>
           )}
 
           {/* Desktop Login/Sign-up Button */}
           <div className="hidden custom-md:flex custom-md:items-center">
-            <a href="#" className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded">
-              Log in or Sign up
+            <a
+              href="#"
+              className="btn-primary py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded hidden sm:block"
+            >
+              Log in
               <i className="fa fa-arrow-right ml-2"></i>
             </a>
           </div>

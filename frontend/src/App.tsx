@@ -1,13 +1,19 @@
 import React from 'react'
-import {BrowserRouter, Routes } from 'react-router-dom'
 import Route from './routes';
+// import { AuthProvider } from './contexts/authContext';
+
 
 
 
 function App() {
   return (
     <React.Fragment>
-        <Route />
+      {/* <AuthProvider> */}
+
+          <Route />
+
+      {/* </AuthProvider> */}
+        
     </React.Fragment>
   )
 }

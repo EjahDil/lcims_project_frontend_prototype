@@ -53,9 +53,9 @@ const ServiceDetail: React.FC = () => {
                     <div className="mt-4 flex space-x-2">
                       <a
                         href="#"
-                        className="bg-[#709ec9] text-white py-2 px-4 rounded hover:bg-[#575447] transition-colors"
+                        className="bg-[#709ec9] text-white py-2 px-6 rounded hover:bg-[#575447] transition-colors"
                       >
-                        Log in or Sign up
+                        Log in
                       </a>
                     </div>
                   </div>

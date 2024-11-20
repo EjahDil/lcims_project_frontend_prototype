@@ -15,7 +15,7 @@ const Layout: React.FC = () => {
                 <Outlet />
             </main>
 
-            <Footer/>
+             <Footer/> 
         </React.Fragment>
     )
 };

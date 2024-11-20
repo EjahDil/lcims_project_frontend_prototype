@@ -4,7 +4,7 @@ const InfrastructureForm: React.FC = () => {
   return (
     <section id="infrastructure-form" className="flex justify-center items-center py-8 mb-8">
       <div className="bg-[#709ec9] p-8 rounded-lg shadow-lg w-full max-w-7xl">
-        <form id="infrastructureForm" className="space-y-8">
+        <form id="infrastructureForm" className="space-y-8 max-w-7xl">
           <h1 className="text-3xl font-bold flex items-center mb-6 justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="translate-y-1 mr-2">
               <path d="M3 9.5L12 3l9 6.5V19a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
