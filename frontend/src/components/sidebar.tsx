@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 const Sidebar: React.FC = () => {
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
   const [isUserManagementVisible, setUserManagementVisibility] = useState(true);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const location = useLocation();
 
@@ -100,12 +101,64 @@ const Sidebar: React.FC = () => {
               Home
             </a>
             {isUserManagementVisible && (
-              <a
-                href="/user-management"
-                className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
-              >
-                User Management
-              </a>
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+                >
+                  User Management
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`h-5 w-5 transition-transform ${
+                      isDropdownOpen ? "rotate-180" : ""
+                    }`}
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+                      {isDropdownOpen && (
+        <ul className="ml-12 list-disc">
+          <li>
+            <a
+              href="/user-management/users"
+              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+            >
+              Users
+            </a>
+          </li>
+          <li>
+            <a
+              href="/user-management/create-user"
+              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+            >
+              Create User
+            </a>
+          </li>
+          <li>
+            <a
+              href="/user-management/roles"
+              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+            >
+              Roles
+            </a>
+          </li>
+          <li>
+            <a
+              href="/user-management/create-roles"
+              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+            >
+              Create Roles
+            </a>
+          </li>
+        </ul>
+      )}
+     </div>
             )}
             <a
               href="/property-management"

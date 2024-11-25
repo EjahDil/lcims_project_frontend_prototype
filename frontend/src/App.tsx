@@ -1,5 +1,6 @@
 import React from 'react'
 import Route from './routes';
+import { PermissionsProvider } from './contexts/permContext';
 // import { AuthProvider } from './contexts/authContext';
 
 
@@ -8,11 +9,11 @@ import Route from './routes';
 function App() {
   return (
     <React.Fragment>
-      {/* <AuthProvider> */}
+      <PermissionsProvider>
 
           <Route />
 
-      {/* </AuthProvider> */}
+      </PermissionsProvider>
         
     </React.Fragment>
   )

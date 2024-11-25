@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-const TOKEN_EXPIRATION_TIME = 6000; // 10 minutes in milliseconds
+const TOKEN_EXPIRATION_TIME = 600000; // 10 minutes in milliseconds
+
+// // Define the structure of the location state
+// interface LocationState {
+//   from: {
+//     pathname: string;
+//   };
+// };
+
 
 const ProtectedRoute: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const location = useLocation(); // Get the current location
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     let tokenExpirationTimer: NodeJS.Timeout;
+    
 
     if (token) {
       setIsLoggedIn(true);
-      
+
       // Set a timer to remove the token after expiration time
       tokenExpirationTimer = setTimeout(() => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setIsLoggedIn(false);
       }, TOKEN_EXPIRATION_TIME);
     } else {
@@ -29,20 +40,15 @@ const ProtectedRoute: React.FC = () => {
     return () => clearTimeout(tokenExpirationTimer);
   }, []);
 
-  
-  useEffect(() => {
-    if (!isLoggedIn) {
-      // If the user is not logged in, we would immediately redirect (this effect doesn't need extra code here)
-    }
-  }, [isLoggedIn]); // Trigger the redirect on change of isLoggedIn
-
   if (loading) {
     return <div>Loading...</div>; // Show a loading state if necessary
   }
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
-  }
+    // Redirect to login with the current location as state
+    return <Navigate to="/login" state = {{from: location}} replace />;
+
+  };
 
   return <Outlet />;
 };

@@ -18,6 +18,8 @@ import SidebarLayout from "./components/sideBarLayout";
 import UserManagement from "./pages/userManagement";
 import PropertyManagement from "./pages/propertyManagement";
 import AdminPage from "./pages/admin";
+import UserTable from "./pages/usersList";
+import CreateUserForm from "./pages/createUser";
 
 
 
@@ -60,8 +62,8 @@ const router =  createBrowserRouter([
 
     },
     {
-        path : '/change-password',
-        element : <ChangePassword /> ,
+        path : '/create-user',
+        element : <CreateUserForm/> ,
 
     },
     {
@@ -99,12 +101,22 @@ const router =  createBrowserRouter([
     //}
 
     {
-        element: <ProtectedRoute/>,
+        element: <ProtectedRoute />,
         children: [
             {
                 path: '/form',
                 element:<Form />,
 
+            },
+            {
+                path : '/change-password',
+                element : <ChangePassword /> ,
+        
+            },
+            {
+                path : '/users',
+                element : <UserTable/> ,
+        
             },
         ],
     },
