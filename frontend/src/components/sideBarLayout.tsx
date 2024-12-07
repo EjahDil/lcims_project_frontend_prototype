@@ -11,7 +11,7 @@ const SidebarLayout: React.FC = () => {
             <div className="flex">
                 <Sidebar />
 
-                <div className="flex-1 ml-64 p-4">
+                <div className="flex-1 ml-40 sm-1000:ml-64 p-4">
                     <Outlet/>
 
                 </div>

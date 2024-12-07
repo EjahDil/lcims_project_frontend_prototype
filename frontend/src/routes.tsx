@@ -20,6 +20,8 @@ import PropertyManagement from "./pages/propertyManagement";
 import AdminPage from "./pages/admin";
 import UserTable from "./pages/usersList";
 import CreateUserForm from "./pages/createUser";
+import DashboardPage from "./pages/dashboard";
+import EditUserForm from "./pages/updateUser";
 
 
 
@@ -74,24 +76,6 @@ const router =  createBrowserRouter([
     //{
     //     element: <ProtectedRoute />,
     //     children : [
-            {
-                element: <SidebarLayout/>,
-                children: [
-                    {
-                        path: "/user-management",
-                        element: <UserManagement/>
-                    },
-                    {
-                        path: "/property-management",
-                        element: <PropertyManagement/>
-                    },
-                    {
-                        path: '/admin',
-                        element:<AdminPage />,
-                    },
-                ],
-        
-             },
              
             // {
             //     path: '/form',
@@ -103,6 +87,46 @@ const router =  createBrowserRouter([
     {
         element: <ProtectedRoute />,
         children: [
+            {
+                element: <SidebarLayout/>,
+                children: [
+                    {
+                        path: '/admin',
+                        children: [
+                            {
+                                path: "home",
+                                element:<AdminPage />,
+
+                            },
+                            {
+                                path: "user-management",
+                                element: <UserManagement/>
+                            },
+
+                        ],
+                    },
+                    {
+                        path: '/dashboard',
+                        children: [
+                            {
+                                path: "home",
+                                element:<DashboardPage/>,
+
+                            },
+                            {
+                                path: "user-management",
+                                element: <UserManagement/>
+                            },
+
+                        ],
+                    },
+                    {
+                        path: "/property-management",
+                        element: <PropertyManagement/>
+                    },
+                ],
+        
+            },
             {
                 path: '/form',
                 element:<Form />,

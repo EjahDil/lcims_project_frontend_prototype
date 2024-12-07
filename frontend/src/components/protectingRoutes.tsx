@@ -10,35 +10,48 @@ const TOKEN_EXPIRATION_TIME = 600000; // 10 minutes in milliseconds
 //   };
 // };
 
-
 const ProtectedRoute: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const location = useLocation(); // Get the current location
 
   useEffect(() => {
+    localStorage.setItem('tokenSetTime', Date.now().toString());
     const token = localStorage.getItem('token');
+    const tokenSetTime = localStorage.getItem('tokenSetTime');
     let tokenExpirationTimer: NodeJS.Timeout;
-    
 
-    if (token) {
-      setIsLoggedIn(true);
+    if (token && tokenSetTime) {
+        const currentTime = Date.now();
+        const timeElapsed = currentTime - parseInt(tokenSetTime, 10);
+        const timeRemaining = TOKEN_EXPIRATION_TIME - timeElapsed;
 
-      // Set a timer to remove the token after expiration time
-      tokenExpirationTimer = setTimeout(() => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        setIsLoggedIn(false);
-      }, TOKEN_EXPIRATION_TIME);
+        if (timeRemaining > 0) {
+            setIsLoggedIn(true);
+
+            // Set a timer for the remaining time
+            tokenExpirationTimer = setTimeout(() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                localStorage.removeItem('tokenSetTime');
+                setIsLoggedIn(false);
+            }, timeRemaining);
+        } else {
+            // Token has expired
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('tokenSetTime');
+            setIsLoggedIn(false);
+        }
     } else {
-      setIsLoggedIn(false);
+        setIsLoggedIn(false);
     }
 
     setLoading(false);
 
-    // Cleanup the timeout on component unmount
     return () => clearTimeout(tokenExpirationTimer);
-  }, []);
+}, []);
+
 
   if (loading) {
     return <div>Loading...</div>; // Show a loading state if necessary

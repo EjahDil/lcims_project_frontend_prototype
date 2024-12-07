@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FormContainer from "../components/formContainer";
 import { UseLogin } from "../hooks/UseLogin"; // Import the useLogin hook
 import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate for redirection
-import { useRedirect } from "../hooks/UseRedirect";
+import { UseRedirect } from "../hooks/UseRedirect";
 // import { isTokenExpired } from "../contexts/authContext";
 
 
@@ -11,7 +11,7 @@ const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const { login, isLoading, error, success } = UseLogin(); // Destructure login, isLoading, error, and success from the hook
   const navigate = useNavigate(); // useNavigate hook to redirect after login
-  const redirectPath = useRedirect();
+  const redirectPath = UseRedirect();
 
 
 
@@ -40,17 +40,19 @@ const LoginForm: React.FC = () => {
   // };
 
         // isTokenExpired(token as string);
-
-
         if (user) {
           console.log("Login successful", user);
-          navigate(redirectPath, { replace: true });
+          //navigate(redirectPath, { replace: true });
+
+         setTimeout(() => {
+            navigate(redirectPath, { replace: true });
+          }, 2000);
+}
         };
 
   //     if (user && success) {
   //       // After successful login, redirect to the originally intended route
   //       navigate(from, { replace: true });
-  }
 
   return (
     <FormContainer title="Login">

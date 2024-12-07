@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { IconButton, TextField, MenuItem, Button, Box } from '@mui/material';
+import React, { useEffect, useState, useRef } from 'react';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from '@mui/x-data-grid';
+import { IconButton, TextField, MenuItem, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, Card, CardContent, Typography, Modal } from '@mui/material';
 import { Delete as DeleteIcon, Edit as EditIcon, Visibility as ViewIcon } from '@mui/icons-material';
-import { fetchUsers } from '../services/useService';
+import { deleteUser, fetchUsers } from '../services/useService';
 import { usePermissions } from '../contexts/permContext';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for redirection
+import EditUserForm from './updateUser';
+import ModalCompo from '../components/modalforediting';
+import DeleteConfirmationDialog from '../components/deletePopUp';
 
 interface User {
   user_id: number;
@@ -20,6 +24,7 @@ interface User {
 const UserTable: React.FC = () => {
   const { checkPermission } = usePermissions(); // Use the hook to get permissions
   const hasPermission = checkPermission('users:read');
+  const navigate = useNavigate(); // Initialize navigate function for redirection
 
   const [users, setUsers] = useState<User[]>([]);
   const [paginationModel, setPaginationModel] = useState({
@@ -31,6 +36,15 @@ const UserTable: React.FC = () => {
   const [status, setStatus] = useState('');
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null); // State for selected user
+  const [openDialog, setOpenDialog] = useState(false); // State for controlling dialog visibility
+  const [rowSelectionModel, setRowSelectionModel] =  React.useState<GridRowSelectionModel>([]); // Manage selection state
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [userIdToDelete, setUserIdToDelete] = useState<number | null>(null);
+
+
+  const gridRef = React.useRef<HTMLDivElement | null>(null); // Reference to the DataGrid for outside click detection
 
   const loadUsers = async () => {
     setLoading(true);
@@ -56,39 +70,65 @@ const UserTable: React.FC = () => {
     loadUsers();
   }, [paginationModel, search, role, status]);
 
-  const handleDelete = (id: number) => {
-    console.log('Delete user with ID:', id);
-    // Implement delete logic
+  const handleDelete = async (user_id: number) => {
+    setUserIdToDelete(user_id); // Set the user ID to delete
+    setOpenConfirmDialog(true);
   };
-
+  
   const handleEdit = (id: number) => {
     console.log('Edit user with ID:', id);
+    const userToEdit = users.find((user) => user.user_id === id);
+    if (userToEdit) {
+      setSelectedUser(userToEdit);
+      setOpenModal(true); // Open the modal to edit user details
+    }
     // Implement edit logic
   };
 
-  const handleView = (id: number) => {
-    console.log('View user with ID:', id);
-    // Implement view logic (e.g., open a popup or modal)
+  const handleView = (user: User) => {
+    setSelectedUser(user);
+    setOpenDialog(true); // Open the dialog when the "View" icon is clicked
+  };
+
+  const handleCreateUser = () => {
+    navigate('/create-user'); // Redirect to the create user page
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false); // Close the dialog
+    setSelectedUser(null); // Reset selected user
+  };
+
+
+  const handleDeleteCloseDialog = () => {
+    setOpenConfirmDialog(false);
+    setUserIdToDelete(null); // Clear the user ID
+  };
+
+
+  const handleCloseModal = () => {
+    setOpenModal(false); // Close the modal
+    setSelectedUser(null); // Reset selected user
   };
 
   const columns: GridColDef[] = [
-    { field: 'username', headerName: 'Username', flex: 1 },
-    { field: 'email', headerName: 'Email', flex: 1.5 },
-    { field: 'role', headerName: 'Role', flex: 1 },
-    { field: 'status', headerName: 'Status', flex: 1 },
-    { field: 'last_login', headerName: 'Last Login', flex: 1.5 },
+    { field: 'username', headerName: 'Username', minWidth: 200, flex: 1 },
+    { field: 'email', headerName: 'Email', minWidth: 100, flex: 2 },
+    { field: 'role', headerName: 'Role', minWidth: 100, flex: 1 },
+    { field: 'status', headerName: 'Status', minWidth: 100, flex: 1 },
+    { field: 'last_login', headerName: 'Last Login', minWidth: 150, flex: 1 },
     {
       field: 'actions',
       headerName: 'Actions',
       sortable: false,
       filterable: false,
-      width: 150,
+      width: 130,
       renderCell: (params: GridRenderCellParams) => (
-        <Box display="flex" gap={1}>
+        <Box display="flex" gap={0.1}>
           <IconButton color="primary" onClick={() => handleEdit(params.row.user_id)}>
             <EditIcon />
           </IconButton>
-          <IconButton color="primary" onClick={() => handleView(params.row.user_id)}>
+          <IconButton color="primary" onClick={() => handleView(params.row)}>
             <ViewIcon />
           </IconButton>
           <IconButton color="error" onClick={() => handleDelete(params.row.user_id)}>
@@ -99,13 +139,45 @@ const UserTable: React.FC = () => {
     },
   ];
 
+  // Handle click outside the DataGrid to clear selection
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        gridRef.current &&
+        event.target instanceof Node && // Ensure event.target is a DOM node
+        !gridRef.current.contains(event.target)
+      ) {
+        setRowSelectionModel([]); // Clear selection if clicked outside
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside); // Cleanup the event listener
+    };
+  }, []);
+
   if (!hasPermission) {
     return <div>You do not have permission to view this page.</div>;
   }
 
   return (
-    <Box padding={3}>
-      <h2 className="text-2xl font-bold mb-4">User Management</h2>
+    <Box padding={3} sx={{
+      overflowX:"hidden",
+      // Responsive styles
+      '@media (max-width: 1700px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '75%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+  }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
           label="Search"
@@ -148,6 +220,16 @@ const UserTable: React.FC = () => {
         }}>
           Apply Filters
         </Button>
+        <Button variant="contained" color="primary" onClick={handleCreateUser} 
+         sx={{
+          backgroundColor: "#709ec9", // Set background color
+          color: "#fff", // Set text color
+          "&:hover": {
+            backgroundColor: "#575447", // Darker shade for hover effect
+          },
+        }}>
+          Create User
+        </Button>
       </Box>
       <DataGrid
         rows={users}
@@ -159,9 +241,127 @@ const UserTable: React.FC = () => {
         onPaginationModelChange={setPaginationModel}
         loading={loading}
         getRowId={(row) => row.user_id}
+        pageSizeOptions={[10, 20, 50]}
         sx={{
           flexGrow: 1, // Allow DataGrid to expand and fill the available space
+          minWidth: 0, // Prevent overflow
+          width: '100%', // Default to full width
+          '& .MuiDataGrid-cell': {
+            whiteSpace: 'nowrap', // Prevent text wrapping
+            overflowX: 'hidden', // Add ellipsis for overflowing text
+          },
+          // Responsive styles
+          '@media (max-width: 1200px)': {
+            '& .MuiDataGrid-root': {
+              fontSize: '0.8rem', // Reduce font size
+            },
+            '& .MuiDataGrid-columnHeader': {
+              fontSize: '0.9rem', // Reduce header font size
+            },
+            maxWidth: '100%', // Reduce table width
+            margin: '0 auto', // Center the table
+            overflowX: 'hidden'
+          },
         }}
+        ref={gridRef} // Set the reference for the DataGrid
+        rowSelectionModel={rowSelectionModel} // Bind the selection model to the state
+        onRowSelectionModelChange={(newSelectionModel) => {
+          setRowSelectionModel([...newSelectionModel]); // Update selection state
+        }}
+      />
+
+      {/* Dialog for displaying user details */}
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        maxWidth="xs"
+        fullWidth
+        sx={{
+          backdropFilter: 'none', // Ensure backdrop filter does not cover interaction
+          padding: 1,
+          zIndex: 1300, // Higher z-index for the dialog to appear on top of other content
+        }}
+        slotProps={{
+          backdrop: {
+            invisible: true,
+          },
+        }}
+      >
+      <DialogTitle>User Details</DialogTitle>
+  <DialogContent>
+    {selectedUser && (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: 1,
+        }}
+      >
+        {/* Circle with Username Initials */}
+        <Box
+          sx={{
+            width: 60,
+            height: 60,
+            borderRadius: '50%',
+            backgroundColor: '#709ec9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            marginBottom: 1,
+          }}
+        >
+          {selectedUser.username
+            .split(' ')
+            .map((word) => word[0].toUpperCase())
+            .join('')}
+        </Box>
+
+        {/* User Info */}
+        <Box sx={{ width: '100%', textAlign: 'center' }}>
+          <Typography variant="h6" sx={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: 1 }}>
+            Username: {selectedUser.username}
+          </Typography>
+          <Typography variant="body1" sx={{ fontSize: '0.9rem', marginBottom: 1 }}>
+            Email: {selectedUser.email}
+          </Typography>
+          <Typography variant="body1" sx={{ fontSize: '0.85rem', marginBottom: 1 }}>
+            Role: {selectedUser.role}
+          </Typography>
+          <Typography variant="body1" sx={{ fontSize: '0.85rem', marginBottom: 1 }}>
+            Status: {selectedUser.status}
+          </Typography>
+          <Typography variant="body1" sx={{ fontSize: '0.85rem', marginBottom: 1 }}>
+            Last Login: {selectedUser.last_login}
+          </Typography>
+        </Box>
+      </Box>
+    )}
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleCloseDialog} color="primary">
+      Close
+    </Button>
+  </DialogActions>
+      </Dialog>
+
+{/* Modal for editing user details */}
+<ModalCompo isOpen={openModal} onClose={handleCloseModal}>
+  {selectedUser ? (
+    <EditUserForm user={selectedUser} onClose={handleCloseModal} />
+  ) : (
+    <></> // Return an empty fragment if no user is selected
+  )}
+</ModalCompo>
+
+<DeleteConfirmationDialog
+        open={openConfirmDialog}
+        userId={userIdToDelete}
+        onClose={handleDeleteCloseDialog}
+        onUserDeleted={loadUsers}
       />
     </Box>
   );

@@ -1,13 +1,15 @@
+
+
 import React, { useEffect, useState } from "react";
 
-const AdminPage: React.FC = () => {
+const DashboardPage: React.FC = () => {
 
     const [text, setText] = useState(" Welcome User to the LCIMS");
 
     useEffect(() => {
       const handleResize = () => {
         if (window.innerWidth <= 460) {
-          setText(" Welcome User");
+          setText("Welcome User");
         } else {
           setText(" Welcome User to the LCIMS");
         }
@@ -77,4 +79,4 @@ const AdminPage: React.FC = () => {
   );
 };
 
-export default AdminPage;
+export default DashboardPage;

@@ -1,84 +1,89 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const Sidebar: React.FC = () => {
-  const [isSidebarVisible, setSidebarVisibility] = useState(true);
+  const [isSidebarVisible, setSidebarVisibility] = useState(
+    window.innerWidth >= 1000 // Initially show for screens >= 1000px
+  );
   const [isUserManagementVisible, setUserManagementVisibility] = useState(true);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   const location = useLocation();
 
   // Show/hide User Management based on the route
   useEffect(() => {
-    if (location.pathname === "/admin") {
+    if (location.pathname.includes("/admin")) {
       setUserManagementVisibility(true);
     } else {
       setUserManagementVisibility(false);
     }
   }, [location.pathname]);
 
-  // Automatically toggle sidebar visibility at sm-732 breakpoint
+  // Automatically toggle sidebar visibility at 1000px breakpoint
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1000) {
-        setSidebarVisibility(false);
-      } else {
+      if (window.innerWidth >= 1000) {
         setSidebarVisibility(true);
+      } else {
+        setSidebarVisibility(false);
       }
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Initial check
+    handleResize(); // Initial check to set state on load
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(target) &&
+        window.innerWidth < 1000 &&
+        !(target instanceof HTMLElement && target.closest(".toggle-sidebar"))
+      ) {
+        setSidebarVisibility(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleSidebar = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); // Prevents triggering the outside click handler
+    setSidebarVisibility((prev) => !prev);
+  };
 
   return (
     <>
       {/* Hamburger Button */}
       <div className="fixed top-5 left-5 z-50 sm-1000:hidden">
         <button
-          onClick={() => setSidebarVisibility((prev) => !prev)}
-          className="p-3 bg-[#709ec9] text-white rounded-full shadow-lg focus:outline-none"
+          onClick={toggleSidebar}
+          className="toggle-sidebar p-3 bg-[#709ec9] text-white rounded-full shadow-lg focus:outline-none"
         >
-          {isSidebarVisible ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+          {!isSidebarVisible ? (
+            <MenuIcon className="h-6 w-6" />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
+            <CloseIcon className="h-6 w-6" />
           )}
         </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`fixed left-0 top-0 h-full w-64 bg-[#709ec9] flex flex-col justify-between transition-all duration-300 ${
-          isSidebarVisible ? "block" : "hidden"
+        ref={sidebarRef}
+        className={`fixed left-0 top-0 h-full w-64 bg-[#709ec9] flex flex-col justify-between transition-transform duration-300 ${
+          isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Sidebar Content */}
@@ -95,7 +100,7 @@ const Sidebar: React.FC = () => {
           {/* Links */}
           <div className="mt-6">
             <a
-              href="/home"
+              href="/admin/home"
               className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
             >
               Home
@@ -107,58 +112,49 @@ const Sidebar: React.FC = () => {
                   className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
                 >
                   User Management
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                  <ArrowDropDownIcon
                     className={`h-5 w-5 transition-transform ${
                       isDropdownOpen ? "rotate-180" : ""
                     }`}
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  />
                 </button>
-                      {isDropdownOpen && (
-        <ul className="ml-12 list-disc">
-          <li>
-            <a
-              href="/user-management/users"
-              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
-            >
-              Users
-            </a>
-          </li>
-          <li>
-            <a
-              href="/user-management/create-user"
-              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
-            >
-              Create User
-            </a>
-          </li>
-          <li>
-            <a
-              href="/user-management/roles"
-              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
-            >
-              Roles
-            </a>
-          </li>
-          <li>
-            <a
-              href="/user-management/create-roles"
-              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
-            >
-              Create Roles
-            </a>
-          </li>
-        </ul>
-      )}
-     </div>
+                {isDropdownOpen && (
+                  <ul className="ml-12 list-disc">
+                    <li>
+                      <a
+                        href="/admin/user-management"
+                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      >
+                        Users
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/user-management/create-user"
+                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      >
+                        Create User
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/user-management/roles"
+                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      >
+                        Roles
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/user-management/create-roles"
+                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      >
+                        Create Roles
+                      </a>
+                    </li>
+                  </ul>
+                )}
+              </div>
             )}
             <a
               href="/property-management"

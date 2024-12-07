@@ -227,10 +227,10 @@ const CreateUserForm: React.FC = () => {
         </div>
 
         {/* Submit Button */}
-        <div>
+        <div className="flex justify-center">
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-[#709ec9] hover:bg-[#575447] text-white rounded-md font-semibold"
+            className="w-1/2 py-2 px-4 bg-[#709ec9] hover:bg-[#575447] text-white rounded-md font-semibold"
           >
             Create User
           </button>

@@ -53,3 +53,65 @@ export const createUser = async (userData: {
     throw error; // Rethrow the error so it can be handled by the calling code
   }
 };
+
+
+// Function to update a user
+export const updateUser = async (
+  userId: string,
+  updateData: {
+    username?: string;
+    email?: string;
+    password?: string;
+    role?: string;
+    status?: string;
+    digital_address?: string;
+  }
+) => {
+  try {
+    // Retrieve the token from localStorage or other secure storage
+    const token = localStorage.getItem('token'); // Adjust based on your token storage method
+
+    if (!token) {
+      throw new Error('No authentication token found');
+    }
+
+    // Make the PUT request to update the user
+    const response = await axios.put(`${API_URL}/users/${userId}`, updateData, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the auth token in headers
+        'Content-Type': 'application/json', // Set the content type
+      },
+    });
+
+    return response.data; // Return the updated user data from the response
+
+  } catch (error) {
+    console.error('Error updating user:', error);
+    throw error; // Rethrow the error so it can be handled by the calling code
+  }
+};
+
+// Function to delete (deactivate) a user
+export const deleteUser = async (userId: string) => {
+  try {
+    // Retrieve the token from localStorage or other secure storage
+    const token = localStorage.getItem('token'); // Adjust based on your token storage method
+
+    if (!token) {
+      throw new Error('No authentication token found');
+    }
+
+    // Make the DELETE request to deactivate the user
+    const response = await axios.delete(`${API_URL}/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the auth token in headers
+      },
+    });
+
+    return response.data; // Return the response data from the API
+  } catch (error) {
+    console.error('Error deactivating user:', error);
+    throw error; // Rethrow the error to handle it in the calling code
+  }
+};
+

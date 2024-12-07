@@ -1,0 +1,30 @@
+
+
+# Node.js v22.9.0 as the base image for the build
+
+FROM node:22.9.0 AS build
+
+# Set the working directory to /lcimsapp in the container
+WORKDIR /lcimsapp
+
+# Copy package.json  and package-lock.json
+COPY package*.json ./
+
+# Install the dependencies from package.json
+RUN npm install
+
+# Copy the rest of the application files to the working directory
+COPY . .
+
+# Serve the app using a lightweight webserver
+FROM nginx:stable-alpine
+
+# Copy the built files from the previous stage to the NGINX server directory
+COPY --from=build /lcimsapp/build /usr/share/nginx/html
+
+# Expose port 80 for the web server
+EXPOSE 80
+
+# Start the Nginx server
+CMD ["nginx", "-g", "daemon off;"]
+
