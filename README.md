@@ -4,9 +4,11 @@
 ## Project Execution on your Local Computer
 
 - Open your terminal and clone the github repository with the command below
+
   `
    git clone https://github.com/EjahDil/lcims_project_frontend.git
   `
+  
 - navigate to the folder having the same name as the github repository cloned above using the command
 
   `
