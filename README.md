@@ -1,14 +1,25 @@
-# lcimsProject
-The Limbe City Information Management System (LCIMS) is a comprehensive technology solution designed to centralize data collection, streamline revenue management processes, optimize tax collection, and provide valuable insights through analytics reporting.
+# Limbe City Information Management System Frontend Repository
+#### The LCIMS is a web application designed to allocate digital addresses to properties and infrastructures within the city of Limbe. These digital addresses will enable accurate identification of the amount of tax to be paid by each registered property. The application will feature a dashboard for monitoring and managing tax payments from the various properties on the platform.
 
 ## Project Execution on your Local Computer
 
-- Open your terminal 
-- git clone git@github.com:EjahDil/lcimsProject.git
-- navigate to frontend
+- Open your terminal and clone the github repository with the command below
+  `
+   git clone git@github.com:EjahDil/lcimsProject.git
+  `
+- navigate to the folder having the same name as the github repository cloned above using the command
 
-- cmd | Bash
+  `
+   cd lcims_project_frontend
+  `
+ - Once inside the folder above navigate to the frontend using the command
+
+   `
+   cd frontend
+   `
+   
+ - Once inside the frontend folder, run the following commands 
 ```
-cd frontend 
-npm install
-npm run dev 
+First Command: npm install
+Second Command: npm run dev 
+```
