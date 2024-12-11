@@ -20,8 +20,9 @@
    cd frontend
    `
    
- - Once inside the frontend folder, run the following commands 
-```
+ - Once inside the frontend folder, run the following commands
+
+`
 First Command: npm install
 Second Command: npm run dev 
-```
+`
