@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormContainer from "../components/formContainer";
 import { UseLogin } from "../hooks/UseLogin"; // Import the useLogin hook
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate for redirection
-import { UseRedirect } from "../hooks/UseRedirect";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 // import { isTokenExpired } from "../contexts/authContext";
 
 
@@ -11,7 +10,29 @@ const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const { login, isLoading, error, success } = UseLogin(); // Destructure login, isLoading, error, and success from the hook
   const navigate = useNavigate(); // useNavigate hook to redirect after login
-  const redirectPath = UseRedirect();
+
+
+  
+
+  // Check for token and redirect on every render of the login page
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        const { role } = user;
+
+        if (role === 'admin') {
+          navigate("/admin/home", { replace: true });
+        } else {
+          navigate("/dashboard/home", { replace: true });
+        }
+      } catch (err) {
+        console.error("Error parsing user data from localStorage:", err);
+      }
+    }
+  }, [navigate]);
 
 
 
@@ -41,12 +62,17 @@ const LoginForm: React.FC = () => {
 
         // isTokenExpired(token as string);
         if (user) {
-          console.log("Login successful", user);
-          //navigate(redirectPath, { replace: true });
-
-         setTimeout(() => {
-            navigate(redirectPath, { replace: true });
-          }, 2000);
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+  
+          if (role === 'admin') {
+            navigate("/admin/home", { replace: true });
+          } else {
+            navigate("/dashboard/home", { replace: true });
+          }
+        //  setTimeout(() => {
+        //     navigate(redirectPath, { replace: true });
+        //   }, 2000);
 }
         };
 

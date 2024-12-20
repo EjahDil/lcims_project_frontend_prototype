@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 
 // You can replace this with a function to get the logged-in user's role
-const getRole = () => {
+export const getRole = () => {
   // Retrieve the user object from localStorage, parse it, and return the role
   const user = localStorage.getItem("user");
   if (user) {
@@ -12,19 +12,33 @@ const getRole = () => {
   return ""; // Return an empty string if no user or role is found
 };
 
-export const UseRedirect = () => {
-  const location = useLocation();
-  const role = getRole(); // Get the user's role
-  const defaultPath = "/dashboard/home"
+// export const UseRedirect = () => {
+//   const location = useLocation();
+//   const role = getRole(); // Get the user's role
+//   const defaultPath = "/dashboard/home"
   
-  // Set default redirection paths based on role
-  const redirectPath =
-    (location.state as { from?: { pathname: string } })?.from?.pathname || 
-    (role === 'admin' ? "/admin/home" : defaultPath);
+//   // Set default redirection paths based on role
+//   const redirectPath = role
+//     //(location.state as { from?: { pathname: string } })?.from?.pathname || 
+//     // (role === "admin" ? "/admin/home" : defaultPath);
 
-  return redirectPath;
-};
+//   return redirectPath;
+// };
 
+
+// export const UseRedirect = () => {
+//   const role = getRole(); // Get the user's role
+//   let redirectPath = "/dashboard/home"; // Default path for non-admin users
+
+//   // Set redirection paths based on role
+//   if (role === "admin") {
+//     redirectPath = "/admin/home";
+//   }
+
+//   console.log(redirectPath)
+
+//   return redirectPath;
+// };
 
 // import { useEffect } from "react";
 // import { useLocation, useNavigate } from "react-router-dom";

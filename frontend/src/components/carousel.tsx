@@ -47,7 +47,7 @@ const Carousel: React.FC = () => {
                   <a href="#" className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden">
                     Read More
                   </a>
-                  <a href="#" className="flex bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight xs:justify-start">
+                  <a href="/login" className="flex bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight xs:justify-start">
                     Log in
                   </a>
                 </div>
@@ -84,7 +84,7 @@ const Carousel: React.FC = () => {
                   <a href="#" className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden">
                     Read More
                   </a>
-                  <a href="#" className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight">
+                  <a href="/login" className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight">
                     Log in
                   </a>
                 </div>

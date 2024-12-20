@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center ml-auto custom-md:hidden space-x-2 sm-168:hidden">
             {!isOpen && (
               <a
-                href="#"
+                href="/login"
                 className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
               >
                 Log in
@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
                 <a href="courses.html" className="block py-2 text-gray-700 hover:text-[#709ec9]">Limbe GIS</a>
                 <Dropdown label="Revenue Management" options={dropDownOptions} />
                 <a href="contact.html" className="block py-2 text-gray-700 hover:text-[#709ec9]">Contact</a>
-                <a href="" className="block py-2 text-gray-700 hover:text-[#709ec9]">Log in</a>
+                <a href="/login" className="block py-2 text-gray-700 hover:text-[#709ec9]">Log in</a>
               </div>
             </div>
           )}
@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
           {/* Desktop Login/Sign-up Button */}
           <div className="hidden custom-md:flex custom-md:items-center">
             <a
-              href="#"
+              href="/login"
               className="btn-primary py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded hidden sm:block"
             >
               Log in

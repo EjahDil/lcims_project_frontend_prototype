@@ -46,7 +46,7 @@ const CreateUserForm: React.FC = () => {
 
       // Redirect to the users page after success
       setTimeout(() => {
-        navigate("/users");
+        navigate("/admin/user-management");
       }, 2000);
     } catch (err: any) {
       console.error("Error creating user:", err);

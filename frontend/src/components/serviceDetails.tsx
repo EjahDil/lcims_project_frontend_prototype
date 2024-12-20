@@ -52,7 +52,7 @@ const ServiceDetail: React.FC = () => {
                     <p className="text-sm mt-2 flex-grow">{service.description}</p>
                     <div className="mt-4 flex space-x-2">
                       <a
-                        href="#"
+                        href="/login"
                         className="bg-[#709ec9] text-white py-2 px-6 rounded hover:bg-[#575447] transition-colors"
                       >
                         Log in

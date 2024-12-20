@@ -13,15 +13,18 @@ import WindowDimensions from "./components/windowSize";
 import Registration from "./pages/register";
 import ProtectedRoute from "./components/protectingRoutes";
 import ChangePassword from "./pages/changePasswordForm";
-import Sidebar from "./components/sidebar";
-import SidebarLayout from "./components/sideBarLayout";
+import Sidebar from "./components/firstsidebar";
+import SidebarLayout from "./components/firstSideBarLayout";
 import UserManagement from "./pages/userManagement";
 import PropertyManagement from "./pages/propertyManagement";
 import AdminPage from "./pages/admin";
-import UserTable from "./pages/usersList";
+import UserTable from "./tables/usersList";
 import CreateUserForm from "./pages/createUser";
 import DashboardPage from "./pages/dashboard";
 import EditUserForm from "./pages/updateUser";
+import PropertyList from "./tables/propertiesTable";
+import FirstSidebarLayout from "./components/firstSideBarLayout";
+import SecondSidebarLayout from "./components/secondSideBarLayout";
 
 
 
@@ -68,10 +71,6 @@ const router =  createBrowserRouter([
         element : <CreateUserForm/> ,
 
     },
-    {
-        path: "*",
-        element: <NotFound/>
-    },
 
     //{
     //     element: <ProtectedRoute />,
@@ -88,7 +87,7 @@ const router =  createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
             {
-                element: <SidebarLayout/>,
+                element: <FirstSidebarLayout/>,
                 children: [
                     {
                         path: '/admin',
@@ -98,32 +97,41 @@ const router =  createBrowserRouter([
                                 element:<AdminPage />,
 
                             },
+
                             {
                                 path: "user-management",
                                 element: <UserManagement/>
                             },
 
+                            {
+                                path: "property-management",
+                                element: <PropertyManagement/>
+                            },
                         ],
                     },
+
+                ],
+        
+            },
+
+            {
+                element: <SecondSidebarLayout/>,
+                children: [
                     {
                         path: '/dashboard',
                         children: [
                             {
                                 path: "home",
-                                element:<DashboardPage/>,
+                                element:<AdminPage />,
 
                             },
                             {
-                                path: "user-management",
-                                element: <UserManagement/>
+                                path: "property-management",
+                                element: <PropertyManagement/>
                             },
-
                         ],
                     },
-                    {
-                        path: "/property-management",
-                        element: <PropertyManagement/>
-                    },
+
                 ],
         
             },
@@ -141,6 +149,10 @@ const router =  createBrowserRouter([
                 path : '/users',
                 element : <UserTable/> ,
         
+            },
+            {
+                path: "*",
+                element: <NotFound/>
             },
         ],
     },

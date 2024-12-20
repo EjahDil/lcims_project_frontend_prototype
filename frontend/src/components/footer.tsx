@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-1 pt-10 px-4 flex-col sm-732:hidden">
           <h4 className="mb-4 text-lg font-semibold">Quick Links</h4>
           <ul>
-            <li><a href="/propertyform" className="block mb-2">Forms</a></li>
+            <li><a href="/form" className="block mb-2">Forms</a></li>
             <li><a href="/tax-identification" className="block mb-2">Tax Identification</a></li>
             <li><a href="#" className="block mb-2">Limbe GIS</a></li>
             <li><a href="#" className="block mb-2">Contact Us</a></li>

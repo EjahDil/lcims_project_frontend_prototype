@@ -5,7 +5,7 @@ import { Delete as DeleteIcon, Edit as EditIcon, Visibility as ViewIcon } from '
 import { deleteUser, fetchUsers } from '../services/useService';
 import { usePermissions } from '../contexts/permContext';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for redirection
-import EditUserForm from './updateUser';
+import EditUserForm from '../pages/updateUser';
 import ModalCompo from '../components/modalforediting';
 import DeleteConfirmationDialog from '../components/deletePopUp';
 
@@ -28,7 +28,7 @@ const UserTable: React.FC = () => {
 
   const [users, setUsers] = useState<User[]>([]);
   const [paginationModel, setPaginationModel] = useState({
-    page: 0, // Zero-based index
+    page: 0,
     pageSize: 10,
   });
   const [search, setSearch] = useState('');
@@ -177,6 +177,62 @@ const UserTable: React.FC = () => {
         margin: '0 auto', // Center the table
         overflowX: 'hidden'
       },
+
+      '@media (max-width: 881px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '60%', // Reduce table width
+      },
+
+      '@media (max-width: 818px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '45%', // Reduce table width
+        overflowX: 'hidden',
+        marginLeft: '140px',
+      },
+      '@media (max-width: 745px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '40%', // Reduce table width
+        overflowX: 'hidden',
+        marginLeft: '140px',
+      },
+
+      '@media (max-width: 683px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '30%',
+        overflowX: 'hidden',
+        marginLeft: '140px',
+      },
+      '@media (max-width: 585px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '25%',
+        overflowX: 'hidden',
+        marginLeft: '140px',
+      },
   }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
@@ -195,8 +251,10 @@ const UserTable: React.FC = () => {
           size="small"
         >
           <MenuItem value="">All Roles</MenuItem>
-          <MenuItem value="admin">Admin</MenuItem>
-          <MenuItem value="user">User</MenuItem>
+          <MenuItem value="admin">admin</MenuItem>
+          <MenuItem value="property_registrator">property_registrator</MenuItem>
+          <MenuItem value="tax_officer">tax_officer</MenuItem>
+          <MenuItem value="city_officer">city_officer</MenuItem>
         </TextField>
         <TextField
           select
@@ -231,6 +289,7 @@ const UserTable: React.FC = () => {
           Create User
         </Button>
       </Box>
+
       <DataGrid
         rows={users}
         columns={columns}

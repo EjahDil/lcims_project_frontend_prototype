@@ -63,7 +63,7 @@ const Registration: React.FC = () => {
                 type="submit"
                 className="w-3/4 sm:w-1/2 py-2 px-4 bg-[#709ec9] hover:bg-[#575447] text-white rounded-md font-semibold transition"
             >
-                Register
+                Register\
             </button>
         </div>
 

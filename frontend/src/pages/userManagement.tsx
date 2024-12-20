@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UserTable from "./usersList";
+import UserTable from "../tables/usersList";
 
 const UserManagement = () => {
   const [text, setText] = useState("User Management");
@@ -7,10 +7,10 @@ const UserManagement = () => {
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      console.log("Screen width:", screenWidth);
+      //console.log("Screen width:", screenWidth);
 
       // Update text based on screen size
-      if (screenWidth <= 394) {
+      if (screenWidth <= 537) {
         setText("Users");
       } else {
         setText("User Management");
@@ -29,31 +29,30 @@ const UserManagement = () => {
 
   return (
     <React.Fragment>
-      <div className="flex justify-center items-center h-20 mt-10 mr-20 pr-10 sm-1000:ml-20 overflow-x-hidden">
-        <h1 className="text-4xl font-bold text-black animate-slide-in sm-732:text-xl sm-478:text-[10px]">
+      <div className="flex justify-center items-center h-20 mt-10 mr-20 pr-10 sm-1000:ml-20 sm-684:ml-40 sm-684:justify-start sm-398:ml-8 overflow-x-hidden">
+        <h1 className="text-5xl font-bold text-black sm-732:text-xl sm-478:text-[10px]">
           {text}
         </h1>
-        <style>
-          {`
-            @keyframes slide-in {
-              from {
-                transform: translateX(100%);
-                opacity: 0;
-              }
-              to {
-                transform: translateX(0);
-                opacity: 1;
-              }
-            }
-            .animate-slide-in {
-              animation: slide-in 1s ease-in-out;
-            }
-          `}
-        </style>
       </div>
-      <div className="hidden md:block lg:hidden xl:block sm-732:hidden sm-732:overflow-x-hidden">
+      <div className="md:block lg:hidden xl:block sm-537:hidden">
         <UserTable />
       </div>
+
+        {/* Text visibility control */}
+        <div className="hidden sm-537:flex sm-537:items-center sm-537:justify-center sm-537:h-screen sm-537:mr-10 sm-398:hidden">
+        <p className="text-center text-black font-bold text-[10px]">
+          Users cannot be displayed on this device
+        </p>
+        </div>
+
+        {/* Text visibility control */}
+        <div className="hidden sm-398:flex sm-398:items-center sm-398:justify-start sm-398:h-screen sm-398:mr-10">
+        <p className="text-center text-black font-bold text-[10px]">
+          Unsupported Device
+        </p>
+        </div>
+
+
     </React.Fragment>
   );
 };

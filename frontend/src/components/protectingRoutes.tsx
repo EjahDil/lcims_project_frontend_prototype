@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const TOKEN_EXPIRATION_TIME = 600000; // 10 minutes in milliseconds
 
@@ -13,7 +13,6 @@ const TOKEN_EXPIRATION_TIME = 600000; // 10 minutes in milliseconds
 const ProtectedRoute: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const location = useLocation(); // Get the current location
 
   useEffect(() => {
     localStorage.setItem('tokenSetTime', Date.now().toString());
@@ -59,7 +58,7 @@ const ProtectedRoute: React.FC = () => {
 
   if (!isLoggedIn) {
     // Redirect to login with the current location as state
-    return <Navigate to="/login" state = {{from: location}} replace />;
+    return <Navigate to="/login" replace />;
 
   };
 

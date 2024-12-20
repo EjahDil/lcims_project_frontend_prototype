@@ -8,7 +8,7 @@ const ServiceSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center"> {/* Increased gap */}
 
           {/* Forms Card */}
-          <a href="/propertyform" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105">
+          <a href="/form" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105">
             <div className="flex justify-center">
               <DocumentTextIcon className="h-12 w-12 mb-4 text-[#709ec9]" />
             </div>
