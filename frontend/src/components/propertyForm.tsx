@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { PhoneIcon } from '@heroicons/react/24/outline';
 import { createProperty } from '../services/useService'; // Adjust the import path as needed
 
 const PropertyForm: React.FC = () => {
