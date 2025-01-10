@@ -15,7 +15,7 @@ const FormContainer: React.FC<FormContainerProps> = ({ children, title, showButt
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#709ec9]">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-custom-bg">
       <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-lg mb-4">
         <h2 className="text-3xl font-semibold text-center mb-6 text-gray-700">{title}</h2>
 

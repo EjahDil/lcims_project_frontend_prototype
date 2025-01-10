@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminPage: React.FC = () => {
   const [text, setText] = useState(" Welcome User to the LCIMS");
   const [username, setUsername] = useState<string | null>(null);
+  const navigate = useNavigate();
 
     // Utility function to capitalize the first letter
     const capitalizeFirstLetter = (str: string) => {
@@ -39,6 +41,10 @@ const AdminPage: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [username]);
 
+  const handleReturnHome = () => {
+    navigate("/"); // Navigate to the home page
+  };
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50 overflow-hidden">
       <div className="sm-478:ml-20 sm-260:hidden">
@@ -47,6 +53,17 @@ const AdminPage: React.FC = () => {
           {text}
           <span className="absolute top-0 right-0 border-r-4 border-gray-700 animate-blink"></span>
         </h1>
+      </div>
+
+
+      {/* Return to Home Button */}
+      <div className="fixed bottom-4 w-full text-center">
+        <button
+          onClick={handleReturnHome}
+          className="px-6 py-3 bg-[#709ec9] hover:bg-[#575447] text-white font-semibold rounded-lg shadow-md transition duration-300"
+        >
+          Return to Home Page
+        </button>
       </div>
     </div>
   );

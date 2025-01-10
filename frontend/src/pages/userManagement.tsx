@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import UserTable from "../tables/usersList";
+import { useNavigate } from "react-router-dom";
 
 const UserManagement = () => {
   const [text, setText] = useState("User Management");
+
+
+  const navigate = useNavigate();
+
+  const handleReturnHome = () => {
+    navigate("/"); // Navigate to the home page
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,6 +44,16 @@ const UserManagement = () => {
       </div>
       <div className="md:block lg:hidden xl:block sm-537:hidden">
         <UserTable />
+
+           {/* Return to Home Button */}
+      <div className="bottom-3 w-full text-center overflow-x-hidden">
+    <button
+      onClick={handleReturnHome}
+      className="px-6 py-3 bg-[#709ec9] hover:bg-[#575447] text-white font-semibold rounded-lg shadow-md transition duration-300"
+    >
+      Return to Home Page
+    </button>
+      </div>
       </div>
 
         {/* Text visibility control */}
@@ -51,6 +69,7 @@ const UserManagement = () => {
           Unsupported Device
         </p>
         </div>
+
 
 
     </React.Fragment>

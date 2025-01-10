@@ -3,14 +3,18 @@ import { useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import LogoutButton from "./logoutComponent";
 
 const FirstSidebar: React.FC = () => {
   const [isSidebarVisible, setSidebarVisibility] = useState(
-    window.innerWidth >= 1000 // Initially show for screens >= 1000px
+    window.innerWidth >= 1000 
   );
   const [isUserManagementVisible, setUserManagementVisibility] = useState(true);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isPropertyDropdownOpen, setPropertyDropdownOpen] = useState(false);
+  const [isStreetDropdownOpen, setStreetDropdownOpen] = useState(false);
+  const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
+  const [isTaxDropdownOpen, setTaxDropdownOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   const location = useLocation();
@@ -31,21 +35,6 @@ const FirstSidebar: React.FC = () => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      const initials = parsedUser.name
-        ? parsedUser.name
-            .split(" ")
-            .map((part: string) => part.charAt(0))
-            .join("")
-        : "JD";
-      setUser({ name: parsedUser.name || "John Doe", initials });
-      setRole(capitalizeFirstLetter(parsedUser.role))
-    }
-  }, []);
-  // Fetch user from localStorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
       const initials = parsedUser.username
         ? parsedUser.username
             .split(" ")
@@ -53,6 +42,7 @@ const FirstSidebar: React.FC = () => {
             .join("")
         : "JD";
       setUser({ name: parsedUser.username || "John Doe", initials });
+      setRole(capitalizeFirstLetter(parsedUser.role))
     }
   }, []);
 
@@ -149,7 +139,7 @@ const FirstSidebar: React.FC = () => {
               href="/admin/home"
               className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
             >
-              Home
+              Admin Dashboard
             </a>
             {isUserManagementVisible && (
               <div className="relative">
@@ -184,7 +174,7 @@ const FirstSidebar: React.FC = () => {
                     </li>
                     <li>
                       <a
-                        href="/role"
+                        href="/admin/role-management"
                         className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                       >
                         Roles
@@ -192,7 +182,7 @@ const FirstSidebar: React.FC = () => {
                     </li>
                     <li>
                       <a
-                        href="/user-management/create-roles"
+                        href="/create-role"
                         className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                       >
                         Create Roles
@@ -237,27 +227,113 @@ const FirstSidebar: React.FC = () => {
               </ul>
             )}
           </div>
-            <a
-              href="/street-management"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
-            >
-              Street Management
-            </a>
-            <a
-              href="/category-management"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
-            >
-              Category Management
-            </a>
-            <a
-              href="/tax-identification"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
-            >
-              Tax Identification
-            </a>
+ 
+            {/* Street Management Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setStreetDropdownOpen((prev) => !prev)}
+                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              >
+                Street Management
+                <ArrowDropDownIcon
+                  className={`h-5 w-5 transition-transform ${
+                    isStreetDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isStreetDropdownOpen && (
+                <ul className="ml-12 list-disc">
+                  <li>
+                    <a
+                      href="/admin/street-management"
+                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    >
+                      All Streets
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/create-street"
+                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    >
+                      Add Street
+                    </a>
+                  </li>
+                </ul>
+              )}
+            </div>
+
+             {/* Category Management Dropdown */}
+             <div className="relative">
+              <button
+                onClick={() => setCategoryDropdownOpen((prev) => !prev)}
+                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              >
+                Category Management
+                <ArrowDropDownIcon
+                  className={`h-5 w-5 transition-transform ${
+                    isCategoryDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isCategoryDropdownOpen && (
+                <ul className="ml-12 list-disc">
+                  <li>
+                    <a
+                      href="/admin/category-management"
+                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    >
+                      All Categories
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/create-category"
+                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    >
+                      Create New Category
+                    </a>
+                  </li>
+                </ul>
+              )}
+            </div>
+          {/* Tax Identification Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setTaxDropdownOpen((prev) => !prev)}
+                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              >
+                Tax Identification
+                <ArrowDropDownIcon
+                  className={`h-5 w-5 transition-transform ${
+                    isTaxDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isTaxDropdownOpen && (
+                <ul className="ml-12 list-disc">
+                  <li>
+                    <a
+                      href="/admin/tax-identification"
+                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    >
+                      Tax Rates
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/pay-tax"
+                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    >
+                      Pay Tax
+                    </a>
+                  </li>
+                </ul>
+              )}
+            </div>
 
             <a
-              href="/tax-identification"
+              href="https://dashboard-management.onrender.com/"
               className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
             >
               Revenue Management
@@ -282,13 +358,8 @@ const FirstSidebar: React.FC = () => {
 
         {/* Logout Link */}
         <div className="p-4">
-          <a
-            href="/logout"
-            className="w-full block px-4 py-2 bg-red-500 text-black rounded-md font-semibold text-left hover:bg-red-600"
-          >
-            Logout
-          </a>
-        </div>
+        <LogoutButton/>
+      </div>  
       </div>
     </>
   );

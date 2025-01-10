@@ -1,6 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PhoneIcon } from '@heroicons/react/24/outline';
-import { createProperty } from '../services/useService'; // Adjust the import path as needed
+import { createProperty, fetchCategories } from '../services/useService'; // Adjust the import path as needed
+import { fetchStreets } from '../services/useService'; // Import your fetchStreets function
+import { FaHome } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+
+interface Street {
+  street_id: number;
+  street_name: string;
+}
+
+interface Category {
+  category_id: string;
+  category_name: string;
+}
 
 const PropertyForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,16 +21,55 @@ const PropertyForm: React.FC = () => {
     zone_code: '',
     category_name: '',
     house_number: '',
-    latitude: undefined as number | undefined,
-    longitude: undefined as number | undefined,
     total_area: undefined as number | undefined,
     owner_details: {
       full_name: '',
       contact_number: '',
+      email:'',
+      identification_type: '',
+      identification_number: '',
+
     },
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [streets, setStreets] = useState<Street[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const loadStreets = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchStreets({ page: 1, limit: 50 }); // Fetch streets data
+        setStreets(data.data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to fetch streets. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadStreets();
+  }, []);
+
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const categoryData = await fetchCategories();
+        setCategories(categoryData.data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+    loadCategories();
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
     if (name.startsWith('owner_')) {
@@ -47,14 +99,38 @@ const PropertyForm: React.FC = () => {
         zone_code: '',
         category_name: '',
         house_number: '',
-        latitude: undefined,
-        longitude: undefined,
         total_area: undefined,
         owner_details: {
           full_name: '',
           contact_number: '',
+          email: '',
+          identification_type: '',
+          identification_number: '',
         },
       });
+
+      setTimeout(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          try {
+            const user = JSON.parse(localStorage.getItem("user") || "{}");
+            const { role } = user;
+
+            // Navigate based on the user's role
+            if (role === "admin") {
+              navigate("/admin/property-management");
+            } else {
+              navigate("/dashboard/property-management");
+            }
+
+             // Reload the page after navigation
+            window.location.reload();
+
+          } catch (err) {
+            console.error("Error parsing user data from localStorage:", err);
+          }
+        }
+    }, 1000);
     } catch (error) {
       if (error instanceof Error) {
         alert(`Error creating property: ${error.message}`);
@@ -69,20 +145,8 @@ const PropertyForm: React.FC = () => {
       <div className="bg-[#709ec9] p-8 rounded-lg shadow-lg w-full max-w-6xl">
         <form id="propertyForm" className="space-y-8" onSubmit={handleSubmit}>
           <h1 className="text-3xl font-bold flex items-center mb-6 justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="translate-y-1 mr-2"
-            >
-              <path d="M3 9.5L12 3l9 6.5V19a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            </svg>
-            Property Information
+          <FaHome className="translate-y-1 mr-2 mb-2" size={30} />
+            Property Regsitration
           </h1>
 
           <div className="space-y-2">
@@ -93,7 +157,6 @@ const PropertyForm: React.FC = () => {
               value={formData.owner_details.full_name}
               onChange={handleInputChange}
               placeholder="Your name"
-              required
               className="input w-full p-4 rounded-lg"
             />
           </div>
@@ -108,39 +171,70 @@ const PropertyForm: React.FC = () => {
                 value={formData.owner_details.contact_number}
                 onChange={handleInputChange}
                 placeholder="Your Number"
-                required
                 className="input w-full p-4 pl-10 rounded-lg"
               />
             </div>
           </div>
 
-          {/* Additional Inputs */}
+                {/* Email Address Field */}
+            <div className="space-y-2">
+              <label htmlFor="email" className="block text-lg font-semibold">
+                Email Address of the Owner
+              </label>
+              <input
+                type="email"
+                name="owner_email"
+                value={formData.owner_details.email}
+                placeholder="Email Address"
+                onChange={handleInputChange}
+                className="input w-full p-4 rounded-lg"
+              />
+            </div>
+
+          {/* Street Name Selection */}
           <div className="space-y-2">
             <label className="block text-lg font-semibold">Street Name</label>
-            <input
-              type="text"
+            <select
               name="street_name"
               value={formData.street_name}
               onChange={handleInputChange}
-              placeholder="Street where the Residence is found"
               required
               className="input w-full p-4 rounded-lg"
-            />
+            >
+              <option value="" disabled>
+                {loading ? 'Loading streets...' : 'Select a street'}
+              </option>
+              {streets.map((street) => (
+                <option key={street.street_id} value={street.street_name}>
+                  {street.street_name}
+                </option>
+              ))}
+            </select>
+            {error && <p className="text-red-500">{error}</p>}
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-lg font-semibold">Category</label>
-            <input
-              type="text"
-              name="category_name"
-              value={formData.category_name}
-              onChange={handleInputChange}
-              placeholder="Property Category"
-              required
-              className="input w-full p-4 rounded-lg"
-            />
-          </div>
+                    {/* Category Name Field */}
+            <div>
+              <label htmlFor="category" className="block text-lg font-semibold">
+                Category Name
+              </label>
+              <select
+                name="category_name"
+                value={formData.category_name}
+                onChange={handleInputChange}
+                required
+                className="input w-full p-4 rounded-lg"
+              >
+                <option value="">Select a category</option>
+                {categories.map((category) => (
+                  <option key={category.category_id} value={category.category_name}>
+                    {category.category_name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
+          {/* Other Inputs */}
           <div className="space-y-2">
             <label className="block text-lg font-semibold">House Number</label>
             <input
@@ -153,33 +247,70 @@ const PropertyForm: React.FC = () => {
               className="input w-full p-4 rounded-lg"
             />
           </div>
-
+          {/* Identification type */}
           <div className="space-y-2">
-            <label className="block text-lg font-semibold">Latitude</label>
-            <input
-              type="number"
-              name="latitude"
-              value={formData.latitude || ''}
+            <label className="block text-lg font-semibold">Identification Type</label>
+            <select
+              name="owner_identification_type"
+              value={formData.owner_details.identification_type}
               onChange={handleInputChange}
-              placeholder="Latitude of the property"
+              required
+              className="input w-full p-4 rounded-lg"
+            >
+              <option value="" disabled>
+                Select Identification Type
+              </option>
+              <option value="National ID">National ID</option>
+              <option value="Passport">Passport</option>
+            </select>
+          </div>
+
+            {/* Other Inputs */}
+            <div className="space-y-2">
+            <label className="block text-lg font-semibold">Identification Number</label>
+            <input
+              type="text"
+              name="owner_identification_number"
+              value={formData.owner_details.identification_number}
+              onChange={handleInputChange}
+              placeholder="Identification Number"
               required
               className="input w-full p-4 rounded-lg"
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-lg font-semibold">Longitude</label>
-            <input
-              type="number"
-              name="longitude"
-              value={formData.longitude || ''}
-              onChange={handleInputChange}
-              placeholder="Longitude of the property"
-              required
-              className="input w-full p-4 rounded-lg"
-            />
-          </div>
 
+           {/* Zone Code Field */}
+            <div className="space-y-2">
+              <label htmlFor="zoneCode" className="block text-lg font-semibold">
+                Zone Code
+              </label>
+              <input
+                type="text"
+                name="zone_code"
+                value={formData.zone_code}
+                placeholder="Zone Code"
+                onChange={handleInputChange}
+                className="input w-full p-4 rounded-lg"
+              />
+            </div>
+
+            {/* Total Area Field */}
+            <div className="space-y-2">
+              <label htmlFor="totalArea" className="block text-lg font-semibold">
+                Total Area
+              </label>
+              <input
+                type="number"
+                name ="total_area"
+                value={formData.total_area}
+                placeholder="Total Area"
+                onChange={handleInputChange}
+                className="input w-full p-4 rounded-lg"
+              />
+            </div>
+
+          {/* Submit Button */}
           <div className="text-right">
             <button type="submit" className="text-black-700 bg-[#575447] hover:bg-white px-6 py-3 rounded-lg text-lg">
               Submit
@@ -187,7 +318,6 @@ const PropertyForm: React.FC = () => {
           </div>
         </form>
 
-        {/* Footer Section */}
         <footer className="flex items-center justify-center py-6 mt-8">
           <img src="assets/img/lcims_new.png" alt="Limbe City Council Logo" className="w-5 h-5 mr-2" />
           <p className="text-sm">Limbe City Council</p>

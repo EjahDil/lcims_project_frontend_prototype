@@ -11,7 +11,8 @@ const LogoutButton : React.FC = () => {
     const handlelogout = () => {
 
         localStorage.removeItem("token");
-
+        localStorage.removeItem('user');
+        localStorage.removeItem('tokenSetTime');
 
         navigate("/login")
     };
@@ -19,10 +20,10 @@ const LogoutButton : React.FC = () => {
     return (
         <button
         onClick={handlelogout}
-        className="w-3/4 sm:w-1/2 py-2 px-4 bg-[#709ec9] hover:bg-[#575447] text-white rounded-md font-semibold transition"
-        >
-            Logout
-        </button>
+        className="w-full block px-4 py-2 bg-red-500 text-black rounded-md font-semibold text-left hover:bg-red-600"
+      >
+        Logout
+      </button>
     );
 
 };

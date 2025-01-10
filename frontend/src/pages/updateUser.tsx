@@ -95,9 +95,11 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onClose }) => {
     setSuccess(null);
 
     try {
-      await updateUser(user.user_id.toString(), formData); // Call update API
-      setSuccess("User updated successfully.");
-      setTimeout(() => navigate("/users"), 2000);
+      await updateUser(user.user_id.toString(), formData);
+      setTimeout(() => {
+        navigate("/admin/user-management");
+        window.location.reload(); // This will reload the page after navigation
+      }, 2000);
     } catch (err: any) {
       console.error("Error updating user:", err);
       setError(err.response?.data?.message || "An unexpected error occurred.");

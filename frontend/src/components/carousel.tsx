@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Carousel: React.FC = () => {
@@ -15,6 +15,9 @@ const Carousel: React.FC = () => {
     pauseOnHover: true,
     fade: true,
   };
+
+  // Check if the token exists in localStorage
+  const isLoggedIn = !!localStorage.getItem("token");
 
   return (
     <div className="w-full mb-10">
@@ -44,12 +47,20 @@ const Carousel: React.FC = () => {
                   residents and visitors.
                 </p>
                 <div className="flex space-x-4 mt-4 xs:space-x-0 sm-238:hidden">
-                  <a href="#" className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden">
+                  <a
+                    href="#"
+                    className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden"
+                  >
                     Read More
                   </a>
-                  <a href="/login" className="flex bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight xs:justify-start">
-                    Log in
-                  </a>
+                  {!isLoggedIn && (
+                    <a
+                      href="/login"
+                      className="flex bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight xs:justify-start"
+                    >
+                      Log in
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -81,12 +92,20 @@ const Carousel: React.FC = () => {
                   residents and visitors.
                 </p>
                 <div className="flex space-x-4 mt-4 xs:space-x-0 sm-238:hidden">
-                  <a href="#" className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden">
+                  <a
+                    href="#"
+                    className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden"
+                  >
                     Read More
                   </a>
-                  <a href="/login" className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight">
-                    Log in
-                  </a>
+                  {!isLoggedIn && (
+                    <a
+                      href="/login"
+                      className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight"
+                    >
+                      Log in
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'custom-bg': "url('/assets/img/lccview1.jpg')",
+        'manage-bg': "url('/assets/img/lcims_new.png')",
+      },
+
       screens: {
         'custom-md': '1089px',
         "sm-732" : {max : "732px"},

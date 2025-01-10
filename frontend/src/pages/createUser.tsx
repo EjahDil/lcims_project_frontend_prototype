@@ -61,6 +61,7 @@ const CreateUserForm: React.FC = () => {
       { value: "property_registrator", label: "Property Registrator" },
       { value: "tax_officer", label: "Tax Officer" },
       { value: "city_officer", label: "City Officer" },
+      { value: "user", label: "Tax Payer" },
     ];
   
     // Custom styles for react-select with Tailwind CSS
@@ -86,8 +87,8 @@ const CreateUserForm: React.FC = () => {
         //padding: "0.75rem 1rem", // Padding for the options
 
         "&:hover": {
-          backgroundColor: "#575447", // Hover background color
-          color: "#fff", // Hover text color
+          backgroundColor: "#575447",
+          color: "#fff",
         },
         cursor: "pointer",
       }),

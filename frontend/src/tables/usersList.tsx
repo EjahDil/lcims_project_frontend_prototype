@@ -7,7 +7,8 @@ import { usePermissions } from '../contexts/permContext';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for redirection
 import EditUserForm from '../pages/updateUser';
 import ModalCompo from '../components/modalforediting';
-import DeleteConfirmationDialog from '../components/deletePopUp';
+import DeleteConfirmationDialog from '../components/deleteUserPopUp';
+
 
 interface User {
   user_id: number;
@@ -268,16 +269,6 @@ const UserTable: React.FC = () => {
           <MenuItem value="active">Active</MenuItem>
           <MenuItem value="inactive">Inactive</MenuItem>
         </TextField>
-        <Button variant="contained" color="primary" onClick={loadUsers} 
-         sx={{
-          backgroundColor: "#709ec9", // Set background color
-          color: "#fff", // Set text color
-          "&:hover": {
-            backgroundColor: "#575447", // Darker shade for hover effect
-          },
-        }}>
-          Apply Filters
-        </Button>
         <Button variant="contained" color="primary" onClick={handleCreateUser} 
          sx={{
           backgroundColor: "#709ec9", // Set background color

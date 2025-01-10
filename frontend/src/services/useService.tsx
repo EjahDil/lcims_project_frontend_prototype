@@ -160,6 +160,10 @@ export const createProperty = async (propertyData: {
   try {
     const token = localStorage.getItem('token'); // Retrieve token from storage
 
+    if (!token) {
+      throw new Error('No token found. Please log in again.');
+    }
+
     const response = await axios.post(
       `${API_URL_One}`, 
       propertyData, 
@@ -179,10 +183,98 @@ export const createProperty = async (propertyData: {
 };
 
 
+
+
+// Define the expected shape of property data if possible
+interface PropertyData {
+  street_name?: string;
+  zone_code?: string;
+  category_name?: string;
+  house_number?: string;
+  latitude?: number;
+  longitude?: number;
+  total_area?: number;
+  status?: string;
+  owner_details?: {
+    full_name: string;
+    contact_number: string;
+    email: string;
+    identification_type: string;
+    identification_number: string;
+  };
+}
+
+export const updateProperty = async (
+  propertyId: string,
+  propertyData: PropertyData
+): Promise<any> => {
+  try {
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Authentication token not found');
+    }
+
+    // Make the API request
+    const response = await axios.put(
+      `${API_URL_One}/${propertyId}`,
+      propertyData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data; // Return the response data
+  } catch (error) {
+    // Narrow the type of error
+    if (axios.isAxiosError(error)) {
+      console.error('Error updating property:', error.response?.data || error.message);
+      throw error.response?.data || { message: error.message };
+    } else {
+      console.error('Unexpected error:', error);
+      throw { message: 'An unexpected error occurred' };
+    }
+  }
+};
+
+
+
+// Function to delete a property
+export const deleteProperty = async (propertyId: string | number): Promise<any> => {
+  try {
+    
+    // Retrieve token from localStorage
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No token found in localStorage');
+    }
+
+    // Send DELETE request
+    const response = await axios.delete(`${API_URL_One}/${propertyId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting property:', error);
+    throw error; 
+  }
+};
+
+
+
+
+
 const API_URL_Three = 'http://localhost:3000/api/v1/streets';
 
 interface Street {
-  street_id: string;
+  street_id: number;
   street_name: string;
   zone_code: string;
   description?: string;
@@ -240,22 +332,100 @@ interface FetchCategoriesResponse {
   data: Category[];
 }
 
-export const fetchCategories = async (params: Record<string, any>): Promise<FetchCategoriesResponse> => {
-  try {
-    // Retrieve the token from localStorage (or another secure storage method)
-    const token = localStorage.getItem('token'); // Adjust this based on your token storage method
+// export const fetchCategories = async (params: Record<string, any>): Promise<FetchCategoriesResponse> => {
+//   try {
+//     // Retrieve the token from localStorage (or another secure storage method)
+//     const token = localStorage.getItem('token'); // Adjust this based on your token storage method
 
-    // Send a GET request to the API with query parameters and authorization header
+//     // Send a GET request to the API with query parameters and authorization header
+//     const response = await axios.get<FetchCategoriesResponse>(API_URL_four, {
+//       params,
+//       headers: {
+//         Authorization: `Bearer ${token}`, // Include the authorization token
+//       },
+//     });
+
+//     return response.data; // Return the API response
+//   } catch (error: any) {
+//     console.error('Error fetching categories:', error.response?.data || error.message);
+//     throw error; // Re-throw the error to handle in calling code
+//   }
+// }
+
+export const fetchCategories = async (params: Record<string, any> = {}): Promise<FetchCategoriesResponse> => {
+  try {
+    const token = localStorage.getItem('token');
     const response = await axios.get<FetchCategoriesResponse>(API_URL_four, {
-      params,
+      params, // Use default empty object if none is provided
       headers: {
-        Authorization: `Bearer ${token}`, // Include the authorization token
+        Authorization: `Bearer ${token}`,
       },
     });
 
-    return response.data; // Return the API response
+    return response.data;
   } catch (error: any) {
     console.error('Error fetching categories:', error.response?.data || error.message);
-    throw error; // Re-throw the error to handle in calling code
+    throw error;
   }
+};
+
+
+const API_URL_five = "http://localhost:3000/api/v1/tax";
+
+// Fetch all category rates
+export const fetchCategoryRates = async () => {
+  try {
+    const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+    if (!token) {
+      throw new Error("Token not found");
+    }
+
+    const response = await axios.get(`${API_URL_five}/rates`, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching category rates:", error);
+    throw new Error(error.response?.data?.message || "An error occurred");
+  }
+};
+
+
+
+
+export interface CategoryRateData {
+  rate_id: number;
+  fixed_amount: number;
+  effective_date: string;
+  end_date: string;
+  status: string;
+  category_name: string;
+  created_by_user: string;
 }
+
+export const updateCategoryRate = async (
+  categoryId: number,
+  data: CategoryRateData
+): Promise<any> => {
+  try {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No token found in localStorage');
+    }
+
+    const response = await axios.put(`${API_URL_five}/rates/${categoryId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error updating category rate:', error);
+    throw error;
+  }
+};
