@@ -126,15 +126,15 @@ const Form: React.FC = () => {
   return (
     <div className="container mx-auto p-4 flex">
       {/* Forms Section */}
-      <div className="w-3/4 ml-16 pr-2 space-y-10">
-        <InfrastructureForm />
+      <div className="w-full ml-16 pr-2 space-y-10 sm-732:w-full sm-732:ml-2">
+        {/* <InfrastructureForm /> */}
         <PropertyForm />
       </div>
 
       {/* Navigation Section */}
-      <div className="w-1/4 h-screen ml-4">
+      {/* <div className="w-1/4 h-screen ml-4">
         <FormNavigation />
-      </div>
+      </div> */}
     </div>
   );
 };

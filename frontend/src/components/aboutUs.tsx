@@ -42,7 +42,7 @@ const CarouselAndAboutUs: React.FC = () => {
           </div>
 
           {/* About Us Section */}
-          <div className="wow fadeInUp lg:ml-5 sm:ml-5">
+          <div className="wow fadeInUp lg:ml-5 sm:ml-6 sm-732:ml-5">
             <h6 className="bg-white text-start text-primary pe-3 mb-5" 
             style={{fontSize: "20px"}}>
               <span className="text-[#709ec9] text-lg font-bold">About Us</span>

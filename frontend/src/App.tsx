@@ -1,13 +1,20 @@
 import React from 'react'
-import {BrowserRouter, Routes } from 'react-router-dom'
 import Route from './routes';
+import { PermissionsProvider } from './contexts/permContext';
+// import { AuthProvider } from './contexts/authContext';
+
 
 
 
 function App() {
   return (
     <React.Fragment>
-        <Route />
+      <PermissionsProvider>
+
+          <Route />
+
+      </PermissionsProvider>
+        
     </React.Fragment>
   )
 }

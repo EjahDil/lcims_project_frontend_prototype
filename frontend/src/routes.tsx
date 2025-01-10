@@ -1,15 +1,40 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/not-found";
-import Login from "./pages/login";
+import LoginForm from "./pages/login";
 import About from "./pages/about";
 import Home from "./pages/home";
 //import NavigationWrapper from "./componenets/navigation-wrapper";
 import Layout from "./components/commonLayout";
 import NavigationWrapper from "./components/navigation-wrapper";
-import TaxIdentification from "./pages/taxIdentification";
+import TaxIdentification from "./pages/taxRates";
 import RevenueManagement from "./pages/revenueManagement";
 import Form from "./pages/form";
 import WindowDimensions from "./components/windowSize";
+import Registration from "./pages/register";
+import ProtectedRoute from "./components/protectingRoutes";
+import ChangePassword from "./pages/changePasswordForm";
+import Sidebar from "./components/firstsidebar";
+import SidebarLayout from "./components/firstSideBarLayout";
+import UserManagement from "./pages/userManagement";
+import PropertyManagement from "./pages/propertyManagement";
+import AdminPage from "./pages/admin";
+import UserTable from "./tables/usersList";
+import CreateUserForm from "./pages/createUser";
+import DashboardPage from "./pages/dashboard";
+import EditUserForm from "./pages/updateUser";
+import PropertyList from "./tables/propertiesTable";
+import FirstSidebarLayout from "./components/firstSideBarLayout";
+import SecondSidebarLayout from "./components/secondSideBarLayout";
+import AdminRoute from "./components/protectAdminRoute";
+import Forbidden from "./pages/forbidden";
+import TaxRatesTable from "./tables/taxRatesTable";
+import RoleManagement from "./pages/roleManagement";
+import CreateRoleForm from "./pages/createRole";
+import StreetManagement from "./pages/streetManagement";
+import CreateStreetForm from "./pages/createStreet";
+import CategoryManagement from "./pages/categoryManagement";
+import CreateCategoryForm from "./pages/createCategory";
+import PayTaxForm from "./pages/payTax";
 
 
 
@@ -23,17 +48,8 @@ const router =  createBrowserRouter([
             element : <Home/> 
         },
         {
-            path : '/login',
-            element : <Login/> ,
-
-        },
-        {
             path: '/about',
             element: <About /> 
-        },
-        {
-            path: '/form',
-            element:<Form />,
         },
         {
             path: "/tax-identification",
@@ -51,8 +67,153 @@ const router =  createBrowserRouter([
         element: <WindowDimensions />
     },
     {
-        path: "*",
-        element: <NotFound/>
+        path : '/login',
+        element : <LoginForm/> ,
+
+    },
+    {
+        path : '/register',
+        element : <Registration/> ,
+
+    },
+
+
+    //{
+    //     element: <ProtectedRoute />,
+    //     children : [
+             
+            // {
+            //     path: '/form',
+            //     element:<Form />,
+            // },
+      //  ]
+    //}
+
+    {
+        element: <ProtectedRoute />,
+        children: [
+            {
+                path: '/admin',
+                element: <AdminRoute />, 
+                children: [
+                  {
+                    element: <FirstSidebarLayout />, 
+                    children: [
+                      {
+                        path: 'home',
+                        element: <AdminPage />,
+                      },
+                      {
+                        path: 'user-management',
+                        element: <UserManagement />,
+                      },
+                      {
+                        path: 'role-management',
+                        element: <RoleManagement />,
+                      },
+                      {
+                        path: 'property-management',
+                        element: <PropertyManagement />,
+                      },
+                      {
+                        path: 'street-management',
+                        element: <StreetManagement/>,
+                      },
+                      {
+                        path: 'category-management',
+                        element: <CategoryManagement/>,
+                      },
+                      {
+                        path: 'tax-identification',
+                        element: <TaxIdentification/>,
+                      },
+                    ],
+                  },
+                ],
+              },
+
+            {
+                element: <SecondSidebarLayout/>,
+                children: [
+                    {
+                        path: '/dashboard',
+                        children: [
+                            {
+                                path: "home",
+                                element:<DashboardPage />,
+
+                            },
+                            {
+                                path: "property-management",
+                                element: <PropertyManagement/>
+                            },
+                            {
+                                path: 'street-management',
+                                element: <StreetManagement/>,
+                            },
+                            {
+                                path: 'category-management',
+                                element: <CategoryManagement/>,
+                              },
+                            {
+                                path: 'tax-identification',
+                                element: <TaxIdentification/>,
+                            },
+                        ],
+                    },
+
+                ],
+        
+            },
+            {
+                path : '/create-user',
+                element : <CreateUserForm/> ,
+        
+            },
+            {
+                path : '/create-category',
+                element : <CreateCategoryForm/> ,
+        
+            },
+            {
+                path : '/create-role',
+                element : <CreateRoleForm/> ,
+        
+            },
+            {
+                path : '/create-street',
+                element : <CreateStreetForm/> ,
+        
+            },
+            {
+                path : '/pay-tax',
+                element : <PayTaxForm/> ,
+        
+            },
+            {
+                path: '/form',
+                element:<Form />,
+
+            },
+            {
+                path : '/change-password',
+                element : <ChangePassword /> ,
+        
+            },
+            {
+                path : '/users',
+                element : <UserTable/> ,
+        
+            },
+            {
+                path: "*",
+                element: <NotFound/>
+            },
+            {
+                path: "/forbidden",
+                element: <Forbidden/>
+            },
+        ],
     },
     
 ]);
