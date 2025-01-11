@@ -100,6 +100,12 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onClose }) => {
         navigate("/admin/user-management");
         window.location.reload(); // This will reload the page after navigation
       }, 2000);
+
+          // Call the onClose prop to close the form
+        if (onClose) {
+          onClose();
+        }
+        
     } catch (err: any) {
       console.error("Error updating user:", err);
       setError(err.response?.data?.message || "An unexpected error occurred.");

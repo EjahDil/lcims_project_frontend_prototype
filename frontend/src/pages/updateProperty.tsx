@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProperty } from "../services/useService";
 
@@ -79,6 +79,12 @@ const EditPropertyForm: React.FC<EditPropertyFormProps> = ({ property, onClose }
             }
           }
       }, 2000);
+
+          // Call the onClose prop to close the form
+        if (onClose) {
+          onClose();
+        }
+
     } catch (err: any) {
       console.error("Error updating property:", err);
       setError(err.response?.data?.message || "An unexpected error occurred.");

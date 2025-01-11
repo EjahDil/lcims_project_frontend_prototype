@@ -12,12 +12,12 @@ import {
   IconButton,
   
 } from "@mui/material";
-import { Delete as DeleteIcon, Edit as EditIcon, Visibility as ViewIcon } from '@mui/icons-material';
+import { Delete as DeleteIcon, Visibility as ViewIcon } from '@mui/icons-material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from "@mui/x-data-grid";
 import {fetchCategoryRates } from "../services/useService";
 import { useNavigate } from "react-router-dom";
-import EditTaxForm from "../pages/updateRates";
-import Modal from "../components/modalforediting";
+
+
 
 //import ModalCompo from '../components/modalforediting';
 //import EditPropertyForm from "../forms/EditPropertyForm";
@@ -60,7 +60,7 @@ export interface CategoryRate {
 
 
 const TaxRatesTable = () => {
-  const [initialData, setInitialData] = useState<CategoryRate | null>(null);
+  //const [initialData, setInitialData] = useState<CategoryRate | null>(null);
   const [rates, setRates] = useState<CategoryRate[]>([]);
   const [loading, setLoading] = useState(false);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
@@ -69,7 +69,7 @@ const TaxRatesTable = () => {
   const [status, setStatus] = useState("");
   const [filteredData, setFilteredData] = useState<CategoryRate[]>([]);
   const [openDialog, setOpenDialog] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  //const [openModal, setOpenModal] = useState(false);
   const [selectedRate, setSelectedRate] = useState<CategoryRate | null>(null);
   const [rowSelectionModel, setRowSelectionModel] = React.useState<GridRowSelectionModel>([]);
   const navigate = useNavigate();
@@ -93,28 +93,28 @@ const TaxRatesTable = () => {
   };
 
 
-  const handleEditRates = (id: number) => {
-    console.log("Edit tax rate with ID:", id);
+  // const handleEditRates = (id: number) => {
+  //   console.log("Edit tax rate with ID:", id);
   
-    // Find the specific rate data to edit
-    const rateToEdit = rates.find((rate) => rate.rate_id === id);
+  //   // Find the specific rate data to edit
+  //   const rateToEdit = rates.find((rate) => rate.rate_id === id);
   
-    if (rateToEdit) {
-      setInitialData(rateToEdit); // Set the initial data for the form
-      setOpenModal(true); // Open the modal to edit the tax rate
-    } else {
-      console.error("Tax rate not found with the specified ID:", id);
-    }
+  //   if (rateToEdit) {
+  //     setInitialData(rateToEdit); // Set the initial data for the form
+  //     setOpenModal(true); // Open the modal to edit the tax rate
+  //   } else {
+  //     console.error("Tax rate not found with the specified ID:", id);
+  //   }
   
-    // Additional logic for handling edits can be added here if needed
-  };
+  //   // Additional logic for handling edits can be added here if needed
+  // };
   
   // const handleCreateRate = () => {
   //   navigate("/form");
   // };
 
   const handleCloseDialog = () => setOpenDialog(false);
-  const handleCloseModal = () => setOpenModal(false);
+  //const handleCloseModal = () => setOpenModal(false);
 
   useEffect(() => {
     const filtered = rates.filter((item) => {

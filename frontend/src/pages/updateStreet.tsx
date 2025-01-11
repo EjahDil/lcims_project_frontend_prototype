@@ -60,6 +60,12 @@ const EditStreetForm: React.FC<EditStreetFormProps> = ({ initialData, onClose })
           }
         }
     }, 1000);
+
+          // Call the onClose prop to close the form
+          if (onClose) {
+            onClose();
+          }
+          
     } catch (err: any) {
       console.error("Error updating street:", err);
       setError(err.message || "An unexpected error occurred.");

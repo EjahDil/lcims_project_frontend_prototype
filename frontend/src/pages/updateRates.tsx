@@ -50,6 +50,12 @@ const EditTaxForm: React.FC<EditTaxFormProps> = ({ initialData, onClose }) => {
           }
         }
       }, 2000);
+
+            // Call the onClose prop to close the form
+          if (onClose) {
+            onClose();
+          }
+
     } catch (err: any) {
       console.error("Error updating tax rate:", err);
       setError(err.response?.data?.message || "An unexpected error occurred.");

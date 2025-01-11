@@ -73,7 +73,7 @@ const PayTaxForm: React.FC = () => {
 
 
     // Destructure the response to get payment and message
-    const { payment, message } = response;
+    const { payment } = response;
 
     // Set the payment details in the state
     setPaymentDetails(payment);
