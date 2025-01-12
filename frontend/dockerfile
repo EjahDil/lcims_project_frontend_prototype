@@ -6,9 +6,11 @@ FROM node:22.9.0 AS build
 # Set the working directory to /lcimsapp in the container
 WORKDIR /lcimsapp
 
-# Copy package.json  and package-lock.json
+
+# Copy package.json, package-lock.json, and tsconfig.json
 COPY package*.json ./
 COPY tsconfig.json ./
+
 
 # Install the dependencies from package.json
 RUN npm install
