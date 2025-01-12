@@ -126,7 +126,7 @@ export const fetchProperties = async (params: Record<string, any>): Promise<{ to
     const token = localStorage.getItem('token'); // Adjust this based on your token storage method
 
     const response = await axios.get(`${API_URL_One}`, {
-      params, // Attach query parameters
+      params, 
       headers: {
         Authorization: `Bearer ${token}`, // Include the authorization token
       },

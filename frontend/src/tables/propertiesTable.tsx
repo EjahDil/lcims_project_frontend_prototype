@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   TextField,
-  MenuItem,
   Button,
   Dialog,
   DialogTitle,
@@ -21,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../components/modalforediting";
 import EditPropertyForm from "../pages/updateProperty";
 import DeletePropertyDialog from "../components/deletePropertyPopUp";
-import { fetchTaxBill, getPropertyPaymentHistory, processPropertyPayment } from "../services/useService_1";
+import { fetchTaxBill } from "../services/useService_1";
 //import ModalCompo from '../components/modalforediting';
 //import EditPropertyForm from "../forms/EditPropertyForm";
 //import DeleteConfirmationDialog from "../components/DeleteConfirmationDialog";
@@ -50,13 +49,13 @@ const PropertiesTable = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [loadingResponse, setLoadingResponse] = useState(false);
+  //const [loadingResponse, setLoadingResponse] = useState(false);
   const [search, setSearch] = useState("");
   const [taxBill, setTaxBill] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [errorResponse, setErrorResponse] = useState<string | null>(null);
-  const [category_name, setCategoryName] = useState(''); 
-  const [status, setStatus] = useState("");
+  //const [errorResponse, setErrorResponse] = useState<string | null>(null);
+  //const [category_name, setCategoryName] = useState(''); 
+  //const [status, setStatus] = useState("");
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 10,
@@ -66,10 +65,10 @@ const PropertiesTable = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-  const [taxHistory, setTaxHistory] = useState<any[]>([]);
+  //const [taxHistory, setTaxHistory] = useState<any[]>([]);
 
   const [openTaxBillDialog, setOpenTaxBillDialog] = useState(false);
-  const [openTaxHistoryDialog, setOpenTaxHistoryDialog] = useState(false);
+  //const [openTaxHistoryDialog, setOpenTaxHistoryDialog] = useState(false);
   const [propertyIdToDelete, setPropertyIdToDelete] = useState<number | null>(null);;
   const gridRef = useRef<HTMLDivElement | null>(null);
 
@@ -89,7 +88,8 @@ const PropertiesTable = () => {
       setTaxBill(billData); 
       console.log(taxBill)// Update state with the fetched data
     } catch (err: any) {
-      setError(err.message || 'Failed to fetch tax bill'); // Handle and display error
+      setError(err.message || 'Failed to fetch tax bill');
+      console.log(error);
     }
   };
 
@@ -110,28 +110,30 @@ const PropertiesTable = () => {
 //     }
 // };
 
-const handleProcessPayment = async (propertyId: string, amountPaid: number) => {
-  try {
-    setLoadingResponse(true);
-    setErrorResponse(null); // Clear previous errors
+// const handleProcessPayment = async (propertyId: string, amountPaid: number) => {
+//   try {
+//     setLoading(true);
+//     setErrorResponse(null); // Clear previous errors
 
-    const paymentResponse = await processPropertyPayment(propertyId, amountPaid);
-
-
-    const { payment, message } = paymentResponse;
-
-    //setPaymentDetails(payment); // Update the state with the payment details
-    console.log(payment); // Log payment details for debugging
-    alert(message || "Payment processed successfully!");
+//     const paymentResponse = await processPropertyPayment(propertyId, amountPaid);
 
 
-  } catch (err: any) {
-    setErrorResponse(err.message || "Failed to process payment");
-    console.error(err);
-  } finally {
-    setLoadingResponse(false);
-  }
-};
+//     const { payment, message } = paymentResponse;
+
+//     //setPaymentDetails(payment); // Update the state with the payment details
+//     console.log(payment); // Log payment details for debugging
+//     alert(message || "Payment processed successfully!");
+
+
+//   } catch (err: any) {
+//     setErrorResponse(err.message || "Failed to process payment");
+//     console.error(err);
+//     console.log(errorResponse);
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
 
 
   const loadProperties = async () => {
@@ -141,7 +143,6 @@ const handleProcessPayment = async (propertyId: string, amountPaid: number) => {
         page: paginationModel.page + 1,
         limit: paginationModel.pageSize,
         search,
-        status
       };
       const data: FetchPropertiesResponse = await fetchProperties(params);
       console.log(data);
@@ -177,15 +178,15 @@ const handleCloseTaxBillDialog = () => {
   setOpenTaxBillDialog(false);
 };
 
-const handleCloseTaxHistoryDialog = () => {
-  setOpenTaxHistoryDialog(false);
-};
+// const handleCloseTaxHistoryDialog = () => {
+//   setOpenTaxHistoryDialog(false);
+// };
 
 
   useEffect(() => {
     loadProperties();
 
-  }, [paginationModel, search, status, category_name]);
+  }, [paginationModel, search]);
 
   const columns: GridColDef[] = [
     { field: "property_id", headerName: "ID", width: 100 },
@@ -457,16 +458,16 @@ const handleCloseTaxHistoryDialog = () => {
           </DialogActions>
         </Dialog>
  
-        <Dialog open={openTaxHistoryDialog} onClose={handleCloseTaxHistoryDialog}>
+        {/* <Dialog open={openTaxHistoryDialog} onClose={handleCloseTaxHistoryDialog}>
           <DialogTitle>Tax History</DialogTitle>
           <DialogContent>
             {taxHistory.length > 0 && (
               <div>
                 <h3>Tax Bill for Property {taxHistory[0].payment_id}</h3>
                 <p>Tax Year: {taxHistory[0].payment_id}</p>
-                <p>Amount: {taxHistory[0].payment_id}</p>
+                <p>Amount: {taxHistory[0].payment_id}</p> */}
                 {/* <p>Status: {taxHistory.}</p> */}
-               </div>
+               {/* </div>
             )}
           </DialogContent>
           <DialogActions>
@@ -474,7 +475,7 @@ const handleCloseTaxHistoryDialog = () => {
               Close
             </Button>
           </DialogActions>
-        </Dialog> 
+        </Dialog>  */}
 
 
     </Box>

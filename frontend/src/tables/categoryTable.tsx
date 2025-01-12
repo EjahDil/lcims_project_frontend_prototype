@@ -1,7 +1,7 @@
 
 
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from "@mui/x-data-grid";
 
@@ -14,7 +14,7 @@ import { AttachMoney } from "@mui/icons-material";
 import { CategoryRate } from "./taxRatesTable";
 import Modal from "../components/modalforediting";
 import EditTaxForm from "../pages/updateRates";
-import { fetchCategoryRates } from "../services/useService";
+//import { fetchCategoryRates } from "../services/useService";
 
 
 interface Category {
@@ -30,19 +30,19 @@ interface Category {
 };
 
 
-interface PaginatedResponse<T> {
-    total: number;
-    page: number;
-    limit: number;
-    data: T[];
-  }
+// interface PaginatedResponse<T> {
+//     total: number;
+//     page: number;
+//     limit: number;
+//     data: T[];
+//   }
 
 const CategoriesTable = () => {
   const [categories, setCategories] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState("");
+  //const [status, setStatus] = useState("");
   const [initialData, setInitialData] = useState<CategoryRate | null>(null);
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
@@ -51,10 +51,10 @@ const CategoriesTable = () => {
   const [selectedCategory, setSelectedCategory] = useState<any | null>(null);
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   const [openDialog, setOpenDialog] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  //const [openModal, setOpenModal] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
-  const [rates, setRates] = useState<CategoryRate[]>([]);
-  const [propertyIdToDelete, setPropertyIdToDelete] = useState<number | null>(null);
+  //const [rates, setRates] = useState<CategoryRate[]>([]);
+  //const [propertyIdToDelete, setPropertyIdToDelete] = useState<number | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
   const navigate = useNavigate();
@@ -72,20 +72,20 @@ const CategoriesTable = () => {
     }
   };
 
-  const loadRates = async () => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("token"); // Retrieve the token from local storage
-      if (!token) throw new Error("Token not found");
+  // const loadRates = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const token = localStorage.getItem("token"); // Retrieve the token from local storage
+  //     if (!token) throw new Error("Token not found");
 
-      const data = await fetchCategoryRates();
-      setRates(data); // API should return data in the structure of CategoryRate[] 
-    } catch (error) {
-      console.error("Failed to fetch category rates:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     const data = await fetchCategoryRates();
+  //     setRates(data); // API should return data in the structure of CategoryRate[] 
+  //   } catch (error) {
+  //     console.error("Failed to fetch category rates:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleCloseDialog = () => setOpenDialog(false);
 
@@ -119,19 +119,19 @@ const CategoriesTable = () => {
     setOpenDialog(true);
   };
 
-  const handleEditCategory = (id: number) => {
-    console.log("Edit category with ID:", id);
-    const categoryToEdit = categories.find((category) => category.category_id === id);
-    if (categoryToEdit) {
-      setSelectedCategory(categoryToEdit);
-      setOpenModal(true); // Open the modal to edit category details
-    }
-  };
+  // const handleEditCategory = (id: number) => {
+  //   console.log("Edit category with ID:", id);
+  //   const categoryToEdit = categories.find((category) => category.category_id === id);
+  //   if (categoryToEdit) {
+  //     setSelectedCategory(categoryToEdit);
+  //     setOpenModal(true); // Open the modal to edit category details
+  //   }
+  // };
 
-  const handleDeleteCategory = (id: number) => {
-    console.log("Delete category with ID:", id);
-    setPropertyIdToDelete(id);
-  };
+  // const handleDeleteCategory = (id: number) => {
+  //   console.log("Delete category with ID:", id);
+  //   setPropertyIdToDelete(id);
+  // };
 
   const handleCloseModal = () => setOpenRateModal(false);
 
@@ -151,10 +151,16 @@ const CategoriesTable = () => {
         <IconButton color="primary" onClick={() => handleViewStreet(params.row)}>
             <ViewIcon />
         </IconButton>
-          <IconButton color="primary" onClick={() => handleEditCategory(params.row.category_id)}>
+          <IconButton 
+          color="primary" 
+          //onClick={() => handleEditCategory(params.row.category_id)}
+          >
             <EditIcon />
           </IconButton>
-          <IconButton color="error" onClick={() => handleDeleteCategory(params.row.category_id)}>
+          <IconButton 
+          color="error" 
+          //onClick={() => handleDeleteCategory(params.row.category_id)}
+          >
             <DeleteIcon />
           </IconButton>
         </Box>

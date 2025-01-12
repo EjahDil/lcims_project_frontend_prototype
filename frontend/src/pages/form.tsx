@@ -118,9 +118,9 @@
 // export default Forms;
 
 import React from 'react'; 
-import InfrastructureForm from '../components/infrastructureForm';
+//import InfrastructureForm from '../components/infrastructureForm';
 import PropertyForm from '../components/propertyForm';
-import FormNavigation from '../components/formNav';
+//import FormNavigation from '../components/formNav';
 
 const Form: React.FC = () => {
   return (

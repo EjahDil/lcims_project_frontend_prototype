@@ -19,6 +19,8 @@ const EditRoleForm: React.FC<EditRoleFormProps> = ({ initialData, onClose }) => 
   const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
 
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -36,11 +38,19 @@ const EditRoleForm: React.FC<EditRoleFormProps> = ({ initialData, onClose }) => 
         navigate("/admin/role-management", { replace: true });
         window.location.reload();
       }, 2000);
+
+
+          // Call the onClose prop to close the form
+          if (onClose) {
+            onClose();
+          }
+          
     } catch (err: any) {
       console.error("Error updating role:", err);
       setError(err.response?.data?.message || "An unexpected error occurred.");
     }
   };
+
 
   return (
     <div className="flex justify-center items-center bg-gray-100">

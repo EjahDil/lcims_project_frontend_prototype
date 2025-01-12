@@ -1,5 +1,5 @@
 import React from "react";
-import { DocumentTextIcon, CurrencyDollarIcon, HomeIcon, ChartBarIcon } from "@heroicons/react/24/solid"; 
+import { DocumentTextIcon, CurrencyDollarIcon, ChartBarIcon } from "@heroicons/react/24/solid"; 
 import { FaIdCard  } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 

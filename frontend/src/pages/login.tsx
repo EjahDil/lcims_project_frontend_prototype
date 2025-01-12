@@ -49,8 +49,14 @@ const LoginForm: React.FC = () => {
     };
 
     const user = await login(credentials);
-    const token = localStorage.getItem("token") // Call the login function
-
+    const token = localStorage.getItem("token")
+    
+          if (token) {
+        console.log("Token exists:", token);
+      } else {
+        console.log("Token is not available.");
+      }
+      
 
   
   //   if (user) {

@@ -1,0 +1,44 @@
+
+version: '3.8'
+
+services:
+  backend:
+    image: ejahdilan/lcims-backend:production
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - DB_USER=postgres
+      - DB_PASSWORD=lechiffre1996
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=lcims-test
+      - JWT_SECRET=your_jwt_secret_key
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+  db:
+    image: ejahdilan/lcims-db:production
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+
+volumes:
+  postgres_data:

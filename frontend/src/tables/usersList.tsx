@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from '@mui/x-data-grid';
-import { IconButton, TextField, MenuItem, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, Card, CardContent, Typography, Modal } from '@mui/material';
+import { IconButton, TextField, MenuItem, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@mui/material';
 import { Delete as DeleteIcon, Edit as EditIcon, Visibility as ViewIcon } from '@mui/icons-material';
-import { deleteUser, fetchUsers } from '../services/useService';
+import { fetchUsers } from '../services/useService';
 import { usePermissions } from '../contexts/permContext';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for redirection
 import EditUserForm from '../pages/updateUser';
