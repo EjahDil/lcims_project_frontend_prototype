@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/v1/admin'
+const API_URL = 'https://7025-154-72-153-199.ngrok-free.app/api/v1/admin'
 
 
 
@@ -111,7 +111,7 @@ export const deleteRole = async (roleId: string): Promise<any> => {
 
 
 
-const API_URL_Six = "http://localhost:3000/api/v1/tax";
+const API_URL_Six = " https://7025-154-72-153-199.ngrok-free.app/api/v1/tax";
 
 
 
@@ -185,7 +185,7 @@ export const getPropertyPaymentHistory = async (propertyId: string): Promise<any
       }
 
       // Make the GET request to fetch the payment history
-      const response = await axios.get(`/property/${propertyId}/payments`, {
+      const response = await axios.get(`${API_URL_Six}/property/${propertyId}/payments`, {
           headers: {
               Authorization: `Bearer ${token}`,
           },
@@ -207,7 +207,7 @@ export const getPropertyPaymentHistory = async (propertyId: string): Promise<any
 
 
   
-  const API_URL_Three = 'http://localhost:3000/api/v1/streets';
+  const API_URL_Three = ' https://7025-154-72-153-199.ngrok-free.app/api/v1/streets';
 
 
   export const createStreet = async (streetData: {
@@ -313,7 +313,7 @@ export const deleteStreet = async (streetId: number): Promise<any> => {
 
 
 
-const API_URL_four = 'http://localhost:3000/api/v1/categories';
+const API_URL_four = ' https://7025-154-72-153-199.ngrok-free.app/api/v1/categories';
 
 export const fetchCategories = async (page: number = 1, limit: number = 10, search?: string, status?: string, sort_by: string = 'category_name', sort_order: string = 'ASC') => {
   try {
