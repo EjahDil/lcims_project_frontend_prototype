@@ -39,7 +39,7 @@ const ServiceSection: React.FC = () => {
           {/* Forms Card */}
           <a href="/form" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105">
             <div className="flex justify-center">
-              <DocumentTextIcon className="h-12 w-12 mb-4 text-[#709ec9]" />
+              <DocumentTextIcon className="h-12 w-12 mb-4 text-[#FF4C4C]" />
             </div>
             <h5 className="text-xl font-semibold mb-2">Form</h5>
             <p className="text-gray-600">Register your House and Infrastructure</p>
@@ -51,7 +51,7 @@ const ServiceSection: React.FC = () => {
           className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105 hover:cursor-pointer"
            > 
             <div className="flex justify-center">
-              <CurrencyDollarIcon className="h-12 w-12 mb-4 text-[#709ec9]" />
+              <CurrencyDollarIcon className="h-12 w-12 mb-4 text-[#FF4C4C]" />
             </div>
             <h5 className="text-xl font-semibold mb-2">Tax Identification</h5>
             <p className="text-gray-600">Know the amount of tax you have to pay</p>
@@ -60,7 +60,7 @@ const ServiceSection: React.FC = () => {
           {/* Limbe GIS Card */}
           <a href="/limbe-gis" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105"> 
             <div className="flex justify-center">
-            <FaIdCard className="h-12 w-12 mb-4 text-[#709ec9]" />
+            <FaIdCard className="h-12 w-12 mb-4 text-[#FF4C4C]" />
             </div>
             <h5 className="text-xl font-semibold mb-2">Civil Status</h5>
             <p className="text-gray-600">Civil Status Information</p>
@@ -69,7 +69,7 @@ const ServiceSection: React.FC = () => {
           {/* Revenue Management Card */}
           <a href="https://dashboard-management.onrender.com/" target="_blank" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105"> 
             <div className="flex justify-center">
-              <ChartBarIcon className="h-12 w-12 mb-4 text-[#709ec9]" />
+              <ChartBarIcon className="h-12 w-12 mb-4 text-[#FF4C4C]" />
             </div>
             <h5 className="text-xl font-semibold mb-2">Revenue Management</h5>
             <p className="text-gray-600">Control the revenue intake into the Limbe City Council</p>

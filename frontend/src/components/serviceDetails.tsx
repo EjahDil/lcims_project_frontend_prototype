@@ -15,7 +15,7 @@ const ServiceDetail: React.FC = () => {
       <div className="text-center">
         <h6
           className="bg-white text-center px-3 mb-5"
-          style={{ color: "#709ec9", fontSize: "20px", fontWeight: "bold" }}
+          style={{ color: "#FF4C4C", fontSize: "20px", fontWeight: "bold" }}
         >
           Our Services
         </h6>
@@ -33,9 +33,9 @@ const ServiceDetail: React.FC = () => {
                 imageSrc: "assets/img/lccview1.jpg",
               },
               {
-                title: "Register Your Service",
+                title: "Register Your Property",
                 description:
-                  "Register your service to enhance the efficiency of our city’s services management.",
+                  "Register your property to enhance the efficiency of our city’s services management.",
                 imageSrc: "assets/img/lccview1.jpg",
               },
               {
@@ -45,9 +45,9 @@ const ServiceDetail: React.FC = () => {
                 imageSrc: "assets/img/lccview1.jpg",
               },
               {
-                title: "Navigate Through Limbe City Easily",
+                title: "Access Civil Status Information of Limbe Citizens",
                 description:
-                  "Utilize our system to find your way around Limbe City with ease and no stress.",
+                  "Utilize our platform to effortlessly access and stay informed about the civil status records of Limbe citizens.",
                 imageSrc: "assets/img/lccview1.jpg",
               },
             ].map((service, index) => (
@@ -67,14 +67,14 @@ const ServiceDetail: React.FC = () => {
                       {!isLoggedIn ? (
                         <a
                           href="/login"
-                          className="bg-[#709ec9] text-white py-2 px-6 rounded hover:bg-[#575447] transition-colors"
+                          className="text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white  py-2 px-6 rounded transition-colors"
                         >
                           Log in
                         </a>
                       ) : (
                         <a
                           href="/service-details"
-                          className="bg-[#709ec9] text-white py-2 px-6 rounded hover:bg-[#575447] transition-colors"
+                          className="text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white py-2 px-6 rounded transition-colors"
                         >
                           Read More
                         </a>

@@ -39,7 +39,7 @@ const PropertyManagement = () => {
       <div className="w-full text-center">
         <button
           onClick={handleReturnHome}
-          className="px-6 py-3 bg-[#709ec9] hover:bg-[#575447] text-white font-semibold rounded-lg shadow-md transition duration-300"
+          className="px-6 py-3 text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white font-semibold rounded-lg shadow-md transition duration-300"
         >
           Return to Home Page
         </button>

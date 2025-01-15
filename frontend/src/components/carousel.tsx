@@ -36,7 +36,7 @@ const Carousel: React.FC = () => {
             <div className="container mx-auto px-4 flex flex-col items-start">
               <div className="w-full lg:w-3/4">
                 <h5 className="text-primary text-sm uppercase mb-3 animate-slideInDown">
-                  <span className="text-[#709ec9]">Limbe City Council Tech</span>
+                  <span className="text-[#FF4C4C]">Limbe City Council Tech</span>
                 </h5>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold animate-slideInDown">
                   Limbe City Information Management System
@@ -49,14 +49,14 @@ const Carousel: React.FC = () => {
                 <div className="flex space-x-4 mt-4 xs:space-x-0 sm-238:hidden">
                   <a
                     href="#"
-                    className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden"
+                    className="bg-[#FF4C4C] hover:bg-[#1C1C1C] text-black hover:text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden"
                   >
                     Read More
                   </a>
                   {!isLoggedIn && (
                     <a
                       href="/login"
-                      className="flex bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight xs:justify-start"
+                      className="flex bg-[#FF4C4C] hover:bg-[#1C1C1C] text-black hover:text-white py-3 px-8 rounded-md animate-slideInRight xs:justify-start"
                     >
                       Log in
                     </a>
@@ -81,7 +81,7 @@ const Carousel: React.FC = () => {
             <div className="container mx-auto px-4 flex flex-col items-start">
               <div className="w-full lg:w-3/4">
                 <h5 className="text-primary text-sm uppercase mb-3 animate-slideInDown">
-                  <span className="text-[#709ec9]">Limbe City Council Tech</span>
+                  <span className="text-[#FF4C4C]">Limbe City Council Tech</span>
                 </h5>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold animate-slideInDown">
                   Navigate through the city of Limbe with ease.
@@ -94,14 +94,14 @@ const Carousel: React.FC = () => {
                 <div className="flex space-x-4 mt-4 xs:space-x-0 sm-238:hidden">
                   <a
                     href="#"
-                    className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden"
+                    className="bg-[#FF4C4C] hover:bg-[#1C1C1C] text-black hover:text-white py-3 px-6 rounded-md animate-slideInRight xs:hidden"
                   >
                     Read More
                   </a>
                   {!isLoggedIn && (
                     <a
                       href="/login"
-                      className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight"
+                      className="bg-[#FF4C4C] hover:bg-[#1C1C1C] text-black hover:text-white py-3 px-8 rounded-md animate-slideInRight"
                     >
                       Log in
                     </a>

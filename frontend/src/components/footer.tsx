@@ -4,7 +4,7 @@ import { FaTwitter, FaFacebook, FaYoutube, FaLinkedin, FaEnvelope, FaGithub } fr
 
 const Footer: React.FC = () => {
   return (
-    <div className="bg-[#709ec9] text-white py-6 mt-12">
+    <div className="bg-[#FF4C4C] text-black py-6 mt-12">
       <div className="max-w-8xl mx-auto px-4 flex flex-wrap justify-between gap-5">
         
         {/* Logo Section */}
@@ -42,16 +42,16 @@ const Footer: React.FC = () => {
             info@example.cm
           </p>
           <div className="flex gap-2 pt-4">
-            <a href="#" className="border border-white rounded-full w-8 h-8 flex items-center justify-center">
+            <a href="#" className="border border-black rounded-full w-8 h-8 flex items-center justify-center">
               <FaTwitter className="h-5 w-5" aria-hidden="true" />
             </a>
-            <a href="#" className="border border-white rounded-full w-8 h-8 flex items-center justify-center">
+            <a href="#" className="border border-black rounded-full w-8 h-8 flex items-center justify-center">
               <FaFacebook className="h-5 w-5" aria-hidden="true" />
             </a>
-            <a href="#" className="border border-white rounded-full w-8 h-8 flex items-center justify-center">
+            <a href="#" className="border border-black rounded-full w-8 h-8 flex items-center justify-center">
               <FaYoutube className="h-5 w-5" aria-hidden="true" />
             </a>
-            <a href="#" className="border border-white rounded-full w-8 h-8 flex items-center justify-center">
+            <a href="#" className="border border-black rounded-full w-8 h-8 flex items-center justify-center">
               <FaLinkedin className="h-5 w-5" aria-hidden="true" />
             </a>
           </div>
@@ -64,10 +64,10 @@ const Footer: React.FC = () => {
       </div>
 
       {/* White Line Divider */}
-      <hr className="border-t border-white opacity-50 mx-4 sm-732:hidden" />
+      <hr className="border-t border-black opacity-50 mx-4 sm-732:hidden" />
 
       {/* Copyright Section */}
-      <div className="bg-[#709ec9] py-4 text-center">
+      <div className="bg-[#FF4C4C] py-4 text-center">
         <div className="max-w-7xl mx-auto flex justify-between px-4 flex-wrap sm-732:flex-col">
           <div className="flex flex-wrap text-left whitespace-nowrap">
             &copy;{" "}
@@ -75,10 +75,10 @@ const Footer: React.FC = () => {
             Designed By <a href="https://htmlcodex.com" className="underline ml-3">HTML Codex</a>
           </div>
           <div className="flex space-x-4 mt-4 sm-732:item-start">
-            <a href="/" className="text-white">Home</a>
-            <a href="#" className="text-white">Cookies</a>
-            <a href="#" className="text-white">Help</a>
-            <a href="#" className="text-white">FAQs</a>
+            <a href="/" className="text-black">Home</a>
+            <a href="#" className="text-black">Cookies</a>
+            <a href="#" className="text-black">Help</a>
+            <a href="#" className="text-black">FAQs</a>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
             href="https://www.linkedin.com/in/ejah-dilan-a1259b26b"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-white rounded-full w-8 h-8 flex items-center justify-center"
+            className="border border-black rounded-full w-8 h-8 flex items-center justify-center"
           >
             <FaLinkedin className="h-5 w-5" aria-hidden="true" />
           </a>
@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
             href="https://github.com/EjahDil"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-white rounded-full w-8 h-8 flex items-center justify-center"
+            className="border border-black rounded-full w-8 h-8 flex items-center justify-center"
           >
             <FaGithub className="h-5 w-5" aria-hidden="true" />
           </a>
@@ -115,7 +115,7 @@ const Footer: React.FC = () => {
             href="https://www.linkedin.com/in/michel"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-white rounded-full w-8 h-8 flex items-center justify-center"
+            className="border border-black rounded-full w-8 h-8 flex items-center justify-center"
           >
             <FaLinkedin className="h-5 w-5" aria-hidden="true" />
           </a>
@@ -123,7 +123,7 @@ const Footer: React.FC = () => {
             href="https://github.com/michel"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-white rounded-full w-8 h-8 flex items-center justify-center"
+            className="border border-black rounded-full w-8 h-8 flex items-center justify-center"
           >
             <FaGithub className="h-5 w-5" aria-hidden="true" />
           </a>

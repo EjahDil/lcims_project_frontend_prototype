@@ -101,7 +101,7 @@ const FirstSidebar: React.FC = () => {
       <div className="fixed top-5 left-5 z-50 sm-1000:hidden">
         <button
           onClick={toggleSidebar}
-          className="toggle-sidebar p-3 bg-[#709ec9] text-white rounded-full shadow-lg focus:outline-none"
+          className="toggle-sidebar p-3 bg-[#FF4C4C] text-white rounded-full shadow-lg focus:outline-none"
         >
           {!isSidebarVisible ? (
             <MenuIcon className="h-6 w-6" />
@@ -114,7 +114,7 @@ const FirstSidebar: React.FC = () => {
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`fixed left-0 top-0 h-full w-64 bg-[#709ec9] flex flex-col justify-between transition-transform duration-300 ${
+        className={`fixed left-0 top-0 h-full w-64 bg-[#FF4C4C] flex flex-col justify-between transition-transform duration-300 ${
           isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -122,22 +122,22 @@ const FirstSidebar: React.FC = () => {
         <div className="space-y-4 p-4 mt-12">
           {/* User Profile */}
           <div className="text-center text-white mb-4">
-            <div className="w-16 h-16 mx-auto rounded-full bg-white flex items-center justify-center">
-              <span className="text-[#709ec9] font-bold">
+            <div className="w-16 h-16 mx-auto rounded-full bg-[#1C1C1C] flex items-center justify-center">
+              <span className="text-white font-bold">
                 {user?.initials || "JD"}
               </span>
             </div>
-            <h3 className="mt-2 font-semibold text-lg">
+            <h3 className="mt-2 font-semibold text-lg text-[#1C1C1C]">
               {user?.name || "John Doe"}
             </h3>
-            <p className="text-sm text-gray-200">{role || " "}</p>
+            <p className="text-sm text-black">{role || " "}</p>
           </div>
 
           {/* Links */}
           <div className="mt-6">
             <a
               href="/admin/home"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
             >
               Admin Dashboard
             </a>
@@ -145,7 +145,7 @@ const FirstSidebar: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen((prev) => !prev)}
-                  className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+                  className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
                 >
                   User Management
                   <ArrowDropDownIcon
@@ -159,7 +159,7 @@ const FirstSidebar: React.FC = () => {
                     <li>
                       <a
                         href="/admin/user-management"
-                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                        className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                       >
                         Users
                       </a>
@@ -167,7 +167,7 @@ const FirstSidebar: React.FC = () => {
                     <li>
                       <a
                         href="/create-user"
-                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                        className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                       >
                         Create User
                       </a>
@@ -175,7 +175,7 @@ const FirstSidebar: React.FC = () => {
                     <li>
                       <a
                         href="/admin/role-management"
-                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                        className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                       >
                         Roles
                       </a>
@@ -183,7 +183,7 @@ const FirstSidebar: React.FC = () => {
                     <li>
                       <a
                         href="/create-role"
-                        className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                        className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                       >
                         Create Roles
                       </a>
@@ -197,7 +197,7 @@ const FirstSidebar: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setPropertyDropdownOpen((prev) => !prev)}
-              className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
             >
               Property Management
               <ArrowDropDownIcon
@@ -211,7 +211,7 @@ const FirstSidebar: React.FC = () => {
                 <li>
                   <a
                     href="/admin/property-management"
-                    className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                   >
                     All Properties
                   </a>
@@ -219,7 +219,7 @@ const FirstSidebar: React.FC = () => {
                 <li>
                   <a
                     href="/form"
-                    className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                    className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                   >
                     Register Property
                   </a>
@@ -232,7 +232,7 @@ const FirstSidebar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setStreetDropdownOpen((prev) => !prev)}
-                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
               >
                 Street Management
                 <ArrowDropDownIcon
@@ -246,7 +246,7 @@ const FirstSidebar: React.FC = () => {
                   <li>
                     <a
                       href="/admin/street-management"
-                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                     >
                       All Streets
                     </a>
@@ -254,7 +254,7 @@ const FirstSidebar: React.FC = () => {
                   <li>
                     <a
                       href="/create-street"
-                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                     >
                       Add Street
                     </a>
@@ -267,7 +267,7 @@ const FirstSidebar: React.FC = () => {
              <div className="relative">
               <button
                 onClick={() => setCategoryDropdownOpen((prev) => !prev)}
-                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
               >
                 Category Management
                 <ArrowDropDownIcon
@@ -281,7 +281,7 @@ const FirstSidebar: React.FC = () => {
                   <li>
                     <a
                       href="/admin/category-management"
-                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                     >
                       All Categories
                     </a>
@@ -289,7 +289,7 @@ const FirstSidebar: React.FC = () => {
                   <li>
                     <a
                       href="/create-category"
-                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                     >
                       Create New Category
                     </a>
@@ -301,7 +301,7 @@ const FirstSidebar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setTaxDropdownOpen((prev) => !prev)}
-                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+                className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
               >
                 Tax Identification
                 <ArrowDropDownIcon
@@ -315,7 +315,7 @@ const FirstSidebar: React.FC = () => {
                   <li>
                     <a
                       href="/admin/tax-identification"
-                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                     >
                       Tax Rates
                     </a>
@@ -323,7 +323,7 @@ const FirstSidebar: React.FC = () => {
                   <li>
                     <a
                       href="/pay-tax"
-                      className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+                      className="text-black font-semibold rounded-md hover:bg-[#1C1C1C] hover:text-white block px-2"
                     >
                       Pay Tax
                     </a>
@@ -334,14 +334,14 @@ const FirstSidebar: React.FC = () => {
 
             <a
               href="https://dashboard-management.onrender.com/"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
             >
               Revenue Management
             </a>
 
             <a
               href="/tax-identification"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
             >
               Civil Status Management
             </a>
@@ -349,7 +349,7 @@ const FirstSidebar: React.FC = () => {
             {/* Change Password */}
             <a
               href="/change-password"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#1C1C1C] hover:text-white"
             >
               Change Password
             </a>

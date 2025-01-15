@@ -73,13 +73,13 @@ const CreateUserForm: React.FC = () => {
         padding: "0.5rem", // padding
         boxShadow: "none",
         "&:hover": {
-          borderColor: "#575447", // Hover border color
+          borderColor: "#1C1C1C", // Hover border color
         },
       }),
       option: (provided: any, state: any) => ({
         ...provided,
         backgroundColor: state.isSelected
-          ? "#709ec9"  // Background color when the option is selected
+          ? "#FF4C4C"  // Background color when the option is selected
           : state.isFocused
           ? "#fff"  // Background color when the option is hovered (focused)
           : provided.backgroundColor,  // Default background color for other states
@@ -87,7 +87,7 @@ const CreateUserForm: React.FC = () => {
         //padding: "0.75rem 1rem", // Padding for the options
 
         "&:hover": {
-          backgroundColor: "#575447",
+          backgroundColor: "#1C1C1C",
           color: "#fff",
         },
         cursor: "pointer",
@@ -231,7 +231,7 @@ const CreateUserForm: React.FC = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="w-1/2 py-2 px-4 bg-[#709ec9] hover:bg-[#575447] text-white rounded-md font-semibold"
+            className="w-1/2 py-2 px-4 text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white rounded-md font-semibold"
           >
             Create User
           </button>

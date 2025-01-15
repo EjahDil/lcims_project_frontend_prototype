@@ -126,10 +126,10 @@ const UserTable: React.FC = () => {
       width: 130,
       renderCell: (params: GridRenderCellParams) => (
         <Box display="flex" gap={0.1}>
-          <IconButton color="primary" onClick={() => handleEdit(params.row.user_id)}>
+          <IconButton sx={{ color: 'black' }} onClick={() => handleEdit(params.row.user_id)}>
             <EditIcon />
           </IconButton>
-          <IconButton color="primary" onClick={() => handleView(params.row)}>
+          <IconButton sx={{ color: 'black' }} onClick={() => handleView(params.row)}>
             <ViewIcon />
           </IconButton>
           <IconButton color="error" onClick={() => handleDelete(params.row.user_id)}>
@@ -271,11 +271,9 @@ const UserTable: React.FC = () => {
         </TextField>
         <Button variant="contained" color="primary" onClick={handleCreateUser} 
          sx={{
-          backgroundColor: "#709ec9", // Set background color
-          color: "#fff", // Set text color
-          "&:hover": {
-            backgroundColor: "#575447", // Darker shade for hover effect
-          },
+          backgroundColor: "#FF4C4C",
+          color: "black",
+          "&:hover": { backgroundColor: "#1C1C1C", color:"white" },
         }}>
           Create User
         </Button>

@@ -142,7 +142,7 @@ const PropertyForm: React.FC = () => {
 
   return (
     <section id="property-form" className="flex justify-center items-center py-8 mb-8">
-      <div className="bg-[#709ec9] p-8 rounded-lg shadow-lg w-full max-w-6xl">
+      <div className="bg-[#FF4C4C] p-8 rounded-lg shadow-lg w-full max-w-6xl">
         <form id="propertyForm" className="space-y-8" onSubmit={handleSubmit}>
           <h1 className="text-3xl font-bold flex items-center mb-6 justify-center">
           <FaHome className="translate-y-1 mr-2 mb-2" size={30} />
@@ -312,7 +312,7 @@ const PropertyForm: React.FC = () => {
 
           {/* Submit Button */}
           <div className="text-right">
-            <button type="submit" className="text-black-700 bg-[#575447] hover:bg-white px-6 py-3 rounded-lg text-lg">
+            <button type="submit" className="text-white bg-[#1C1C1C] hover:bg-white hover:text-black px-6 py-3 rounded-lg text-lg">
               Submit
             </button>
           </div>

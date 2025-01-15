@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
                 alt="Custom Icon"
                 className="w-8 h-8 mr-3"
               />
-              <h1 className="text-2xl font-bold text-[#709ec9]">LCIMS</h1>
+              <h1 className="text-2xl font-bold text-[#FF4C4C]">LCIMS</h1>
             </a>
           </div>
 
@@ -98,7 +98,7 @@ const Navbar: React.FC = () => {
             {!isLoggedIn && !isOpen && (
               <a
                 href="/login"
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
+                className="btn-primary py-2 px-4 text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white rounded xs:hidden"
               >
                 Log in
                 <i className="fa fa-arrow-right ml-2"></i>
@@ -107,7 +107,7 @@ const Navbar: React.FC = () => {
             {isLoggedIn && !isOpen && (
               <button
                 onClick={handleLogout}
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
+                className="btn-primary py-2 px-4 text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white rounded xs:hidden"
               >
                 Logout
                 <i className="fa fa-sign-out ml-2"></i>
@@ -162,38 +162,38 @@ const Navbar: React.FC = () => {
           <div className="flex flex-col custom-md:flex-row custom-md:items-center custom-md:space-y-0 custom-md:space-x-10 space-y-4">
           <a
           href="/"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+          className="nav-item block text-gray-700 hover:text-[#FF4C4C] font-bold"
           >
           Home
           </a>
           <a
-          className="nav-item block text-gray-700 hover:text-[#709ec9] hover:cursor-pointer font-bold"
+          className="nav-item block text-gray-700 hover:text-[#FF4C4C] hover:cursor-pointer font-bold"
           onClick={handleDashboardClick}
           >
           Dashboard
           </a>
           <a
           href="/form"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+          className="nav-item block text-gray-700 hover:text-[#FF4C4C] font-bold"
           >
           Form
           </a>
           <a
           onClick={handleTaxNavigation}
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold hover:cursor-pointer"
+          className="nav-item block text-gray-700 hover:text-[#FF4C4C] font-bold hover:cursor-pointer"
           >
           Tax Identification
           </a>
           <a
           href="courses.html"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+          className="nav-item block text-gray-700 hover:text-[#FF4C4C] font-bold"
           >
           Civil Status
           </a>
           <Dropdown label="Revenue Management" options={dropDownOptions} />
           <a
           href="contact.html"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+          className="nav-item block text-gray-700 hover:text-[#FF4C4C] font-bold"
           >
           Contact
           </a>
@@ -206,7 +206,7 @@ const Navbar: React.FC = () => {
             {!isLoggedIn ? (
               <a
                 href="/login"
-                className="btn-primary py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded hidden sm:block"
+                className="btn-primary py-2 px-8 text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white rounded hidden sm:block"
               >
                 Log in
                 <i className="fa fa-arrow-right ml-2"></i>
@@ -214,7 +214,7 @@ const Navbar: React.FC = () => {
             ) : (
               <button
                 onClick={handleLogout}
-                className="btn-primary py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded hidden sm:block"
+                className="btn-primary py-2 px-8 text-white text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white rounded hidden sm:block"
               >
                 Logout
                 <i className="fa fa-sign-out ml-2"></i>

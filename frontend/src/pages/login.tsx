@@ -95,7 +95,7 @@ const LoginForm: React.FC = () => {
           name="username" // Use 'username' instead of 'email'
           value={formData.username}
           onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF4C4C] focus:border-black"
           placeholder="Username"
           required
         />
@@ -106,7 +106,7 @@ const LoginForm: React.FC = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF4C4C] focus:border-black"
             placeholder="Password"
             required
           />
@@ -121,7 +121,7 @@ const LoginForm: React.FC = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="w-3/4 sm:w-1/2 py-2 px-4 bg-[#709ec9] hover:bg-[#575447] text-white rounded-md font-semibold transition"
+            className="w-3/4 sm:w-1/2 py-2 px-4 text-black bg-[#FF4C4C] hover:bg-[#1C1C1C] hover:text-white rounded-md font-semibold transition"
             disabled={isLoading} // Disable the button while loading
           >
             {isLoading ? "Logging in..." : "Login"} {/* Show loading text while the login is in progress */}

@@ -216,7 +216,7 @@ const handleCloseTaxBillDialog = () => {
       renderCell: (params: GridRenderCellParams<Property>) => (
         <Box display="flex" gap={0.5}>
                 <IconButton
-          color="primary"
+          sx={{ color: 'black' }}
           onClick={() => {
             handleFetchTaxBill(params.row.property_id); // Fetch the tax bill
             setOpenTaxBillDialog(true); // Open the dialog to display the tax bill
@@ -225,7 +225,7 @@ const handleCloseTaxBillDialog = () => {
             <ReceiptIcon />
           </IconButton>
           <IconButton
-            color="primary"
+            sx={{ color: 'black' }}
             // onClick={() => {
             //   handleFetchTaxHistory(params.row.property_id); // Fetch the tax bill
             //   setOpenTaxHistoryDialog(true); // Open the dialog to display the tax bill
@@ -243,7 +243,7 @@ const handleCloseTaxBillDialog = () => {
       renderCell: (params: GridRenderCellParams<Property>) => (
         <Box display="flex" gap={0.1}>
              <IconButton
-            color="primary"
+           sx={{ color: 'black' }}
             onClick={() => {
               setSelectedProperty(params.row);
               setOpenDialog(true);
@@ -252,7 +252,7 @@ const handleCloseTaxBillDialog = () => {
             <ViewIcon/>
           </IconButton>
           <IconButton
-            color="primary"
+            sx={{ color: 'black' }}
             onClick={() => handleEditProperty(params.row.property_id)}
           >
             <EditIcon />
@@ -331,9 +331,9 @@ const handleCloseTaxBillDialog = () => {
           color="primary"
           onClick={handleCreateProperty}
           sx={{
-            backgroundColor: "#709ec9",
-            color: "#fff",
-            "&:hover": { backgroundColor: "#575447" },
+            backgroundColor: "#FF4C4C",
+            color: "black",
+            "&:hover": { backgroundColor: "#1C1C1C", color:"white" },
           }}
         >
           Create Property

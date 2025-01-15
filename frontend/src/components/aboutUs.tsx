@@ -45,7 +45,7 @@ const CarouselAndAboutUs: React.FC = () => {
           <div className="wow fadeInUp lg:ml-5 sm:ml-6 sm-732:ml-5">
             <h6 className="bg-white text-start text-primary pe-3 mb-5" 
             style={{fontSize: "20px"}}>
-              <span className="text-[#709ec9] text-lg font-bold">About Us</span>
+              <span className="text-[#FF4C4C] text-lg font-bold">About Us</span>
             </h6>
             <h1 className="mb-4 font-bold text-2xl">Welcome to the LCIMS</h1>
             <p className="mb-4">
@@ -60,23 +60,23 @@ const CarouselAndAboutUs: React.FC = () => {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div className="flex items-center">
-                <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
-                <p className="mb-0">Register your House</p>
+                <ArrowRightIcon className="h-5 w-5 text-[#FF4C4C] mr-2" />
+                <p className="mb-0">Register your Property</p>
               </div>
               <div className="flex items-center">
-                <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
-                <p className="mb-0">Register your Service</p>
+                <ArrowRightIcon className="h-5 w-5 text-[#FF4C4C] mr-2" />
+                <p className="mb-0">Assign an Address to Your Business Location</p>
               </div>
               <div className="flex items-center">
-                <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
+                <ArrowRightIcon className="h-5 w-5 text-[#FF4C4C] mr-2" />
                 <p className="mb-0">Identify how much tax you will pay</p>
               </div>
               <div className="flex items-center">
-                <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
-                <p className="mb-0">Navigate through Limbe City easily</p>
+                <ArrowRightIcon className="h-5 w-5 text-[#FF4C4C] mr-2" />
+                <p className="mb-0">Access Civil Status Information of Limbe Citizens</p>
               </div>
             </div>
-            <a className="btn btn-primary bg-[#709ec9] text-white hover:bg-[#575447] rounded py-3 px-5 mt-3 inline-block" href="#">
+            <a className="btn btn-primary text-black bg-[#FF4C4C] hover:text-white hover:bg-[#1C1C1C] rounded py-3 px-5 mt-3 inline-block" href="#">
               Read More
             </a>
           </div>

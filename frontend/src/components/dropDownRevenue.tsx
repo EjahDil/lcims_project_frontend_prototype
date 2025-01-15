@@ -36,7 +36,7 @@ const Dropdown: React.FC<DropdownProps> = ({ label, options }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="flex items-center text-gray-700 hover:text-[#709ec9] lg:font-bold"
+        className="flex items-center text-gray-700 hover:text-[#FF4C4C] font-bold lg:font-bold"
         onClick={toggleDropdown}
       >
         {label}
@@ -52,7 +52,7 @@ const Dropdown: React.FC<DropdownProps> = ({ label, options }) => {
       </button>
       {isOpen && (
         <div
-          className="absolute mt-1 right-0 bg-white shadow-lg w-48 p-2 z-40"
+          className="absolute mt-1 bg-white shadow-lg w-48 p-2 z-40"
         >
           {options.map((option, index) => (
             <a
