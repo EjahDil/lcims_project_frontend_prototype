@@ -139,6 +139,27 @@ export const fetchProperties = async (params: Record<string, any>): Promise<{ to
   }
 }
 
+export const fetchPropertyDetails = async (propertyId: string): Promise<any> => {
+  try {
+    const token = localStorage.getItem('token'); // Get token from localStorage
+
+    if (!token) {
+      throw new Error('No token found in localStorage');
+    }
+
+    // Make the API request with the token in the Authorization header
+    const response = await axios.get(`${API_URL_One}/${propertyId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Add the token to the header
+      },
+    });
+
+    return response.data; // Return the property details
+  } catch (err: any) {
+    throw new Error(err.message || 'Failed to fetch property details');
+  }
+};
+
 
 // Create a new property
 export const createProperty = async (propertyData: {

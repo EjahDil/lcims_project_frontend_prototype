@@ -1,15 +1,15 @@
 import React from "react"
-import Sidebar from "./firstsidebar"
 import { Outlet } from "react-router-dom"
+import FirstSidebar from "./firstsidebar";
 
 
 
-const SidebarLayout: React.FC = () => {
+const FirstSidebarLayout: React.FC = () => {
     return (
         <React.Fragment>
 
             <div className="flex overflow-x-hidden">
-                <Sidebar />
+                <FirstSidebar/>
 
                 <div className="flex-1 ml-40 sm-1000:ml-64 p-4">
                     <Outlet/>
@@ -20,4 +20,4 @@ const SidebarLayout: React.FC = () => {
     );
 };
 
-export default SidebarLayout;
+export default FirstSidebarLayout;

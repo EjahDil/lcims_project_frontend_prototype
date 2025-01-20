@@ -284,25 +284,25 @@ export const getPropertyPaymentHistory = async (propertyId: string): Promise<any
   
   
 
-export const deleteStreet = async (streetId: number): Promise<any> => {
-  try {
-    // Retrieve the token from localStorage
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      throw new Error('No token found');
-    }
-
-    // Send the delete request with token authorization
-    const response = await axios.delete(
-      `${API_URL_Three}/${streetId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-        },
+  export const deleteStreet = async (streetId: number): Promise<any> => {
+    try {
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        throw new Error('No token found');
       }
-    );
-
+  
+      // Send the delete request with token authorization
+      const response = await axios.delete(
+        `${API_URL_Three}/${streetId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
+        }
+      );
+  
     return response.data; // Return the response data from the API
 
   } catch (error: any) {
@@ -386,7 +386,7 @@ export const updateCategory = async (categoryId: number, categoryData: Record<st
 
     // Make the PUT request
     const response = await axios.put(
-      `${API_URL_four}/categories/${categoryId}`,
+      `${API_URL_four}/${categoryId}`,
       categoryData,
       { headers }
     );
@@ -398,3 +398,31 @@ export const updateCategory = async (categoryId: number, categoryData: Record<st
   }
 };
 
+
+
+export const deleteCategory = async (categoryId: number): Promise<any> => {
+  try {
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    // Send the delete request with token authorization
+    const response = await axios.delete(
+      `${API_URL_four}/${categoryId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data; // Return the response data from the API
+
+  } catch (error: any) {
+    console.error('Error deleting category:', error);
+    throw new Error(error.response ? error.response.data.message : error.message);
+  }
+};

@@ -109,18 +109,18 @@ const RolesTable = () => {
       width: 150,
       renderCell: (params: GridRenderCellParams<Role>) => (
         <Box display="flex" gap={0.5}>
-          <IconButton color="primary" onClick={() => handleViewRole(params.row)}>
+          <IconButton sx={{ color: '#709ec9' }} onClick={() => handleViewRole(params.row)}>
             <ViewIcon />
           </IconButton>
-          <IconButton color="primary" onClick={() => handleEditRole(params.row.role_id)}>
+          <IconButton sx={{ color: '#709ec9' }} onClick={() => handleEditRole(params.row.role_id)}>
             <EditIcon />
           </IconButton>
 
           <IconButton color="error" onClick={() => handleOpenDeleteDialog(params.row.role_id)}>
             <DeleteIcon />
           </IconButton>
-        </Box>
-      ),
+        </Box>                                                                 
+      ),                                                                                                    
     },
   ];
 
@@ -210,7 +210,7 @@ const RolesTable = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button onClick={handleCloseDialog} sx={{ color: '#709ec9'}}>
             Close
           </Button>
         </DialogActions>

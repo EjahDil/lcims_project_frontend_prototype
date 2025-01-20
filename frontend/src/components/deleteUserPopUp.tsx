@@ -37,7 +37,7 @@ const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({
         <Typography>Are you sure you want to deactivate this user?</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
+        <Button onClick={onClose} sx={{ color: '#709ec9'}}>
           Cancel
         </Button>
         <Button onClick={handleConfirmDelete} color="error" variant="contained">

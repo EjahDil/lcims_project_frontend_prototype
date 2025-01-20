@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ServiceDetail: React.FC = () => {
+const UserServiceDetail: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -29,26 +29,26 @@ const ServiceDetail: React.FC = () => {
               {
                 title: "Register Your Infrastructure",
                 description:
-                  "Easily register your infrastructure with our system and get accurate address allocation.",
-                imageSrc: "assets/img/lccview1.jpg",
+                  "Easily register your infrastructure with our system at LCC and get accurate address allocation.",
+                imageSrc: "/assets/img/lccview1.jpg",
               },
               {
                 title: "Register Your Property",
                 description:
-                  "Register your property to enhance the efficiency of our city’s services management.",
-                imageSrc: "assets/img/lccview1.jpg",
+                  "Register your property at LCC to enhance the efficiency of our city’s services management.",
+                imageSrc: "/assets/img/lccview1.jpg",
               },
               {
                 title: "Identify How Much Tax You Will Pay",
                 description:
                   "Find out the tax amount for your property based on its address and type.",
-                imageSrc: "assets/img/lccview1.jpg",
+                imageSrc: "/assets/img/lccview1.jpg",
               },
               {
-                title: "Access Civil Status Information of Limbe Citizens",
+                title: "Pay your taxes using this platform",
                 description:
-                  "Utilize our platform to effortlessly access and stay informed about the civil status records of Limbe citizens",
-                imageSrc: "assets/img/lccview1.jpg",
+                  "Utilize our platform to complete your tax payments with ease and convenience.",
+                imageSrc: "/assets/img/lccview1.jpg",
               },
             ].map((service, index) => (
               <div key={index} className="w-full sm:w-1/2 lg:w-1/4 p-4">
@@ -91,4 +91,4 @@ const ServiceDetail: React.FC = () => {
   );
 };
 
-export default ServiceDetail;
+export default UserServiceDetail;

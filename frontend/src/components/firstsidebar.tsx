@@ -14,6 +14,7 @@ const FirstSidebar: React.FC = () => {
   const [isPropertyDropdownOpen, setPropertyDropdownOpen] = useState(false);
   const [isStreetDropdownOpen, setStreetDropdownOpen] = useState(false);
   const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
+  const [isCivilStatusDropdownOpen, setIsCivilStatusDropdownOpen] = useState(false);
   const [isTaxDropdownOpen, setTaxDropdownOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
@@ -338,13 +339,41 @@ const FirstSidebar: React.FC = () => {
             >
               Revenue Management
             </a>
+            <div className="relative">
 
+                {/* Civil Status Dropdown */}
+      <button
+        onClick={() => setIsCivilStatusDropdownOpen((prev) => !prev)}
+        className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+      >
+        Manage Civil Status
+        <ArrowDropDownIcon
+          className={`h-5 w-5 transition-transform ${
+            isCivilStatusDropdownOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {isCivilStatusDropdownOpen && (
+        <ul className="ml-12 list-disc">
+          <li>
             <a
-              href="/tax-identification"
-              className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
+              href="/civil-status/create"
+              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
             >
-              Civil Status Management
+              Create Civil Status
             </a>
+          </li>
+          <li>
+            <a
+              href="/civil-status/records"
+              className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
+            >
+              View Records
+            </a>
+          </li>
+        </ul>
+      )}
+    </div>
 
             {/* Change Password */}
             <a

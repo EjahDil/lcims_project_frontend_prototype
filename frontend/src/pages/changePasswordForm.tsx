@@ -125,6 +125,17 @@ const ChangePassword: React.FC = () => {
             {isSubmitting ? "Updating..." : "Change Password"}
           </button>
         </div>
+
+        {/* Anchor link to return to homepage */}
+        <div className="flex justify-center mt-4">
+        <a
+          href="/"
+          className="text-sm text-black hover:underline font-bold"
+        >
+          Return to homepage
+        </a>
+      </div>
+
       </form>
     </FormContainer>
   );

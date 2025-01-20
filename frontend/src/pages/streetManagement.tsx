@@ -37,7 +37,7 @@ const StreetManagement = () => {
           <StreetsTable/>
         </div>
 
-       <div className="absolute bottom-5 w-full text-center">
+       <div className="w-full mt-10 text-center">
         <button
           onClick={handleReturnHome}
           className="px-6 py-3 bg-[#709ec9] hover:bg-[#575447] text-white font-semibold rounded-lg shadow-md transition duration-300"

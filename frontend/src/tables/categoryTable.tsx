@@ -14,6 +14,8 @@ import { AttachMoney } from "@mui/icons-material";
 import { CategoryRate } from "./taxRatesTable";
 import Modal from "../components/modalforediting";
 import EditTaxForm from "../pages/updateRates";
+import EditCategoryForm from "../pages/updateCategory";
+import DeleteCategoryDialog from "../components/deleteCategoryPopup";
 //import { fetchCategoryRates } from "../services/useService";
 
 
@@ -44,6 +46,12 @@ const CategoriesTable = () => {
   const [search, setSearch] = useState("");
   //const [status, setStatus] = useState("");
   const [initialData, setInitialData] = useState<CategoryRate | null>(null);
+  const [initialCategoryData, setInitialCategoryData] = useState<{
+    category_id: string;
+    category_name: string;
+    description?: string;
+  } | null>(null);
+  
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 10,
@@ -51,10 +59,12 @@ const CategoriesTable = () => {
   const [selectedCategory, setSelectedCategory] = useState<any | null>(null);
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   //const [openModal, setOpenModal] = useState(false);
+  const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
   //const [rates, setRates] = useState<CategoryRate[]>([]);
-  //const [propertyIdToDelete, setPropertyIdToDelete] = useState<number | null>(null);
+  const [categoryIdToDelete, setCategoryIdToDelete] = useState<number | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
   const navigate = useNavigate();
@@ -109,6 +119,35 @@ const CategoriesTable = () => {
     // Additional logic for handling edits can be added here if needed
   };
   
+  const handleEditCategory = (id: number) => {
+    console.log("Edit category with ID:", id);
+  
+    // Find the specific category data to edit
+    const categoryToEdit = categories.find((category) => category.category_id === id);
+  
+    if (categoryToEdit) {
+      // Transform categoryToEdit to match the expected type
+      const transformedCategory = {
+        category_id: String(categoryToEdit.category_id), // Convert category_id to string
+        category_name: categoryToEdit.category_name,
+        description: categoryToEdit.description,
+      };
+  
+      setInitialCategoryData(transformedCategory);
+      setOpenCategoryModal(true);
+    } else {
+      console.error("Category not found with the specified ID:", id);
+    }
+  };
+  
+
+  const handleCategoryClose = () => {
+    setOpenCategoryModal(false);
+    setInitialCategoryData(null); // Reset data when closing
+  };
+
+
+
   // const handleCreateRate = () => {
   //   navigate("/form");
   // };
@@ -128,10 +167,18 @@ const CategoriesTable = () => {
   //   }
   // };
 
-  // const handleDeleteCategory = (id: number) => {
-  //   console.log("Delete category with ID:", id);
-  //   setPropertyIdToDelete(id);
-  // };
+  const handleOpenDialog = (categoryId: number) => {
+    setCategoryIdToDelete(categoryId);
+    setOpenDeleteDialog(true);
+  };
+
+  const handleDeleteCloseDialog = () => {
+    setCategoryIdToDelete(null);
+    setOpenDeleteDialog(false);
+  };
+
+
+
 
   const handleCloseModal = () => setOpenRateModal(false);
 
@@ -143,45 +190,45 @@ const CategoriesTable = () => {
     { field: "current_rate", headerName: "Current Tax Rate", width: 150 },
     { field: "created_at", headerName: "Created At", width: 180 },
     {
+      field: "set_tax_rate",
+      headerName: "SetTaxRate",
+      width: 150,
+      renderCell: (params: GridRenderCellParams<Category>) => (
+        <Box 
+        justifyContent="center"  
+        alignItems="center"    
+        style={{ height: '100%' }} 
+        display="flex">
+        <IconButton sx={{ color: '#709ec9' }} onClick={() => handleEditRates(params.row.category_id)}>
+          <AttachMoney />
+        </IconButton>
+        </Box>
+      ),
+    },
+    {
       field: "actions",
       headerName: "Actions",
       width: 150,
       renderCell: (params: GridRenderCellParams<Category>) => (
         <Box display="flex" gap={0.5}>
-        <IconButton color="primary" onClick={() => handleViewStreet(params.row)}>
+        <IconButton sx={{ color: '#709ec9' }} onClick={() => handleViewStreet(params.row)}>
             <ViewIcon />
         </IconButton>
           <IconButton 
-          color="primary" 
-          //onClick={() => handleEditCategory(params.row.category_id)}
+         sx={{ color: '#709ec9' }}
+         onClick={() => handleEditCategory(params.row.category_id)}
           >
             <EditIcon />
           </IconButton>
           <IconButton 
           color="error" 
-          //onClick={() => handleDeleteCategory(params.row.category_id)}
+          onClick={() => handleOpenDialog(params.row.category_id)}
           >
             <DeleteIcon />
           </IconButton>
         </Box>
       ),
     },
-    {
-        field: "set_tax_rate",
-        headerName: "SetTaxRate",
-        width: 150,
-        renderCell: (params: GridRenderCellParams<Category>) => (
-          <Box 
-          justifyContent="center"  
-          alignItems="center"    
-          style={{ height: '100%' }} 
-          display="flex">
-          <IconButton color="primary" onClick={() => handleEditRates(params.row.category_id)}>
-            <AttachMoney />
-          </IconButton>
-          </Box>
-        ),
-      },
   ];
 
   useEffect(() => {
@@ -287,7 +334,7 @@ const CategoriesTable = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Close</Button>
+          <Button sx={{ color: '#709ec9' }} onClick={handleCloseDialog}>Close</Button>
         </DialogActions>
       </Dialog>
 
@@ -301,6 +348,25 @@ const CategoriesTable = () => {
           <></> // Return an empty fragment if no initial data is available
         )}
       </Modal>
+
+            <Modal isOpen={openCategoryModal} onClose={handleCategoryClose}>
+        {initialCategoryData ? (
+          <EditCategoryForm
+            initialData={initialCategoryData}
+            onClose={handleCategoryClose}
+          />
+        ) : (
+          <></> // Empty fragment if no data
+        )}
+      </Modal>
+
+      <DeleteCategoryDialog
+        open={openDeleteDialog}
+        categoryId={categoryIdToDelete}
+        onClose={handleDeleteCloseDialog}
+        onCategoryDeleted={() => loadCategories()}
+      />
+
 
     </div>
   );

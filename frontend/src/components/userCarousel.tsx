@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Carousel: React.FC = () => {
+const UserCarousel: React.FC = () => {
   const settings = {
     dots: true,
     infinite: true,
@@ -16,9 +16,6 @@ const Carousel: React.FC = () => {
     fade: true,
   };
 
-  // Check if the token exists in localStorage
-  const isLoggedIn = !!localStorage.getItem("token");
-
   return (
     <div className="w-full mb-10">
       <Slider {...settings}>
@@ -26,7 +23,7 @@ const Carousel: React.FC = () => {
         <div className="relative h-[500px] lg:h-[600px] sm-211:h-[800px]">
           <img
             className="w-full h-full object-cover"
-            src="assets/img/lccview1.jpg"
+            src="/assets/img/lccview1.jpg"
             alt="Limbe City"
           />
           <div
@@ -53,14 +50,6 @@ const Carousel: React.FC = () => {
                   >
                     Read More
                   </a>
-                  {!isLoggedIn && (
-                    <a
-                      href="/login"
-                      className="flex bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight xs:justify-start"
-                    >
-                      Log in
-                    </a>
-                  )}
                 </div>
               </div>
             </div>
@@ -71,7 +60,7 @@ const Carousel: React.FC = () => {
         <div className="relative h-[500px] lg:h-[600px] sm-211:h-[800px]">
           <img
             className="w-full h-full object-cover"
-            src="assets/img/welcomelimbe.jpg"
+            src="/assets/img/welcomelimbe.jpg"
             alt="Welcome to Limbe"
           />
           <div
@@ -98,14 +87,6 @@ const Carousel: React.FC = () => {
                   >
                     Read More
                   </a>
-                  {!isLoggedIn && (
-                    <a
-                      href="/login"
-                      className="bg-[#709ec9] hover:bg-[#575447] text-white py-3 px-8 rounded-md animate-slideInRight"
-                    >
-                      Log in
-                    </a>
-                  )}
                 </div>
               </div>
             </div>
@@ -116,4 +97,4 @@ const Carousel: React.FC = () => {
   );
 };
 
-export default Carousel;
+export default UserCarousel;

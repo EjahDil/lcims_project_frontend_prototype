@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FormContainer from "../components/formContainer";
 import { UseLogin } from "../hooks/UseLogin"; // Import the useLogin hook
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import { FaLock, FaUser } from "react-icons/fa";
 // import { isTokenExpired } from "../contexts/authContext";
 
 
@@ -11,8 +12,6 @@ const LoginForm: React.FC = () => {
   const { login, isLoading, error, success } = UseLogin(); // Destructure login, isLoading, error, and success from the hook
   const navigate = useNavigate(); // useNavigate hook to redirect after login
 
-
-  
 
   // Check for token and redirect on every render of the login page
   useEffect(() => {
@@ -49,13 +48,14 @@ const LoginForm: React.FC = () => {
     };
 
     const user = await login(credentials);
-    const token = localStorage.getItem("token")
     
-          if (token) {
-        console.log("Token exists:", token);
-      } else {
-        console.log("Token is not available.");
-      }
+    // const token = localStorage.getItem("token")
+    
+    //       if (token) {
+    //     console.log("Token exists:", token);
+    //   } else {
+    //     console.log("Token is not available.");
+    //   }
       
 
   
@@ -70,9 +70,12 @@ const LoginForm: React.FC = () => {
         if (user) {
           const user = JSON.parse(localStorage.getItem("user") || "{}");
           const { role } = user;
-  
+
+          
           if (role === 'admin') {
             navigate("/admin/home", { replace: true });
+          } else if (role === 'user') {
+            navigate("/user/home", { replace: true });
           } else {
             navigate("/dashboard/home", { replace: true });
           }
@@ -90,34 +93,41 @@ const LoginForm: React.FC = () => {
     <FormContainer title="Login">
       <form onSubmit={handleSubmit} className="space-y-4">
         <label className="block ml-1 font-semibold text-lg  ">Username</label>
-        <input
-          type="text" // Change input type to text for username
-          name="username" // Use 'username' instead of 'email'
-          value={formData.username}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          placeholder="Username"
-          required
-        />
-        <div className="relative space-y-4">
-        <label className="block ml-1 font-semibold text-lg  ">Password</label>
+        <div className="relative">
+          <input
+            type="text" // Change input type to text for username
+            name="username" // Use 'username' instead of 'email'
+            value={formData.username}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 pl-10" // Add padding for icon
+            placeholder="Username"
+            required
+          />
+          <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        </div>
+
+        <label className="block ml-1 font-semibold text-lg">Password</label>
+        <div className="relative">
           <input
             type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 pl-10" // Add padding for icon
             placeholder="Password"
             required
           />
+          <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)} // Toggle the password visibility
-            className="absolute right-3 top-1/2 transform -translate-y-1/3 text-gray-500"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
           >
             {showPassword ? "Hide" : "Show"} {/* Toggle between 'Show' and 'Hide' */}
           </button>
         </div>
+
+        
         <div className="flex justify-center">
           <button
             type="submit"
@@ -128,10 +138,23 @@ const LoginForm: React.FC = () => {
           </button>
         </div>
 
+        {/* Anchor link to return to homepage */}
+            <div className="flex justify-center mt-4">
+              <a
+                href="/"
+                className="text-sm text-black hover:underline font-bold"
+              >
+                Return to homepage
+              </a>
+            </div>
+
         {error && <p className="text-red-500 text-center">{error}</p>} {/* Show error if any */}
         {success && <p className="text-green-500 text-center">Login successful!</p>} {/* Show success message */}
       </form>
+
     </FormContainer>
+
+ 
   );
 };
 

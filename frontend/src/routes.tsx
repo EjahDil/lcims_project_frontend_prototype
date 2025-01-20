@@ -29,6 +29,13 @@ import CreateStreetForm from "./pages/createStreet";
 import CategoryManagement from "./pages/categoryManagement";
 import CreateCategoryForm from "./pages/createCategory";
 import PayTaxForm from "./pages/payTax";
+import RegisterUserForm from "./pages/registerUser ";
+import UserLayout from "./components/userCommonLayout";
+import UserHome from "./pages/userhome";
+import UserPayTaxForm from "./pages/userPayTax";
+import UserPropertyForm from "./pages/userPropertyInfo";
+import UserTaxBillForm from "./pages/userTaxRates";
+import ProtectDashboard from "./components/protectDashboardRoute";
 
 
 
@@ -70,8 +77,11 @@ const router =  createBrowserRouter([
         element : <Registration/> ,
 
     },
+    {
+        path : '/register-user',
+        element : <RegisterUserForm/> ,
 
-
+    },
     //{
     //     element: <ProtectedRoute />,
     //     children : [
@@ -126,37 +136,67 @@ const router =  createBrowserRouter([
                 ],
               },
 
-            {
-                element: <SecondSidebarLayout/>,
+              {
+                path: '/dashboard',
+                element: <ProtectDashboard />, 
                 children: [
+
                     {
-                        path: '/dashboard',
+                        element: <SecondSidebarLayout/>,
                         children: [
-                            {
-                                path: "home",
-                                element:<DashboardPage />,
-
-                            },
-                            {
-                                path: "property-management",
-                                element: <PropertyManagement/>
-                            },
-                            {
-                                path: 'street-management',
-                                element: <StreetManagement/>,
-                            },
-                            {
-                                path: 'category-management',
-                                element: <CategoryManagement/>,
-                              },
-                            {
-                                path: 'tax-identification',
-                                element: <TaxIdentification/>,
-                            },
+         
+                                    {
+                                        path: "home",
+                                        element:<DashboardPage />,
+        
+                                    },
+                                    {
+                                        path: "property-management",
+                                        element: <PropertyManagement/>
+                                    },
+                                    {
+                                        path: 'street-management',
+                                        element: <StreetManagement/>,
+                                    },
+                                    {
+                                        path: 'category-management',
+                                        element: <CategoryManagement/>,
+                                      },
+                                    {
+                                        path: 'tax-identification',
+                                        element: <TaxIdentification/>,
+                                    },
+        
                         ],
+                
                     },
+                    
+                ]
 
-                ],
+              },
+
+            {
+                path:"/user",
+                element : <UserLayout/>,
+                children : [
+                {
+                    path : 'home',
+                    element : <UserHome/> 
+                },
+                {
+                    path: 'pay-tax',
+                    element: <UserPayTaxForm/> 
+                },
+                {
+                    path: "property-information",
+                    element: <UserPropertyForm/>,
+                },
+                {
+                    path: "tax-rates",
+                    element: <UserTaxBillForm/>,
+                },
+                ]
+        
         
             },
             {

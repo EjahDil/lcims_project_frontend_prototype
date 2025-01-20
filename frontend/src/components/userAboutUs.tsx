@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick"; // Import React Slick
 import { ArrowRightIcon } from "@heroicons/react/24/solid"; // Import Heroicons
 
-const CarouselAndAboutUs: React.FC = () => {
+const UserCarouselAndAboutUs: React.FC = () => {
   // React Slick settings for the carousel
   const settings = {
     dots: true,
@@ -30,7 +30,7 @@ const CarouselAndAboutUs: React.FC = () => {
               <div className="relative">
                 <img
                   className="img-fluid object-contain w-full max-h-[600px]" // Ensure full width and height
-                  src="assets/img/seal_cameroon.jpg"
+                  src="/assets/img/seal_cameroon.jpg"
                   alt="Seal of Cameroon"
                 />
               </div>
@@ -38,7 +38,7 @@ const CarouselAndAboutUs: React.FC = () => {
               <div className="relative">
                 <img
                   className="img-fluid object-cover w-full h-[600px]" // Ensure full width and height
-                  src="assets/img/lccview1.jpg"
+                  src="/assets/img/lccview1.jpg"
                   alt="Limbe City"
                 />
               </div>
@@ -59,19 +59,19 @@ const CarouselAndAboutUs: React.FC = () => {
             Additionally, it centralizes civil status information for the Limbe citizens.
           
             </p>
-            <p className="mb-4">
+            {/* <p className="mb-4">
               LCIMS features modules for house numbering, tax identification, civil status information a
               user-friendly dashboard for city revenue insights. LCIMS also offers civil status information of
               citizens.
-            </p>
+            </p> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div className="flex items-center">
                 <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
-                <p className="mb-0">Register your Property</p>
+                <p className="mb-0">Register your Property at LCC</p>
               </div>
               <div className="flex items-center">
                 <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
-                <p className="mb-0">Assign an Address to Your Business Location</p>
+                <p className="mb-0">Assign an Address to Your Business Location at LCC</p>
               </div>
               <div className="flex items-center">
                 <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
@@ -79,7 +79,7 @@ const CarouselAndAboutUs: React.FC = () => {
               </div>
               <div className="flex items-center">
                 <ArrowRightIcon className="h-5 w-5 text-[#709ec9] mr-2" />
-                <p className="mb-0">Access Civil Status Information of Limbe Citizens</p>
+                <p className="mb-0">Pay your taxes quickly and securely online.</p>
               </div>
               </div>
             {!token && (
@@ -94,4 +94,4 @@ const CarouselAndAboutUs: React.FC = () => {
   );
 };
 
-export default CarouselAndAboutUs;
+export default UserCarouselAndAboutUs;

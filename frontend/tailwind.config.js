@@ -13,6 +13,7 @@ export default {
 
       screens: {
         'custom-md': '1089px',
+        "nav-md" : {min : "1361px"},
         "sm-732" : {max : "732px"},
         "sm-684" : {max : "684px"},
         "sm-615" : {max : "615px"},
@@ -26,7 +27,9 @@ export default {
          "sm-211" : {max : "211px"},
          "sm-138" : {max : "138px"},
          "sm-1000" : {min : "1000px"},
+         "sm-1360" : {max : "1360px"},
          "sm-1514" : {min : "1514px"},
+         "lg-1360" : {min : "1360px"},
       },
 
       keyframes: {

@@ -1,13 +1,12 @@
 
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import FormContainer from "../components/formContainer";
 import { processPropertyPayment } from "../services/useService_1";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 
-const PayTaxForm: React.FC = () => {
-  const navigate = useNavigate();
+const UserPayTaxForm: React.FC = () => {
+  //const navigate = useNavigate();
   const [paymentDetails, setPaymentDetails] = useState<any>(null); 
 
    // State for controlling dialog visibility
@@ -32,28 +31,28 @@ const PayTaxForm: React.FC = () => {
   const handleCloseTaxHistoryDialog = () => {
     setOpenTaxHistoryDialog(false);
     // Redirect to a relevant page after success
-    setTimeout(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-          try {
-            const user = JSON.parse(localStorage.getItem("user") || "{}");
-            const { role } = user;
+    // setTimeout(() => {
+    //     const token = localStorage.getItem("token");
+    //     if (token) {
+    //       try {
+    //         const user = JSON.parse(localStorage.getItem("user") || "{}");
+    //         const { role } = user;
 
-            // Navigate based on the user's role
-            if (role === "admin") {
-              navigate("/admin/property-management");
-            } else {
-              navigate("/dashboard/property-management");
-            }
+    //         // Navigate based on the user's role
+    //         if (role === "admin") {
+    //           navigate("/admin/property-management");
+    //         } else {
+    //           navigate("/dashboard/property-management");
+    //         }
 
-             // Reload the page after navigation
-            window.location.reload();
+    //          // Reload the page after navigation
+    //         window.location.reload();
 
-          } catch (err) {
-            console.error("Error parsing user data from localStorage:", err);
-          }
-        }
-    }, 0);
+    //       } catch (err) {
+    //         console.error("Error parsing user data from localStorage:", err);
+    //       }
+    //     }
+    // }, 0);
 };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -172,6 +171,10 @@ const handlePrint = () => {
 
   return (
     <FormContainer title="Pay Property Tax">
+       <p className="text-gray-600 text-sm mb-4">
+    Enter your Property ID to pay the assigned tax amount. You can pay in multiple installments throughout the year based on your convenience.
+      </p>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {success && <p className="text-green-500 text-sm">{success}</p>}
@@ -272,4 +275,4 @@ const handlePrint = () => {
   );
 };
 
-export default PayTaxForm;
+export default UserPayTaxForm;

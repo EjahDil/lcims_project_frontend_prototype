@@ -126,10 +126,10 @@ const UserTable: React.FC = () => {
       width: 130,
       renderCell: (params: GridRenderCellParams) => (
         <Box display="flex" gap={0.1}>
-          <IconButton color="primary" onClick={() => handleEdit(params.row.user_id)}>
+          <IconButton   sx={{ color: '#709ec9' }} onClick={() => handleEdit(params.row.user_id)}>
             <EditIcon />
           </IconButton>
-          <IconButton color="primary" onClick={() => handleView(params.row)}>
+          <IconButton   sx={{ color: '#709ec9' }} onClick={() => handleView(params.row)}>
             <ViewIcon />
           </IconButton>
           <IconButton color="error" onClick={() => handleDelete(params.row.user_id)}>

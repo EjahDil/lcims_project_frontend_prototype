@@ -114,10 +114,10 @@ const StreetsTable = () => {
       width: 200,
       renderCell: (params: GridRenderCellParams<Street>) => (
         <Box display="flex" gap={1}>
-          <IconButton color="primary" onClick={() => handleViewStreet(params.row)}>
+          <IconButton sx={{ color: '#709ec9' }} onClick={() => handleViewStreet(params.row)}>
             <ViewIcon />
           </IconButton>
-          <IconButton color="primary" onClick={() => handleEditStreet(params.row.street_id)}>
+          <IconButton sx={{ color: '#709ec9' }} onClick={() => handleEditStreet(params.row.street_id)}>
             <EditIcon />
           </IconButton>
 
@@ -178,8 +178,8 @@ const StreetsTable = () => {
       </Box>
       </Box>
 
-      <div style={{ height: 400, width: '100%' }} ref={gridRef}>
-              <DataGrid
+      <Box style={{ overflowX: "hidden" }}>
+          <DataGrid
           rows={filteredStreets}
           columns={columns}
           pagination
@@ -191,11 +191,12 @@ const StreetsTable = () => {
               sortModel: [{ field: "street_id", sort: "asc" }],
             },
           }}
+          ref={gridRef}
           getRowId={(row) => row.street_id}
           onRowSelectionModelChange={setRowSelectionModel}
           rowSelectionModel={rowSelectionModel}
         />
-      </div>
+      </Box>
 
       {/* Dialog for Street Details */}
       <Dialog 
@@ -223,7 +224,7 @@ const StreetsTable = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Close</Button>
+          <Button onClick={handleCloseDialog} sx={{ color: '#709ec9' }}>Close</Button>
         </DialogActions>
       </Dialog>
 

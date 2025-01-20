@@ -2,23 +2,23 @@ import React from "react";
 import { MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline"; // For non-social media icons
 import { FaTwitter, FaFacebook, FaYoutube, FaLinkedin, FaEnvelope, FaGithub } from "react-icons/fa"; // For social media icons
 
-const Footer: React.FC = () => {
+const UserFooter: React.FC = () => {
   return (
     <div className="bg-[#709ec9] text-white py-6 mt-12">
       <div className="max-w-8xl mx-auto px-4 flex flex-wrap justify-between gap-5">
         
         {/* Logo Section */}
         <div className="flex flex-1 ml-6 pt-20 pr-4 justify-start">
-          <img src="assets/img/seal_new.png" alt="Seal" className="w-1/7 h-1/5 p-1" />
+          <img src="/assets/img/seal_new.png" alt="Seal" className="w-1/7 h-1/5 p-1" />
         </div>
 
         {/* Quick Links */}
         <div className="flex flex-1 pt-10 px-4 flex-col sm-732:hidden">
           <h4 className="mb-4 text-lg font-semibold">Quick Links</h4>
           <ul>
-            <li><a href="/form" className="block mb-2">Forms</a></li>
-            <li><a href="/tax-identification" className="block mb-2">Tax Identification</a></li>
-            <li><a href="#" className="block mb-2">Civil Status</a></li>
+            <li><a href="/user/pay-tax" className="block mb-2">Tax Payment</a></li>
+            <li><a href="/user/property-information" className="block mb-2">Property Information</a></li>
+            <li><a href="/user/tax-rates" className="block mb-2">Tax identification</a></li>
             <li><a href="#" className="block mb-2">Contact Us</a></li>
             <li><a href="#" className="block mb-2">Privacy Policy</a></li>
             <li><a href="#" className="block mb-2">Terms & Conditions</a></li>
@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
 
         {/* Logo Section 2 */}
         <div className="flex flex-1 ml-auto pr-4 pt-20 justify-end">
-          <img src="assets/img/lcims_new.png" alt="LCIMS" className="w-1/7 h-1/4 p-1" />
+          <img src="/assets/img/lcims_new.png" alt="LCIMS" className="w-1/7 h-1/4 p-1" />
         </div>
       </div>
 
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             Designed By <a href="https://htmlcodex.com" className="underline ml-3">HTML Codex</a>
           </div>
           <div className="flex space-x-4 mt-4 sm-732:item-start">
-            <a href="/" className="text-white">Home</a>
+            <a href="/user/home" className="text-white">Home</a>
             <a href="#" className="text-white">Cookies</a>
             <a href="#" className="text-white">Help</a>
             <a href="#" className="text-white">FAQs</a>
@@ -133,4 +133,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer;
+export default UserFooter;

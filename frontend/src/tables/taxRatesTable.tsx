@@ -12,7 +12,7 @@ import {
   IconButton,
   
 } from "@mui/material";
-import { Delete as DeleteIcon, Visibility as ViewIcon } from '@mui/icons-material';
+import { Visibility as ViewIcon } from '@mui/icons-material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from "@mui/x-data-grid";
 import {fetchCategoryRates } from "../services/useService";
 import { useNavigate } from "react-router-dom";
@@ -150,9 +150,14 @@ const TaxRatesTable = () => {
       headerName: "Actions",
       width: 150,
       renderCell: (params: GridRenderCellParams<CategoryRate>) => (
-        <Box display="flex" gap={0.5}>
+        <Box 
+        justifyContent="center"  
+        alignItems="center"
+        display="flex" 
+        gap={0.5}
+        >
           <IconButton
-            color="primary"
+           sx={{ color: '#709ec9' }}
             onClick={() => {
               setSelectedRate(params.row);
               setOpenDialog(true);
@@ -160,14 +165,14 @@ const TaxRatesTable = () => {
           >
             <ViewIcon />
           </IconButton>
-          <IconButton
+          {/* <IconButton
             color="error"
             onClick={() => {
               console.log(`Delete rate with ID: ${params.row.rate_id}`);
             }}
           >
             <DeleteIcon />
-          </IconButton>
+          </IconButton> */}
         </Box>
       ),
     },
@@ -305,7 +310,7 @@ const TaxRatesTable = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Close</Button>
+          <Button onClick={handleCloseDialog} sx={{ color: '#709ec9' }}>Close</Button>
         </DialogActions>
       </Dialog>
 

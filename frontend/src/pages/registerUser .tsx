@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormContainer from "../components/formContainer";
 import { createUser } from "../services/useService"; // Import the createUser function
-import Select, { SingleValue } from "react-select";
 
-const CreateUserForm: React.FC = () => {
+const RegisterUserForm: React.FC = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    role: "",
+    role: "user",  // Set default role to "user"
     digital_address: "",
   });
 
@@ -40,13 +39,13 @@ const CreateUserForm: React.FC = () => {
         username: "",
         email: "",
         password: "",
-        role: "",
+        role: "user", 
         digital_address: "",
       });
 
       // Redirect to the users page after success
       setTimeout(() => {
-        navigate("/admin/user-management");
+        navigate("/login");
       }, 2000);
     } catch (err: any) {
       console.error("Error creating user:", err);
@@ -54,70 +53,8 @@ const CreateUserForm: React.FC = () => {
     }
   };
 
-
-    // Options for the select dropdown
-    const roleOptions = [
-      { value: "admin", label: "Admin" },
-      { value: "property_registrator", label: "Property Registrator" },
-      { value: "tax_officer", label: "Tax Officer" },
-      { value: "city_officer", label: "City Officer" },
-      { value: "user", label: "Tax Payer" },
-    ];
-  
-    // Custom styles for react-select with Tailwind CSS
-    const customStyles = {
-      control: (provided: any) => ({
-        ...provided,
-        borderColor: "#ccc", // Border color
-        borderRadius: "0.375rem", // rounded-md
-        padding: "0.5rem", // padding
-        boxShadow: "none",
-        "&:hover": {
-          borderColor: "#575447", // Hover border color
-        },
-      }),
-      option: (provided: any, state: any) => ({
-        ...provided,
-        backgroundColor: state.isSelected
-          ? "#709ec9"  // Background color when the option is selected
-          : state.isFocused
-          ? "#fff"  // Background color when the option is hovered (focused)
-          : provided.backgroundColor,  // Default background color for other states
-        color: state.isSelected ? "#fff" : "#333", // Text color when selected
-        //padding: "0.75rem 1rem", // Padding for the options
-
-        "&:hover": {
-          backgroundColor: "#575447",
-          color: "#fff",
-        },
-        cursor: "pointer",
-      }),
-
-      placeholder: (provided: any) => ({
-        ...provided,
-        color: "#aaa", // Placeholder color
-      }),
-      singleValue: (provided: any) => ({
-        ...provided,
-        color: "#333", // Text color for selected value
-      }),
-    };
-
-
-  // This function is now designed to handle the select value properly
-  const handleRoleChange = (selectedOption: SingleValue<{ value: string; label: string }>) => {
-    // When the user selects an option, update the formData with the new value
-    if (selectedOption) {
-      setFormData({
-        ...formData,
-        role: selectedOption.value, // Update formData with the selected value
-      });
-    }
-  };
-
-
   return (
-    <FormContainer title="Create New User">
+    <FormContainer title="New User">
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {success && <p className="text-green-500 text-sm">{success}</p>}
@@ -137,8 +74,7 @@ const CreateUserForm: React.FC = () => {
             required
             className="w-full px-4 py-2 border rounded-md pl-8"
           />
-
-        <i className="fa fa-user absolute left-3 top-9 text-gray-400"></i>
+          <i className="fa fa-user absolute left-3 top-9 text-gray-400"></i>
         </div>
 
         {/* Email */}
@@ -169,35 +105,16 @@ const CreateUserForm: React.FC = () => {
             id="password"
             name="password"
             value={formData.password}
-            onChange = {handleChange}
+            onChange={handleChange}
             required
             placeholder="Password"
             className="w-full px-4 py-2 border rounded-md pl-8"
           />
-
           <i className="fa fa-lock absolute left-3 top-9 text-gray-400"></i>
         </div>
 
-      {/* Role */}
-      <div>
-        <label htmlFor="role" className="block text-gray-700">
-          Role
-        </label>
-        <Select
-          id="role"
-          name="role"
-          value={roleOptions.find(option => option.value === formData.role)}
-          onChange={handleRoleChange}
-          options={roleOptions}
-          placeholder="Select Role"
-          styles={customStyles} // Apply Tailwind styles
-        />
-
-      </div>
-
-
         {/* Digital Address (optional) */}
-        <div className="relative">
+        {/* <div className="relative">
           <label htmlFor="digital_address" className="block text-gray-700">
             Digital Address
           </label>
@@ -211,7 +128,7 @@ const CreateUserForm: React.FC = () => {
             className="w-full px-4 py-2 border rounded-md pl-8"
           />
            <i className="fa fa-map-marker absolute left-3 top-9 text-gray-400"></i>
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <div className="flex justify-center">
@@ -219,23 +136,23 @@ const CreateUserForm: React.FC = () => {
             type="submit"
             className="w-1/2 py-2 px-4 bg-[#709ec9] hover:bg-[#575447] text-white rounded-md font-semibold"
           >
-            Create User
+            Register as User
           </button>
         </div>
 
-      {/* Anchor link to return to homepage */}
-      <div className="flex justify-center mt-4">
-      <a
-        href="/"
-        className="text-sm text-black hover:underline font-bold"
-      >
-        Return to homepage
-      </a>
-    </div>
+        {/* Anchor link to return to homepage */}
+        <div className="flex justify-center mt-4">
+          <a
+            href="/"
+            className="text-sm text-black hover:underline font-bold"
+          >
+            Return to homepage
+          </a>
+        </div>
 
       </form>
     </FormContainer>
   );
 };
 
-export default CreateUserForm;
+export default RegisterUserForm;

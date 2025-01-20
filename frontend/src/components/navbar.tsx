@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
-import Dropdown from "./dropDownRevenue";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Dropdown from "./dropDownRevenue";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const dropDownOptions = [
-    { label: "Revenue Summary", link: "" },
-    { label: " Revenue Dashboard", link: "" },
+  const navigate = useNavigate();
+  
+
+  const civilStatusOptions = [
+    { label: "Create Civil Status", link: "/create-civil-status" },
+    { label: "View Records", link: "/view-records" },
   ];
 
   const toggleNavbar = () => {
@@ -77,6 +81,29 @@ const Navbar: React.FC = () => {
     setIsLoggedIn(!!token); // Set logged-in state based on token presence
   }, []);
 
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      // Check if click is outside the menu and toggle button
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(target)
+      ) {
+        setIsOpen(false); // Close the menu
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
   return (
     <nav className="bg-white shadow sticky top-0 z-50 w-full">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,134 +120,181 @@ const Navbar: React.FC = () => {
             </a>
           </div>
 
-          {/* Mobile login/logout button and hamburger */}
-          <div className="flex items-center ml-auto custom-md:hidden space-x-2 sm-168:hidden">
-            {!isLoggedIn && !isOpen && (
+
+
+                  <div className="flex items-center ml-auto lg-1360:hidden space-x-2 sm-168:hidden">
+          {!isLoggedIn && !isOpen && (
+            <>
+              <a
+                href="/register-user"
+                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden sm-398:hidden"
+              >
+                Register
+                <i className="fa fa-user-plus ml-2"></i>
+              </a>
               <a
                 href="/login"
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
+                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden sm-398:hidden"
               >
                 Log in
                 <i className="fa fa-arrow-right ml-2"></i>
               </a>
-            )}
-            {isLoggedIn && !isOpen && (
-              <button
-                onClick={handleLogout}
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
-              >
-                Logout
-                <i className="fa fa-sign-out ml-2"></i>
-              </button>
-            )}
+            </>
+          )}
+          {isLoggedIn && !isOpen && (
             <button
-              type="button"
-              className="text-gray-700 hover:text-blue-600"
-              onClick={toggleNavbar}
-              aria-expanded={isOpen}
+              onClick={handleLogout}
+              className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
             >
-              {isOpen ? (
-                <svg
-                  className="w-8 h-8 text-gray-700"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-8 h-8 text-gray-700"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+              Logout
+              <i className="fa fa-sign-out ml-2"></i>
             </button>
+          )}
+          <button
+            type="button"
+            ref={toggleButtonRef}
+            className="text-gray-700 hover:text-blue-600"
+            onClick={toggleNavbar}
+            aria-expanded={isOpen}
+          >
+            {isOpen ? (
+              <svg
+                className="w-8 h-8 text-gray-700"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-8 h-8 text-gray-700"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
           </div>
 
-              {/* Desktop Navigation Links */}
-          <div
-          className={`${
-          isOpen ? "absolute top-12 left-0 w-full bg-white shadow-lg p-4 block" : "hidden"
-          } custom-md:flex custom-md:relative custom-md:top-0 custom-md:left-0 custom-md:w-auto custom-md:p-0 custom-md:bg-transparent`}
+                  {/* Navigation Menu */}
+                  <div
+            ref={menuRef}
+            className={`${
+              isOpen
+                ? "absolute top-12 left-0 w-full bg-white shadow-lg p-4 block"
+                : "hidden"
+            } nav-md:flex nav-md:relative nav-md:top-0 nav-md:left-0 nav-md:w-auto nav-md:p-0`}
           >
-          <div className="flex flex-col custom-md:flex-row custom-md:items-center custom-md:space-y-0 custom-md:space-x-10 space-y-4">
-          <a
-          href="/"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
-          >
-          Home
-          </a>
-          <a
-          className="nav-item block text-gray-700 hover:text-[#709ec9] hover:cursor-pointer font-bold"
-          onClick={handleDashboardClick}
-          >
-          Dashboard
-          </a>
-          <a
-          href="/form"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
-          >
-          Form
-          </a>
-          <a
-          onClick={handleTaxNavigation}
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold hover:cursor-pointer"
-          >
-          Tax Identification
-          </a>
-          <a
-          href="courses.html"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
-          >
-          Civil Status
-          </a>
-          <Dropdown label="Revenue Management" options={dropDownOptions} />
-          <a
-          href="contact.html"
-          className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
-          >
-          Contact
-          </a>
-          </div>
-
+            <div className="flex flex-col nav-md:flex-row nav-md:items-center nav-md:space-y-0 nav-md:space-x-10 space-y-4">
+              <a
+                href="/"
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+              >
+                Home
+              </a>
+              <a
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold cursor-pointer"
+                onClick={handleDashboardClick}
+              >
+                Dashboard
+              </a>
+              <a
+                href="/form"
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+              >
+                Form
+              </a>
+              <a
+                onClick={handleTaxNavigation}
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold cursor-pointer"
+              >
+                Tax Identification
+              </a>
+                  {/* Using Dropdown for Civil Status */}
+               <Dropdown label="Civil Status" options={civilStatusOptions} />
+              <a
+                href="courses.html"
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+              >
+                Revenue Management
+              </a>
+              <a
+                href="contact.html"
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+              >
+                Contact
+              </a>
+              {!isLoggedIn ? (
+                <>
+                  <a
+                    href="/register-user"
+                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold lg-1360:hidden"
+                  >
+                    Register
+                  </a>
+                  <a
+                    href="/login"
+                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold lg-1360:hidden"
+                  >
+                    Log in
+                  </a>
+                </>
+              ) : (
+                <a
+                  onClick={handleLogout}
+                  className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold hover:cursor-pointer lg-1360:hidden"
+                >
+                  Logout
+                </a>
+              )}
+            </div>
           </div>
 
           {/* Desktop Login/Logout Button */}
-          <div className="hidden custom-md:flex custom-md:items-center">
-            {!isLoggedIn ? (
+          <div className="hidden custom-md:flex custom-md:items-center sm-1360:hidden">
+          {!isLoggedIn ? (
+            <>
+              <a
+                href="/register-user"
+                className="py-2 px-8 mr-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded sm:block"
+              >
+                Register as User
+                <i className="fa fa-user-plus ml-2"></i>
+              </a>
               <a
                 href="/login"
-                className="btn-primary py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded hidden sm:block"
+                className="py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded sm:block"
               >
                 Log in
                 <i className="fa fa-arrow-right ml-2"></i>
               </a>
-            ) : (
-              <button
-                onClick={handleLogout}
-                className="btn-primary py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded hidden sm:block"
-              >
-                Logout
-                <i className="fa fa-sign-out ml-2"></i>
-              </button>
-            )}
-          </div>
+            </>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="py-2 px-8 text-white bg-[#709ec9] hover:bg-[#575447] rounded sm:block"
+            >
+              Logout
+              <i className="fa fa-sign-out ml-2"></i>
+            </button>
+          )}
+        </div>
+
         </div>
       </div>
     </nav>

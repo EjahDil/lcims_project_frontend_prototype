@@ -50,6 +50,16 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50 overflow-hidden">
+
+          {/* Image at the top */}
+        <div className="fixed top-0 flex justify-center mt-4">
+        <img
+          src="/assets/img/lcims_new.png"
+          alt="LCIMS Logo"
+          className="w-40 sm:w-60 lg:w-60 object-contain"
+        />
+      </div>
+      
       <div className="sm-478:ml-20 sm-260:hidden">
         {/* Typing animation applied to the text */}
         <h1 className="relative overflow-hidden whitespace-nowrap border-gray-700 text-4xl font-bold text-black animate-typing sm-1514:text-6xl sm-732:text-xl sm-615:text-[8px]">
@@ -58,7 +68,7 @@ const DashboardPage: React.FC = () => {
         </h1>
       </div>
 
-      <div className="fixed bottom-4 w-full text-center">
+      <div className="fixed bottom-4 text-center">
         <button
           onClick={handleReturnHome}
           className="px-6 py-3 bg-[#709ec9] hover:bg-[#575447] text-white font-semibold rounded-lg shadow-md transition duration-300"
