@@ -14,6 +14,14 @@
   `
    cd lcims_project_frontend
   `
+
+- Still in the terminal use type the command below to be sure you will run the project from the feature/deploy branch
+
+  
+  `
+    git checkout feature/deploy
+  `
+    
  - Once inside the folder above navigate to the frontend using the command
 
    `
