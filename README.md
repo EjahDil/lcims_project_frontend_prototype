@@ -7,6 +7,12 @@
 
   `
    git clone https://github.com/EjahDil/lcims_project_frontend.git
+
+- Still in the terminal use type the command below to be sure you will run the project from the main branch
+
+  
+  `
+    git checkout main
   `
   
 - navigate to the folder having the same name as the github repository cloned above using the command
