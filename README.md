@@ -15,7 +15,7 @@
    cd lcims_project_frontend
   `
 
-- Still in the terminal use type the command below to be sure you will run the project from the feature/deploy branch
+- Still in the terminal use type the command below to be sure you will run the project from the feature/test-color branch
   
   `
     git checkout feature/test-color
