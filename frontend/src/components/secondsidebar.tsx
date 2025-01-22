@@ -356,7 +356,7 @@ const SecondSidebar: React.FC = () => {
           <ul className="ml-12 list-disc">
             <li>
               <a
-                href="/civil-status/create"
+                href="https://birth-certificate-generator-1.onrender.com/"
                 className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
               >
                 Create Civil Status

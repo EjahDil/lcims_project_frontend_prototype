@@ -339,9 +339,11 @@ const FirstSidebar: React.FC = () => {
             >
               Revenue Management
             </a>
-            <div className="relative">
 
                 {/* Civil Status Dropdown */}
+
+            <div className="relative">
+
       <button
         onClick={() => setIsCivilStatusDropdownOpen((prev) => !prev)}
         className="w-full flex justify-between items-center px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
@@ -357,7 +359,7 @@ const FirstSidebar: React.FC = () => {
         <ul className="ml-12 list-disc">
           <li>
             <a
-              href="/civil-status/create"
+              href="https://birth-certificate-generator-1.onrender.com/"
               className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
             >
               Create Civil Status

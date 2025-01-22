@@ -93,7 +93,7 @@ const Navbar: React.FC = () => {
         toggleButtonRef.current &&
         !toggleButtonRef.current.contains(target)
       ) {
-        setIsOpen(false); // Close the menu
+        setIsOpen(false);
       }
     };
 
@@ -122,74 +122,82 @@ const Navbar: React.FC = () => {
 
 
 
-                  <div className="flex items-center ml-auto lg-1360:hidden space-x-2 sm-168:hidden">
-          {!isLoggedIn && !isOpen && (
-            <>
-              <a
-                href="/register-user"
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden sm-398:hidden"
-              >
-                Register
-                <i className="fa fa-user-plus ml-2"></i>
-              </a>
-              <a
-                href="/login"
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden sm-398:hidden"
-              >
-                Log in
-                <i className="fa fa-arrow-right ml-2"></i>
-              </a>
-            </>
-          )}
-          {isLoggedIn && !isOpen && (
-            <button
-              onClick={handleLogout}
-              className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
-            >
-              Logout
-              <i className="fa fa-sign-out ml-2"></i>
-            </button>
-          )}
-          <button
-            type="button"
-            ref={toggleButtonRef}
-            className="text-gray-700 hover:text-blue-600"
-            onClick={toggleNavbar}
-            aria-expanded={isOpen}
-          >
-            {isOpen ? (
-              <svg
-                className="w-8 h-8 text-gray-700"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-8 h-8 text-gray-700"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
-          </div>
+                        <div className="flex items-center ml-auto nav-md:hidden space-x-2 sm-168:hidden">
+                {/* Buttons */}
+                {!isLoggedIn && !isOpen && (
+                  <div className="flex space-x-2 sm-478:hidden">
+                    <a
+                      href="/register-user"
+                      className="py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded"
+                    >
+                      Register
+                      <i className="fa fa-user-plus ml-2"></i>
+                    </a>
+                    <a
+                      href="/login"
+                      className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded"
+                    >
+                      Log in
+                      <i className="fa fa-arrow-right ml-2"></i>
+                    </a>
+                  </div>
+                )}
+                {isLoggedIn && !isOpen && (
+                  <div className="xs:hidden">
+                    <button
+                      onClick={handleLogout}
+                      className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded"
+                    >
+                      Logout
+                      <i className="fa fa-sign-out ml-2"></i>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+                       {/* Hamburger Menu */}
+         <div className="ml-2 nav-md:hidden">
+                <button
+                  type="button"
+                  ref={toggleButtonRef}
+                  className="text-gray-700 hover:text-blue-600"
+                  onClick={toggleNavbar}
+                  aria-expanded={isOpen}
+                >
+                  {isOpen ? (
+                    <svg
+                      className="w-8s h-8 text-gray-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="w-8 h-8 text-gray-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
+
 
                   {/* Navigation Menu */}
                   <div
@@ -243,13 +251,13 @@ const Navbar: React.FC = () => {
                 <>
                   <a
                     href="/register-user"
-                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold lg-1360:hidden"
+                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold nav-md:hidden"
                   >
                     Register
                   </a>
                   <a
                     href="/login"
-                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold lg-1360:hidden"
+                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold nav-md:hidden"
                   >
                     Log in
                   </a>
@@ -266,7 +274,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Login/Logout Button */}
-          <div className="hidden custom-md:flex custom-md:items-center sm-1360:hidden">
+          <div className="hidden custom-md:flex custom-md:items-center nav-ms:hidden">
           {!isLoggedIn ? (
             <>
               <a
