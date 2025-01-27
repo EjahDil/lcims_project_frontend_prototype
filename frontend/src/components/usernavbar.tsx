@@ -151,7 +151,7 @@ const UserNavbar: React.FC = () => {
               {isLoggedIn && (
                 <button
                   onClick={handleLogout}
-                  className="flex items-center justify-center block text-gray-700 text-white bg-[#709ec9] hover:bg-[#575447] font-bold py-2 px-6 rounded ml-auto nav-md:ml-0"
+                  className="flex items-center justify-center text-white bg-[#709ec9] hover:bg-[#575447] font-bold py-2 px-6 rounded ml-auto nav-md:ml-0"
                 >
                   Logout
 
