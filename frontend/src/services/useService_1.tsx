@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/v1/admin'
+const API_URL = 'http://lcims-backend-2.onrender.com/api/v1/admin'
 
 
 
@@ -111,7 +111,7 @@ export const deleteRole = async (roleId: string): Promise<any> => {
 
 
 
-const API_URL_Six = "http://localhost:3000/api/v1/tax";
+const API_URL_Six = "http://lcims-backend-2.onrender.com/api/v1/tax";
 
 
 
@@ -207,7 +207,7 @@ export const getPropertyPaymentHistory = async (propertyId: string): Promise<any
 
 
   
-  const API_URL_Three = 'http://localhost:3000/api/v1/streets';
+  const API_URL_Three = 'http://lcims-backend-2.onrender.com/api/v1/streets';
 
 
   export const createStreet = async (streetData: {
@@ -313,7 +313,7 @@ export const getPropertyPaymentHistory = async (propertyId: string): Promise<any
 
 
 
-const API_URL_four = 'http://localhost:3000/api/v1/categories';
+const API_URL_four = 'http://lcims-backend-2.onrender.com/api/v1/categories';
 
 export const fetchCategories = async (page: number = 1, limit: number = 10, search?: string, status?: string, sort_by: string = 'category_name', sort_order: string = 'ASC') => {
   try {
