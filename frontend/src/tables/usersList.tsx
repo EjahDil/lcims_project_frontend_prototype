@@ -38,20 +38,20 @@ const UserTable: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null); // State for selected user
-  const [openDialog, setOpenDialog] = useState(false); // State for controlling dialog visibility
-  const [rowSelectionModel, setRowSelectionModel] =  React.useState<GridRowSelectionModel>([]); // Manage selection state
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [openDialog, setOpenDialog] = useState(false); 
+  const [rowSelectionModel, setRowSelectionModel] =  React.useState<GridRowSelectionModel>([]); 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState<number | null>(null);
 
 
-  const gridRef = React.useRef<HTMLDivElement | null>(null); // Reference to the DataGrid for outside click detection
+  const gridRef = React.useRef<HTMLDivElement | null>(null); 
 
   const loadUsers = async () => {
     setLoading(true);
     try {
       const params = {
-        page: paginationModel.page + 1, // Convert to 1-based index
+        page: paginationModel.page + 1, 
         limit: paginationModel.pageSize,
         search,
         role,
@@ -72,7 +72,7 @@ const UserTable: React.FC = () => {
   }, [paginationModel, search, role, status]);
 
   const handleDelete = async (user_id: number) => {
-    setUserIdToDelete(user_id); // Set the user ID to delete
+    setUserIdToDelete(user_id); 
     setOpenConfirmDialog(true);
   };
   
@@ -160,7 +160,11 @@ const UserTable: React.FC = () => {
   }, []);
 
   if (!hasPermission) {
-    return <div>You do not have permission to view this page.</div>;
+    return (
+      <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
+        You do not have permission to view this page.
+      </div>
+    );
   }
 
   return (

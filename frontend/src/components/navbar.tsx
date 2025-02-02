@@ -253,7 +253,7 @@ const Navbar: React.FC = () => {
                     href="/register-user"
                     className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold nav-md:hidden"
                   >
-                    Register
+                    Register As Property Owner
                   </a>
                   <a
                     href="/login"
@@ -281,7 +281,7 @@ const Navbar: React.FC = () => {
                 href="/register-user"
                 className="py-2 px-8 mr-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded sm:block"
               >
-                Register as User
+                Register As PO
                 <i className="fa fa-user-plus ml-2"></i>
               </a>
               <a

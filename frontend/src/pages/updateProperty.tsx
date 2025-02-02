@@ -10,10 +10,13 @@ import { updateProperty } from "../services/useService";
 interface Property {
   property_id: number; 
   category_name: string;
+  street_name: string;
   type: string;
   status: string;
   digital_address: string;
-  house_number:string
+  house_number:string;
+  longtitude: number;
+  latitude: number;
   owner_details: {
     full_name: string;
     contact_number: string;
@@ -35,8 +38,11 @@ const EditPropertyForm: React.FC<EditPropertyFormProps> = ({ property, onClose }
     owner_name: property.owner_details.full_name,
     owner_number: property.owner_details.contact_number,
     owner_email: property.owner_details.email,
+    street_name: property.street_name,
     category_name: property.category_name,
     type: property.type,
+    longtitude: property.longtitude,
+    latitude: property.latitude,
     digital_address: property.digital_address,
     status: property.status,
   });
@@ -146,16 +152,65 @@ const EditPropertyForm: React.FC<EditPropertyFormProps> = ({ property, onClose }
             />
           </div>
 
-            {/* Property Name */}
+            {/* Property Category Name */}
             <div>
           <label htmlFor="name" className="block text-gray-700">
             Property Category Name
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
+            id="category_name"
+            name="Category Name"
             value={formData.category_name}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-md"
+          />
+        </div>
+
+
+            {/* Street Name */}
+            <div>
+          <label htmlFor="name" className="block text-gray-700">
+            Street Name
+          </label>
+          <input
+            type="text"
+            id="street_name"
+            name="Street Name"
+            value={formData.street_name}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-md"
+          />
+        </div>
+
+            {/* Longtitude*/}
+            <div>
+          <label htmlFor="name" className="block text-gray-700">
+            Longtitude
+          </label>
+          <input
+            type="number"
+            id="longtitude"
+            name="Longtitude"
+            value={formData.longtitude}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-md"
+          />
+        </div>
+
+           {/* Latitude */}
+           <div>
+          <label htmlFor="name" className="block text-gray-700">
+            Longtitude
+          </label>
+          <input
+            type="number"
+            id="latitude"
+            name="Latitude"
+            value={formData.latitude}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md"

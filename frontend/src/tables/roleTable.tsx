@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../components/modalforediting";
 import EditRoleForm from "../pages/updateRole";
 import DeleteRoleDialog from "../components/deleteRolePopUp";
+import { usePermissions } from "../contexts/permContext";
 
 
 interface Role {
@@ -28,12 +29,18 @@ const RolesTable = () => {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const { checkPermission } = usePermissions();
+  const hasPermission = checkPermission('roles:read');
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null);
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   const gridRef = useRef<HTMLDivElement | null>(null);
+
+  const canEditRole = checkPermission('roles:update');
+  const canDeleteRole = checkPermission('roles:delete');
+  const canCreateRole = checkPermission('roles:create');
 
   const navigate = useNavigate();
 
@@ -109,19 +116,28 @@ const RolesTable = () => {
       width: 150,
       renderCell: (params: GridRenderCellParams<Role>) => (
         <Box display="flex" gap={0.5}>
+          {/* View Button - Always Visible */}
           <IconButton sx={{ color: '#709ec9' }} onClick={() => handleViewRole(params.row)}>
             <ViewIcon />
           </IconButton>
-          <IconButton sx={{ color: '#709ec9' }} onClick={() => handleEditRole(params.row.role_id)}>
-            <EditIcon />
-          </IconButton>
-
-          <IconButton color="error" onClick={() => handleOpenDeleteDialog(params.row.role_id)}>
-            <DeleteIcon />
-          </IconButton>
-        </Box>                                                                 
-      ),                                                                                                    
+    
+          {/* Edit Button - Visible Only If User Has Edit Permission */}
+          {canEditRole && (
+            <IconButton sx={{ color: '#709ec9' }} onClick={() => handleEditRole(params.row.role_id)}>
+              <EditIcon />
+            </IconButton>
+          )}
+    
+          {/* Delete Button - Visible Only If User Has Delete Permission */}
+          {canDeleteRole && (
+            <IconButton color="error" onClick={() => handleOpenDeleteDialog(params.row.role_id)}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+        </Box>
+      ),
     },
+    
   ];
 
   // Clear selection when clicking outside the DataGrid
@@ -143,9 +159,68 @@ const RolesTable = () => {
     };
   }, []);
 
+
+  if (!hasPermission) {
+    return (
+      <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
+        You do not have permission to view this page.
+      </div>
+    );
+  }
+
+
   return (
     <div>
-      <Box mb={2}>
+      <Box mb={2} padding={3} sx={{
+      overflowX:"hidden",
+      // Responsive styles
+      '@media (max-width: 1752px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '78%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1116px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '70%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1079px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '60%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+      '@media (max-width: 1032px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '50%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+  }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
           label="Search"
@@ -168,7 +243,8 @@ const RolesTable = () => {
           Create Role
         </Button>
       </Box>
-      </Box>
+
+
       <div ref={gridRef} style={{ height: 400, width: "auto" }}>
         <DataGrid
           rows={filteredRoles}
@@ -233,7 +309,9 @@ const RolesTable = () => {
         onClose={handleCloseDeleteDialog}
         onRoleDeleted={loadRoles}
       />
+      </Box>
     </div>
+
   );
 };
 

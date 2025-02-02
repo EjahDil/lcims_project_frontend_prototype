@@ -60,7 +60,7 @@ const UserNavbar: React.FC = () => {
             </a>
           </div>
 
-          <div className="flex items-center ml-auto lg-1360:hidden space-x-2 sm-168:hidden">
+          <div className="flex items-center ml-auto lg-1399:hidden space-x-2 sm-168:hidden">
             {isLoggedIn && !isOpen && (
               <button
                 onClick={handleLogout}
