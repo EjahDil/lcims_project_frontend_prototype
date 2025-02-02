@@ -229,19 +229,20 @@ const RolesTable = () => {
           variant="outlined"
           size="small"
         />
- 
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleCreateRole}
-          sx={{
-            backgroundColor: "#709ec9",
-            color: "#fff",
-            "&:hover": { backgroundColor: "#575447" },
-          }}
-        >
-          Create Role
-        </Button>
+            {canCreateRole && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleCreateRole}
+                sx={{
+                  backgroundColor: "#709ec9",
+                  color: "#fff",
+                  "&:hover": { backgroundColor: "#575447" },
+                }}
+              >
+                Create Role
+              </Button>
+            )}
       </Box>
 
 
