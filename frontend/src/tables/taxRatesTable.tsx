@@ -78,8 +78,8 @@ const TaxRatesTable = () => {
   const navigate = useNavigate();
   const gridRef = useRef<HTMLDivElement | null>(null); 
 
-  const canEditTax = checkPermission('tax_rates:update');
-  const canDeleteTax = checkPermission('tax_rates:delete');
+  // const canEditTax = checkPermission('tax_rates:update');
+  // const canDeleteTax = checkPermission('tax_rates:delete');
 
   const loadRates = async () => {
     setLoading(true);
