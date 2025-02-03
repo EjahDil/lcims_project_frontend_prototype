@@ -16,7 +16,7 @@ import { Visibility as ViewIcon } from '@mui/icons-material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from "@mui/x-data-grid";
 import {fetchCategoryRates } from "../services/useService";
 import { useNavigate } from "react-router-dom";
-import { usePermissions } from '../contexts/permContext';
+// import { usePermissions } from '../contexts/permContext';
 
 
 
@@ -73,8 +73,8 @@ const TaxRatesTable = () => {
   //const [openModal, setOpenModal] = useState(false);
   const [selectedRate, setSelectedRate] = useState<CategoryRate | null>(null);
   const [rowSelectionModel, setRowSelectionModel] = React.useState<GridRowSelectionModel>([]);
-  const { checkPermission } = usePermissions();
-  const hasPermission = checkPermission('tax_rates:read');
+  // const { checkPermission } = usePermissions();
+  // const hasPermission = checkPermission('tax_rates:read');
   const navigate = useNavigate();
   const gridRef = useRef<HTMLDivElement | null>(null); 
 
@@ -204,13 +204,13 @@ const TaxRatesTable = () => {
     };
   }, []);
 
-  if (!hasPermission) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
-        You do not have permission to view this page.
-      </div>
-    );
-  }
+  // if (!hasPermission) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
+  //       You do not have permission to view this page.
+  //     </div>
+  //   );
+  // }
 
 
 

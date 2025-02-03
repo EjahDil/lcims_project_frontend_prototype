@@ -241,7 +241,7 @@ const UserTable: React.FC = () => {
   }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
-          label="Search"
+          label="Search By Username or Email"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           variant="outlined"

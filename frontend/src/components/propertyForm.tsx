@@ -249,7 +249,7 @@ const PropertyForm: React.FC = () => {
           </div>
           {/* Identification type */}
           <div className="space-y-2">
-            <label className="block text-lg font-semibold">Identification Type</label>
+            <label className="block text-lg font-semibold">Owner's Identification Type</label>
             <select
               name="owner_identification_type"
               value={formData.owner_details.identification_type}
@@ -267,7 +267,7 @@ const PropertyForm: React.FC = () => {
 
             {/* Other Inputs */}
             <div className="space-y-2">
-            <label className="block text-lg font-semibold">Identification Number</label>
+            <label className="block text-lg font-semibold">Owner's Identification Number</label>
             <input
               type="text"
               name="owner_identification_number"

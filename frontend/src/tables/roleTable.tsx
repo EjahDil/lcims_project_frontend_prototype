@@ -223,7 +223,7 @@ const RolesTable = () => {
   }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
-          label="Search"
+          label="Search By Role"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           variant="outlined"
