@@ -11,11 +11,6 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   
 
-  const civilStatusOptions = [
-    { label: "Create Civil Status", link: "/create-civil-status" },
-    { label: "View Records", link: "/view-records" },
-  ];
-
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
@@ -68,6 +63,60 @@ const Navbar: React.FC = () => {
       }
     }, 0);
   };
+
+  const handleRevenueManagementClick = () => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+    
+          if (role === "admin") {
+            navigate("/admin/revenue-management", { replace: true });
+          } else {
+            navigate("/dashboard/revenue-management", { replace: true });
+          }
+          
+        } catch (err) {
+          console.error("Error parsing user data from localStorage:", err);
+        }
+      } else {
+    
+        navigate("/login");
+      }
+    }, 0);
+  };
+
+
+  const handleCertificateArchiveClick = () => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+    
+          if (role === "admin") {
+            navigate("/admin/certificate-archive", { replace: true });
+          } else {
+            navigate("/dashboard/certificate-archive", { replace: true });
+          }
+          
+        } catch (err) {
+          console.error("Error parsing user data from localStorage:", err);
+        }
+      } else {
+    
+        navigate("/login");
+      }
+    }, 0);
+  };
+
+  const civilStatusOptions = [
+    { label: "Create Civil Status", link: "https://birth-certificate-generator-1.onrender.com/" },
+    { label: "Certificate Archive", onClick: handleCertificateArchiveClick}, 
+  ];
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove the token from localStorage
@@ -236,8 +285,8 @@ const Navbar: React.FC = () => {
                   {/* Using Dropdown for Civil Status */}
                <Dropdown label="Civil Status" options={civilStatusOptions} />
               <a
-                href="courses.html"
-                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+                onClick={handleRevenueManagementClick}
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold cursor-pointer"
               >
                 Revenue Management
               </a>

@@ -333,7 +333,7 @@ const SecondSidebar: React.FC = () => {
               )}
             </div>
             <a
-              href="https://dashboard-management.onrender.com/"
+              href="/dashboard/revenue-management"
               className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
             >
               Revenue Management
@@ -364,7 +364,7 @@ const SecondSidebar: React.FC = () => {
             </li>
             <li>
               <a
-                href="/civil-status/records"
+                href="/dashboard/certificate-archive"
                 className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
               >
                 View Records

@@ -36,7 +36,7 @@ import UserPayTaxForm from "./pages/userPayTax";
 import UserPropertyForm from "./pages/userPropertyInfo";
 import UserTaxBillForm from "./pages/userTaxRates";
 import ProtectDashboard from "./components/protectDashboardRoute";
-
+import CertificatesArchive from "./pages/certificateArchiveRetrieval";
 
 
 
@@ -56,10 +56,10 @@ const router =  createBrowserRouter([
             path: "/tax-identification",
             element: <TaxIdentification/>,
         },
-        {
-            path: "/revenue-management",
-            element: <RevenueManagement/>,
-        },
+        // {
+        //     path: "/revenue-management",
+        //     element: <RevenueManagement/>,
+        // },
         ]
 
     },
@@ -131,6 +131,14 @@ const router =  createBrowserRouter([
                         path: 'tax-identification',
                         element: <TaxIdentification/>,
                       },
+                      {
+                        path: 'revenue-management',
+                        element: <RevenueManagement/>,
+                      },
+                      {
+                        path: 'certificate-archive',
+                        element: <CertificatesArchive/>,
+                      },
                     ],
                   },
                 ],
@@ -161,10 +169,18 @@ const router =  createBrowserRouter([
                                     {
                                         path: 'category-management',
                                         element: <CategoryManagement/>,
-                                      },
+                                    },
                                     {
                                         path: 'tax-identification',
                                         element: <TaxIdentification/>,
+                                    },
+                                    {
+                                        path: 'revenue-management',
+                                        element: <RevenueManagement/>,
+                                    },
+                                    {
+                                        path: 'certificate-archive',
+                                        element: <CertificatesArchive/>,
                                     },
         
                         ],

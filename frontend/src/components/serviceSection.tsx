@@ -31,6 +31,56 @@ const ServiceSection: React.FC = () => {
     }, 0);
   };
 
+  const handleRevenueManagementClick = () => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+    
+          if (role === "admin") {
+            navigate("/admin/revenue-management", { replace: true });
+          } else {
+            navigate("/dashboard/revenue-management", { replace: true });
+          }
+          
+        } catch (err) {
+          console.error("Error parsing user data from localStorage:", err);
+        }
+      } else {
+    
+        navigate("/login");
+      }
+    }, 0);
+  };
+
+
+  const handleCertificateArchiveClick = () => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+    
+          if (role === "admin") {
+            navigate("/admin/certificate-archive", { replace: true });
+          } else {
+            navigate("/dashboard/certificate-archive", { replace: true });
+          }
+          
+        } catch (err) {
+          console.error("Error parsing user data from localStorage:", err);
+        }
+      } else {
+    
+        navigate("/login");
+      }
+    }, 0);
+  };
+
+
   return (
     <div className="container-xxl py-5">
       <div className="container mx-auto max-w-screen-xl">
@@ -57,8 +107,8 @@ const ServiceSection: React.FC = () => {
             <p className="text-gray-600">Know the amount of tax you have to pay</p>
           </a>
 
-          {/* Limbe GIS Card */}
-          <a href="/limbe-gis" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105"> 
+          {/* CivilStatus Card */}
+          <a onClick={handleCertificateArchiveClick} className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105 cursor-pointer"> 
             <div className="flex justify-center">
             <FaIdCard className="h-12 w-12 mb-4 text-[#709ec9]" />
             </div>
@@ -67,7 +117,7 @@ const ServiceSection: React.FC = () => {
           </a>
 
           {/* Revenue Management Card */}
-          <a href="https://dashboard-management.onrender.com/" target="_blank" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105"> 
+          <a onClick={handleRevenueManagementClick} target="_blank" className="bg-white rounded-lg shadow-lg p-8 text-center transition-transform transform hover:scale-105 cursor-pointer"> 
             <div className="flex justify-center">
               <ChartBarIcon className="h-12 w-12 mb-4 text-[#709ec9]" />
             </div>

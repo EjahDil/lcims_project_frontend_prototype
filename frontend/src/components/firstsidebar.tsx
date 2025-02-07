@@ -334,7 +334,7 @@ const FirstSidebar: React.FC = () => {
             </div>
 
             <a
-              href="https://dashboard-management.onrender.com/"
+              href="/admin/revenue-management"
               className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
             >
               Revenue Management
@@ -367,7 +367,7 @@ const FirstSidebar: React.FC = () => {
           </li>
           <li>
             <a
-              href="/civil-status/records"
+              href="/admin/certificate-archive"
               className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
             >
               View Records
