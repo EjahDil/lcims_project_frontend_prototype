@@ -30,7 +30,7 @@ const CertificatesArchive = () => {
 
         {/* Centered Title */}
         <div className="relative overflow-hidden whitespace-nowrap border-gray-700 text-5xl font-bold text-black-700 w-[20ch] h-[53px] animate-typing text-center sm-887:hidden" >
-          Certificate Archive Management
+          Civil Status Management
           <span className="absolute top-0 right-0 border-r-4 border-gray-700 animate-blink"></span>
         </div>
   
