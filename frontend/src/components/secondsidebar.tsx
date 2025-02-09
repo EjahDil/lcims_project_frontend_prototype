@@ -246,7 +246,7 @@ const SecondSidebar: React.FC = () => {
                 <ul className="ml-12 list-disc">
                   <li>
                     <a
-                      href="/dashbaord/street-management"
+                      href="/dashboard/street-management"
                       className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                     >
                       All Streets
@@ -281,7 +281,7 @@ const SecondSidebar: React.FC = () => {
                 <ul className="ml-12 list-disc">
                   <li>
                     <a
-                      href="/admin/category-management"
+                      href="/dashboard/category-management"
                       className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                     >
                       All Categories
@@ -323,7 +323,7 @@ const SecondSidebar: React.FC = () => {
                   </li>
                   <li>
                     <a
-                      href="/dashboard/pay-tax"
+                      href="/pay-tax"
                       className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                     >
                       Pay Tax
