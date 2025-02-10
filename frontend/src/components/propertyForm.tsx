@@ -146,7 +146,7 @@ const PropertyForm: React.FC = () => {
         <form id="propertyForm" className="space-y-8" onSubmit={handleSubmit}>
           <h1 className="text-3xl font-bold flex items-center mb-6 justify-center">
           <FaHome className="translate-y-1 mr-2 mb-2" size={30} />
-            Property Regsitration
+            Property Registration
           </h1>
 
           <div className="space-y-2">
