@@ -13,10 +13,14 @@ const UserNavbar: React.FC = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the token from localStorage
-    setIsLoggedIn(false);
-    window.location.reload();
-  };
+    const isConfirmed = window.confirm("Are you sure you want to log out?");
+
+    if (isConfirmed) {
+        localStorage.removeItem("token"); // Remove the token from localStorage
+        setIsLoggedIn(false);
+        window.location.reload();
+    }
+};
 
   useEffect(() => {
     const token = localStorage.getItem("token");

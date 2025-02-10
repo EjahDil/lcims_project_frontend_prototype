@@ -2,6 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "./dropDownRevenue";
 
+
+// Extend the Window interface to include confirmLogout
+declare global {
+  interface Window {
+      confirmLogout: (confirmed: boolean) => void;
+  }
+}
+
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -118,12 +127,31 @@ const Navbar: React.FC = () => {
     { label: "Certificate Archive", onClick: handleCertificateArchiveClick}, 
   ];
 
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token"); // Remove the token from localStorage
+  //   setIsLoggedIn(false); 
+  //   window.location.reload();
+  //   // Update the state to reflect logged-out status
+  // };
+
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the token from localStorage
-    setIsLoggedIn(false); 
-    window.location.reload();
-    // Update the state to reflect logged-out status
-  };
+    const isConfirmed = window.confirm("Are you sure you want to log out?");
+
+    if (isConfirmed) {
+        localStorage.removeItem("token"); // Remove the token from localStorage
+        setIsLoggedIn(false); // Update the state to reflect logged-out status
+        window.location.reload(); // Reload the page to apply changes
+    }
+};
+
+// Function to handle the user's choice in the popup
+window.confirmLogout = (confirmed: boolean) => {
+    if (confirmed) {
+        localStorage.removeItem("token"); // Remove token
+        setIsLoggedIn(false); // Update state
+        window.location.reload(); // Reload page
+    }
+};
 
   useEffect(() => {
     const token = localStorage.getItem("token");
