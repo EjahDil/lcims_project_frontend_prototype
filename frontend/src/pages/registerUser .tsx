@@ -120,9 +120,9 @@ const RegisterUserForm: React.FC = () => {
           <button
             type="button"
             onClick={toggleShowPassword}
-            className="absolute right-3 top-9 text-gray-400 focus:outline-none"
+            className="absolute right-3 top-8 text-gray-400 focus:outline-none"
           >
-            <i className={showPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+            {showPassword ? "Hide" : "Show"}
           </button>
         </div>
 
