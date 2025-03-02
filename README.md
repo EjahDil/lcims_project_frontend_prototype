@@ -1,4 +1,4 @@
-# Limbe City Information Management System Frontend Repository
+## Limbe City Information Management System Frontend Prototype
 #### The LCIMS is a web application designed to assign digital addresses to properties and infrastructures within Limbe city, facilitating accurate identification of the amount of tax to be paid by each registered property and the LCIMS will also improve access to civil status records. The application will feature a dashboard for monitoring and managing tax payments from the various properties on the platform.
 
 ## Project Execution on your Local Computer
