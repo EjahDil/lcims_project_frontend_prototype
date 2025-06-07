@@ -2,6 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "./dropDownRevenue";
 
+
+// Extend the Window interface to include confirmLogout
+declare global {
+  interface Window {
+      confirmLogout: (confirmed: boolean) => void;
+  }
+}
+
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,11 +19,6 @@ const Navbar: React.FC = () => {
 
   const navigate = useNavigate();
   
-
-  const civilStatusOptions = [
-    { label: "Create Civil Status", link: "/create-civil-status" },
-    { label: "View Records", link: "/view-records" },
-  ];
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -69,12 +73,85 @@ const Navbar: React.FC = () => {
     }, 0);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the token from localStorage
-    setIsLoggedIn(false); 
-    window.location.reload();
-    // Update the state to reflect logged-out status
+  const handleRevenueManagementClick = () => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+    
+          if (role === "admin") {
+            navigate("/admin/revenue-management", { replace: true });
+          } else {
+            navigate("/dashboard/revenue-management", { replace: true });
+          }
+          
+        } catch (err) {
+          console.error("Error parsing user data from localStorage:", err);
+        }
+      } else {
+    
+        navigate("/login");
+      }
+    }, 0);
   };
+
+
+  const handleCertificateArchiveClick = () => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+    
+          if (role === "admin") {
+            navigate("/admin/certificate-archive", { replace: true });
+          } else {
+            navigate("/dashboard/certificate-archive", { replace: true });
+          }
+          
+        } catch (err) {
+          console.error("Error parsing user data from localStorage:", err);
+        }
+      } else {
+    
+        navigate("/login");
+      }
+    }, 0);
+  };
+
+  const civilStatusOptions = [
+    { label: "Create Civil Status", link: "https://birth-certificate-generator-1.onrender.com/" },
+    { label: "Certificate Archive", onClick: handleCertificateArchiveClick}, 
+  ];
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token"); // Remove the token from localStorage
+  //   setIsLoggedIn(false); 
+  //   window.location.reload();
+  //   // Update the state to reflect logged-out status
+  // };
+
+  const handleLogout = () => {
+    const isConfirmed = window.confirm("Are you sure you want to log out?");
+
+    if (isConfirmed) {
+        localStorage.removeItem("token"); // Remove the token from localStorage
+        setIsLoggedIn(false); // Update the state to reflect logged-out status
+        window.location.reload(); // Reload the page to apply changes
+    }
+};
+
+// Function to handle the user's choice in the popup
+window.confirmLogout = (confirmed: boolean) => {
+    if (confirmed) {
+        localStorage.removeItem("token"); // Remove token
+        setIsLoggedIn(false); // Update state
+        window.location.reload(); // Reload page
+    }
+};
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -93,7 +170,7 @@ const Navbar: React.FC = () => {
         toggleButtonRef.current &&
         !toggleButtonRef.current.contains(target)
       ) {
-        setIsOpen(false); // Close the menu
+        setIsOpen(false);
       }
     };
 
@@ -122,74 +199,82 @@ const Navbar: React.FC = () => {
 
 
 
-                  <div className="flex items-center ml-auto lg-1360:hidden space-x-2 sm-168:hidden">
-          {!isLoggedIn && !isOpen && (
-            <>
-              <a
-                href="/register-user"
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden sm-398:hidden"
-              >
-                Register
-                <i className="fa fa-user-plus ml-2"></i>
-              </a>
-              <a
-                href="/login"
-                className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden sm-398:hidden"
-              >
-                Log in
-                <i className="fa fa-arrow-right ml-2"></i>
-              </a>
-            </>
-          )}
-          {isLoggedIn && !isOpen && (
-            <button
-              onClick={handleLogout}
-              className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded xs:hidden"
-            >
-              Logout
-              <i className="fa fa-sign-out ml-2"></i>
-            </button>
-          )}
-          <button
-            type="button"
-            ref={toggleButtonRef}
-            className="text-gray-700 hover:text-blue-600"
-            onClick={toggleNavbar}
-            aria-expanded={isOpen}
-          >
-            {isOpen ? (
-              <svg
-                className="w-8 h-8 text-gray-700"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-8 h-8 text-gray-700"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
-          </div>
+                        <div className="flex items-center ml-auto nav-md:hidden space-x-2 sm-168:hidden">
+                {/* Buttons */}
+                {!isLoggedIn && !isOpen && (
+                  <div className="flex space-x-2 sm-478:hidden">
+                    <a
+                      href="/register-user"
+                      className="py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded"
+                    >
+                      Register
+                      <i className="fa fa-user-plus ml-2"></i>
+                    </a>
+                    <a
+                      href="/login"
+                      className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded"
+                    >
+                      Log in
+                      <i className="fa fa-arrow-right ml-2"></i>
+                    </a>
+                  </div>
+                )}
+                {isLoggedIn && !isOpen && (
+                  <div className="xs:hidden">
+                    <button
+                      onClick={handleLogout}
+                      className="btn-primary py-2 px-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded"
+                    >
+                      Logout
+                      <i className="fa fa-sign-out ml-2"></i>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+                       {/* Hamburger Menu */}
+         <div className="ml-2 nav-md:hidden">
+                <button
+                  type="button"
+                  ref={toggleButtonRef}
+                  className="text-gray-700 hover:text-blue-600"
+                  onClick={toggleNavbar}
+                  aria-expanded={isOpen}
+                >
+                  {isOpen ? (
+                    <svg
+                      className="w-8s h-8 text-gray-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="w-8 h-8 text-gray-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
+
 
                   {/* Navigation Menu */}
                   <div
@@ -228,8 +313,8 @@ const Navbar: React.FC = () => {
                   {/* Using Dropdown for Civil Status */}
                <Dropdown label="Civil Status" options={civilStatusOptions} />
               <a
-                href="courses.html"
-                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold"
+                onClick={handleRevenueManagementClick}
+                className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold cursor-pointer"
               >
                 Revenue Management
               </a>
@@ -243,13 +328,13 @@ const Navbar: React.FC = () => {
                 <>
                   <a
                     href="/register-user"
-                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold lg-1360:hidden"
+                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold nav-md:hidden"
                   >
-                    Register
+                    Register As Property Owner
                   </a>
                   <a
                     href="/login"
-                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold lg-1360:hidden"
+                    className="nav-item block text-gray-700 hover:text-[#709ec9] font-bold nav-md:hidden"
                   >
                     Log in
                   </a>
@@ -266,14 +351,14 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Login/Logout Button */}
-          <div className="hidden custom-md:flex custom-md:items-center sm-1360:hidden">
+          <div className="hidden custom-md:flex custom-md:items-center nav-ms:hidden">
           {!isLoggedIn ? (
             <>
               <a
                 href="/register-user"
                 className="py-2 px-8 mr-4 text-white bg-[#709ec9] hover:bg-[#575447] rounded sm:block"
               >
-                Register as User
+                Register As PO
                 <i className="fa fa-user-plus ml-2"></i>
               </a>
               <a

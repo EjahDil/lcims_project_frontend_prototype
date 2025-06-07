@@ -16,6 +16,7 @@ import { Visibility as ViewIcon } from '@mui/icons-material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from "@mui/x-data-grid";
 import {fetchCategoryRates } from "../services/useService";
 import { useNavigate } from "react-router-dom";
+// import { usePermissions } from '../contexts/permContext';
 
 
 
@@ -72,8 +73,13 @@ const TaxRatesTable = () => {
   //const [openModal, setOpenModal] = useState(false);
   const [selectedRate, setSelectedRate] = useState<CategoryRate | null>(null);
   const [rowSelectionModel, setRowSelectionModel] = React.useState<GridRowSelectionModel>([]);
+  // const { checkPermission } = usePermissions();
+  // const hasPermission = checkPermission('tax_rates:read');
   const navigate = useNavigate();
   const gridRef = useRef<HTMLDivElement | null>(null); 
+
+  // const canEditTax = checkPermission('tax_rates:update');
+  // const canDeleteTax = checkPermission('tax_rates:delete');
 
   const loadRates = async () => {
     setLoading(true);
@@ -198,12 +204,71 @@ const TaxRatesTable = () => {
     };
   }, []);
 
+  // if (!hasPermission) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
+  //       You do not have permission to view this page.
+  //     </div>
+  //   );
+  // }
+
+
 
   return (
-    <Box padding={3} sx={{ overflowX: "hidden" }}>
+    <Box padding={3} sx={{
+      overflowX:"hidden",
+      // Responsive styles
+      '@media (max-width: 1752px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '78%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1356px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '70%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1306px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '65%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width:1277px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '60%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+  }}>
     <Box display="flex" gap={2} mb={3}>
       <TextField
-        label="Search"
+        label="Search By Category Name" 
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         variant="outlined"

@@ -16,6 +16,7 @@ import Modal from "../components/modalforediting";
 import EditTaxForm from "../pages/updateRates";
 import EditCategoryForm from "../pages/updateCategory";
 import DeleteCategoryDialog from "../components/deleteCategoryPopup";
+import { usePermissions } from "../contexts/permContext";
 //import { fetchCategoryRates } from "../services/useService";
 
 
@@ -60,12 +61,18 @@ const CategoriesTable = () => {
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const { checkPermission } = usePermissions();
+  const hasPermission = checkPermission('categories:read');
   //const [openModal, setOpenModal] = useState(false);
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
   //const [rates, setRates] = useState<CategoryRate[]>([]);
   const [categoryIdToDelete, setCategoryIdToDelete] = useState<number | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
+
+  const canEditCategory = checkPermission('categories:update');
+  const canDeleteCategory = checkPermission('categories:delete');
+  const canCreateCategory = checkPermission('categories:create');
 
   const navigate = useNavigate();
 
@@ -211,21 +218,27 @@ const CategoriesTable = () => {
       width: 150,
       renderCell: (params: GridRenderCellParams<Category>) => (
         <Box display="flex" gap={0.5}>
-        <IconButton sx={{ color: '#709ec9' }} onClick={() => handleViewStreet(params.row)}>
+          <IconButton sx={{ color: '#709ec9' }} onClick={() => handleViewStreet(params.row)}>
             <ViewIcon />
-        </IconButton>
-          <IconButton 
-         sx={{ color: '#709ec9' }}
-         onClick={() => handleEditCategory(params.row.category_id)}
-          >
-            <EditIcon />
           </IconButton>
-          <IconButton 
-          color="error" 
-          onClick={() => handleOpenDialog(params.row.category_id)}
-          >
-            <DeleteIcon />
-          </IconButton>
+    
+          {canEditCategory && (
+            <IconButton 
+              sx={{ color: '#709ec9' }}
+              onClick={() => handleEditCategory(params.row.category_id)}
+            >
+              <EditIcon />
+            </IconButton>
+          )}
+    
+          {canDeleteCategory && (
+            <IconButton 
+              color="error" 
+              onClick={() => handleOpenDialog(params.row.category_id)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
         </Box>
       ),
     },
@@ -254,12 +267,70 @@ const CategoriesTable = () => {
           document.removeEventListener('click', handleClickOutside); // Cleanup the event listener
         };
       }, []);
-    
 
+      if (!hasPermission) {
+        return (
+          <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
+            You do not have permission to view this page.
+          </div>
+        );
+      }
+    
 
   return (
     <div>
       {/* Your search and filter UI can be added here */}
+      <Box padding={3} sx={{
+      overflowX:"hidden",
+      // Responsive styles
+      '@media (max-width: 1752px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '78%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1427px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '70%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1374px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '65%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1342px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '60%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+  }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
           label="Search By Category Name"
@@ -269,18 +340,20 @@ const CategoriesTable = () => {
           size="small"
         />
 
-          <Button
-          variant="contained"
-          color="primary"
-          onClick={handleCreateProperty}
-          sx={{
-            backgroundColor: "#709ec9",
-            color: "#fff",
-            "&:hover": { backgroundColor: "#575447" },
-          }}
-        >
-          Create Property
-         </Button>
+            {canCreateCategory && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleCreateProperty}
+                sx={{
+                  backgroundColor: "#709ec9",
+                  color: "#fff",
+                  "&:hover": { backgroundColor: "#575447" },
+                }}
+              >
+                Create Category
+              </Button>
+            )}
 
         </Box>
 
@@ -366,9 +439,9 @@ const CategoriesTable = () => {
         onClose={handleDeleteCloseDialog}
         onCategoryDeleted={() => loadCategories()}
       />
-
-
+      </Box>
     </div>
+    
   );
 };
 

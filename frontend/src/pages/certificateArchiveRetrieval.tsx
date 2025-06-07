@@ -1,9 +1,9 @@
 
 
 import { useNavigate } from "react-router-dom";
-import RolesTable from "../tables/roleTable";
+import ArchiveTable from "@/tables/archiveTable";
 
-const RoleManagement = () => {
+const CertificatesArchive = () => {
 
 
   const navigate = useNavigate();
@@ -30,12 +30,12 @@ const RoleManagement = () => {
 
         {/* Centered Title */}
         <div className="relative overflow-hidden whitespace-nowrap border-gray-700 text-5xl font-bold text-black-700 w-[20ch] h-[53px] animate-typing text-center sm-887:hidden" >
-          Role Management
+          Civil Status Management
           <span className="absolute top-0 right-0 border-r-4 border-gray-700 animate-blink"></span>
         </div>
   
-        <div className="mt-16 w-full sm-887:hidden">
-          <RolesTable/>
+        <div className="mt-16 sm-887:hidden">
+          <ArchiveTable/>
         </div>
 
 
@@ -53,12 +53,12 @@ const RoleManagement = () => {
             {/* Text visibility control */}
         <div className="hidden sm-887:flex sm-887:items-center sm-887:justify-center sm-887:h-screen sm-887:mr-10">
       <p className="text-center text-black font-bold text-[10px]">
-        Role Table cannot be displayed on this screen size (Larger Screen Recommended)
+        Certificate Archive Table cannot be displayed on this screen size (Larger Screen Recommended)
       </p>
       </div>
       </div>
     );
   };
   
-  export default RoleManagement;
+  export default CertificatesArchive;
   

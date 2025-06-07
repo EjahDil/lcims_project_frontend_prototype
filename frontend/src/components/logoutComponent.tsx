@@ -10,12 +10,17 @@ const LogoutButton : React.FC = () => {
 
     const handlelogout = () => {
 
-        localStorage.removeItem("token");
-        localStorage.removeItem('user');
-        localStorage.removeItem('tokenSetTime');
+      const isConfirmed = window.confirm("Are you sure you want to log out?");
+    
+      if (isConfirmed) {
+        
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          localStorage.removeItem("tokenSetTime");
 
         navigate("/login")
-    };
+    }
+  };
 
     return (
         <button

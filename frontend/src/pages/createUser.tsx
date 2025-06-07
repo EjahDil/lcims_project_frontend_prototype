@@ -5,6 +5,7 @@ import { createUser } from "../services/useService"; // Import the createUser fu
 import Select, { SingleValue } from "react-select";
 
 const CreateUserForm: React.FC = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -61,7 +62,7 @@ const CreateUserForm: React.FC = () => {
       { value: "property_registrator", label: "Property Registrator" },
       { value: "tax_officer", label: "Tax Officer" },
       { value: "city_officer", label: "City Officer" },
-      { value: "user", label: "Tax Payer" },
+      { value: "property_owner", label: "Property Owner" },
     ];
   
     // Custom styles for react-select with Tailwind CSS
@@ -115,6 +116,13 @@ const CreateUserForm: React.FC = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+
+  
+
 
   return (
     <FormContainer title="Create New User">
@@ -160,23 +168,30 @@ const CreateUserForm: React.FC = () => {
         </div>
 
         {/* Password */}
-        <div className="relative">
-          <label htmlFor="password" className="block text-gray-700">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange = {handleChange}
-            required
-            placeholder="Password"
-            className="w-full px-4 py-2 border rounded-md pl-8"
-          />
+              <div className="relative">
+                <label htmlFor="password" className="block text-gray-700">
+                  Password
+                </label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="Password"
+                  className="w-full px-4 py-2 border rounded-md pl-8 pr-16"
+                />
 
-          <i className="fa fa-lock absolute left-3 top-9 text-gray-400"></i>
-        </div>
+                <i className="fa fa-lock absolute left-3 top-9 text-gray-400"></i>
+
+                <span
+                  className="absolute right-3 top-8 text-gray-600 cursor-pointer select-none"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </span>
+              </div>
 
       {/* Role */}
       <div>

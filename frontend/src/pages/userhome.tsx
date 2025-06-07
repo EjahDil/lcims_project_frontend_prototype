@@ -1,5 +1,4 @@
 import React from "react"
-import CarouselAndAboutUs from "../components/aboutUs";
 import useTitle from "../hooks/useTitle";
 import UserCarousel from "../components/userCarousel";
 import UserServiceDetail from "../components/userServiceDetails";

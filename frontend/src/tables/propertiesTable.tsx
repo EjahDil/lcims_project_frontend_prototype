@@ -25,6 +25,7 @@ import EditPropertyForm from "../pages/updateProperty";
 import DeletePropertyDialog from "../components/deletePropertyPopUp";
 import { fetchTaxBill, getPropertyPaymentHistory } from "../services/useService_1";
 import ProcessPropertyPaymentForm from "../pages/processPropertyPaymentForm";
+import { usePermissions } from "../contexts/permContext";
 
 //import ModalCompo from '../components/modalforediting';
 //import EditPropertyForm from "../forms/EditPropertyForm";
@@ -34,10 +35,13 @@ import ProcessPropertyPaymentForm from "../pages/processPropertyPaymentForm";
 export interface Property {
   property_id: number; 
   category_name: string;
+  street_name: string;
   type: string;
   status: string;
   digital_address: string;
   house_number:string
+  longtitude: number,
+  latitude:number,
   owner_details: {
     full_name: string;
     contact_number: string;
@@ -77,11 +81,18 @@ const PropertiesTable = () => {
   const [paymentDetails, setPaymentDetails] = useState<any>(null);
   const [openDialogPaymentDetails, setOpenDialogPaymentDetails] = useState(false);
 
+  const { checkPermission } = usePermissions();
+  const hasPermission = checkPermission('properties:read');
+
 
   const [openTaxBillDialog, setOpenTaxBillDialog] = useState(false);
   const [openTaxHistoryDialog, setOpenTaxHistoryDialog] = useState(false);
   const [propertyIdToDelete, setPropertyIdToDelete] = useState<number | null>(null);;
   const gridRef = useRef<HTMLDivElement | null>(null);
+
+  const canEditProperty = checkPermission('properties:update');
+  const canDeleteProperty = checkPermission('properties:delete');
+  const canCreateProperty = checkPermission('properties:create');
 
   const navigate = useNavigate();
 
@@ -460,33 +471,42 @@ const handlePrint = () => {
       width: 150,
       renderCell: (params: GridRenderCellParams<Property>) => (
         <Box display="flex" gap={0.1}>
-             <IconButton
+          {/* View Button - Always Visible */}
+          <IconButton
             sx={{ color: '#709ec9' }}
             onClick={() => {
               setSelectedProperty(params.row);
               setOpenDialog(true);
             }}
           >
-            <ViewIcon/>
+            <ViewIcon />
           </IconButton>
-          <IconButton
-           sx={{ color: '#709ec9' }}
-            onClick={() => handleEditProperty(params.row.property_id)}
-          >
-            <EditIcon />
-          </IconButton>
-          <IconButton
-            color="error"
-            onClick={() => {
-              setPropertyIdToDelete(params.row.property_id);
-              setOpenConfirmDialog(true);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
+    
+          {/* Edit Button - Visible Only If User Has Edit Permission */}
+          {canEditProperty && (
+            <IconButton
+              sx={{ color: '#709ec9' }}
+              onClick={() => handleEditProperty(params.row.property_id)}
+            >
+              <EditIcon />
+            </IconButton>
+          )}
+    
+          {/* Delete Button - Visible Only If User Has Delete Permission */}
+          {canDeleteProperty && (
+            <IconButton
+              color="error"
+              onClick={() => {
+                setPropertyIdToDelete(params.row.property_id);
+                setOpenConfirmDialog(true);
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
         </Box>
       ),
-    },
+    },    
   ];
 
 
@@ -509,8 +529,31 @@ const handlePrint = () => {
     };
   }, []);
 
+  if (!hasPermission) {
+    return (
+      <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
+        You do not have permission to view this page.
+      </div>
+    );
+  }
+
+
   return (
-    <Box padding={3} sx={{ overflowX: "hidden" }}>
+    <Box padding={3} sx={{
+      overflowX:"hidden",
+      // Responsive styles
+      '@media (max-width: 1752px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '78%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+  }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
           label="Search By Street Name"
@@ -542,18 +585,21 @@ const handlePrint = () => {
           <MenuItem value="Industrial">Industrial</MenuItem>
         </TextField>
 
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleCreateProperty}
-          sx={{
-            backgroundColor: "#709ec9",
-            color: "#fff",
-            "&:hover": { backgroundColor: "#575447" },
-          }}
-        >
-          Create Property
-        </Button>
+                  {canCreateProperty && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleCreateProperty}
+              sx={{
+                backgroundColor: "#709ec9",
+                color: "#fff",
+                "&:hover": { backgroundColor: "#575447" },
+              }}
+            >
+              Create Property
+            </Button>
+          )}
+
       </Box>
 
       <DataGrid

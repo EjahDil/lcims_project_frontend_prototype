@@ -9,6 +9,7 @@ import { fetchStreets } from '../services/useService';
 import Modal from '../components/modalforediting';
 import EditStreetForm from '../pages/updateStreet';
 import DeleteStreetDialog from '../components/deleteStreetPopUp';
+import { usePermissions } from '../contexts/permContext';
 //import DeleteStreetDialog from './DeleteStreetDialog'; // Create a DeleteStreetDialog component for deleting streets
 
 interface Street {
@@ -28,6 +29,11 @@ const StreetsTable = () => {
   const [streets, setStreets] = useState<Street[]>([]);
   const [search, setSearch] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
+
+  const { checkPermission } = usePermissions();
+  const hasPermission = checkPermission('streets:read');
+
+
   const [selectedStreet, setSelectedStreet] = useState<Street | null>(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedStreetId, setSelectedStreetId] = useState<number | null>(null);
@@ -37,6 +43,10 @@ const StreetsTable = () => {
     pageSize: 10,
   });
   const gridRef = useRef<HTMLDivElement | null>(null);
+
+  const canEditStreet = checkPermission('streets:update');
+  const canDeleteStreet = checkPermission('streets:delete');
+  const canCreateStreet = checkPermission('streets:create');
 
   const navigate = useNavigate();
 
@@ -114,22 +124,27 @@ const StreetsTable = () => {
       width: 200,
       renderCell: (params: GridRenderCellParams<Street>) => (
         <Box display="flex" gap={1}>
+          {/* View Button - Always Visible */}
           <IconButton sx={{ color: '#709ec9' }} onClick={() => handleViewStreet(params.row)}>
             <ViewIcon />
           </IconButton>
-          <IconButton sx={{ color: '#709ec9' }} onClick={() => handleEditStreet(params.row.street_id)}>
-            <EditIcon />
-          </IconButton>
-
-          <IconButton 
-          color="error" 
-          onClick={() => handleOpenDeleteDialog(params.row.street_id)}
-          >
-            <DeleteIcon />
-          </IconButton>
+    
+          {/* Edit Button - Visible Only If User Has Edit Permission */}
+          {canEditStreet && (
+            <IconButton sx={{ color: '#709ec9' }} onClick={() => handleEditStreet(params.row.street_id)}>
+              <EditIcon />
+            </IconButton>
+          )}
+    
+          {/* Delete Button - Visible Only If User Has Delete Permission */}
+          {canDeleteStreet && (
+            <IconButton color="error" onClick={() => handleOpenDeleteDialog(params.row.street_id)}>
+              <DeleteIcon />
+            </IconButton>
+          )}
         </Box>
       ),
-    },
+    },    
   ];
 
   // Clear selection when clicking outside the DataGrid
@@ -151,9 +166,68 @@ const StreetsTable = () => {
     };
   }, []);
 
+  if (!hasPermission) {
+    return (
+      <div className="flex items-center justify-center h-screen text-xl font-semibold text-black">
+        You do not have permission to view this page.
+      </div>
+    );
+  }
+
+
   return (
     <div>
-      <Box mb={2}>
+      <Box mb={2} padding={3} sx={{
+      overflowX:"hidden",
+      // Responsive styles
+      '@media (max-width: 1311px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '80%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1273px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '78%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1258px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '70%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+
+      '@media (max-width: 1213px)': {
+        '& .MuiDataGrid-root': {
+          fontSize: '0.8rem', // Reduce font size
+        },
+        '& .MuiDataGrid-columnHeader': {
+          fontSize: '0.9rem', // Reduce header font size
+        },
+        maxWidth: '60%', // Reduce table width
+        margin: '0 auto', // Center the table
+        overflowX: 'hidden'
+      },
+  }}>
       <Box display="flex" gap={2} mb={3}>
         <TextField
           label="Search By Street Name"
@@ -162,20 +236,21 @@ const StreetsTable = () => {
           variant="outlined"
           size="small"
         />
- 
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleCreateStreet}
-          sx={{
-            backgroundColor: "#709ec9",
-            color: "#fff",
-            "&:hover": { backgroundColor: "#575447" },
-          }}
-        >
-          Add Street
-        </Button>
-      </Box>
+            {canCreateStreet && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleCreateStreet}
+                sx={{
+                  backgroundColor: "#709ec9",
+                  color: "#fff",
+                  "&:hover": { backgroundColor: "#575447" },
+                }}
+              >
+                Add Street
+              </Button>
+            )}
+
       </Box>
 
       <Box style={{ overflowX: "hidden" }}>
@@ -246,6 +321,7 @@ const StreetsTable = () => {
         onClose={handleCloseDeleteDialog}
         onStreetDeleted={() => loadStreets()} // Refresh the list after deletion
       />
+      </Box>
     </div>
   );
 };

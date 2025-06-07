@@ -71,7 +71,7 @@ const DashboardPage: React.FC = () => {
       <div className="fixed bottom-4 text-center">
         <button
           onClick={handleReturnHome}
-          className="px-6 py-3 bg-[#709ec9] hover:bg-[#575447] text-white font-semibold rounded-lg shadow-md transition duration-300"
+          className="px-6 py-3 sm-398:px-2 sm-333:hidden bg-[#709ec9] hover:bg-[#575447] text-white font-semibold rounded-lg shadow-md transition duration-300"
         >
           Return to Home Page
         </button>

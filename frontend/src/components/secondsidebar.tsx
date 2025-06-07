@@ -246,7 +246,7 @@ const SecondSidebar: React.FC = () => {
                 <ul className="ml-12 list-disc">
                   <li>
                     <a
-                      href="/dashbaord/street-management"
+                      href="/dashboard/street-management"
                       className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                     >
                       All Streets
@@ -281,7 +281,7 @@ const SecondSidebar: React.FC = () => {
                 <ul className="ml-12 list-disc">
                   <li>
                     <a
-                      href="/admin/category-management"
+                      href="/dashboard/category-management"
                       className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                     >
                       All Categories
@@ -323,7 +323,7 @@ const SecondSidebar: React.FC = () => {
                   </li>
                   <li>
                     <a
-                      href="/dashboard/pay-tax"
+                      href="/pay-tax"
                       className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
                     >
                       Pay Tax
@@ -333,7 +333,7 @@ const SecondSidebar: React.FC = () => {
               )}
             </div>
             <a
-              href="https://dashboard-management.onrender.com/"
+              href="/dashboard/revenue-management"
               className="w-full block px-4 py-2 text-black rounded-md font-semibold text-left hover:bg-[#575447]"
             >
               Revenue Management
@@ -356,7 +356,7 @@ const SecondSidebar: React.FC = () => {
           <ul className="ml-12 list-disc">
             <li>
               <a
-                href="/civil-status/create"
+                href="https://birth-certificate-generator-1.onrender.com/"
                 className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
               >
                 Create Civil Status
@@ -364,7 +364,7 @@ const SecondSidebar: React.FC = () => {
             </li>
             <li>
               <a
-                href="/civil-status/records"
+                href="/dashboard/certificate-archive"
                 className="text-black font-semibold rounded-md hover:bg-[#575447] block px-2"
               >
                 View Records

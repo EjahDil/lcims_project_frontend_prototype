@@ -74,7 +74,7 @@ const LoginForm: React.FC = () => {
           
           if (role === 'admin') {
             navigate("/admin/home", { replace: true });
-          } else if (role === 'user') {
+          } else if (role === 'property_owner') {
             navigate("/user/home", { replace: true });
           } else {
             navigate("/dashboard/home", { replace: true });

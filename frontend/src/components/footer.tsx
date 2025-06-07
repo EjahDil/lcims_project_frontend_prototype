@@ -1,8 +1,35 @@
 import React from "react";
 import { MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline"; // For non-social media icons
 import { FaTwitter, FaFacebook, FaYoutube, FaLinkedin, FaEnvelope, FaGithub } from "react-icons/fa"; // For social media icons
+import { useNavigate } from "react-router-dom";
 
 const Footer: React.FC = () => {
+
+  const navigate = useNavigate();
+
+  const handleTaxNavigation = () => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          const { role } = user;
+    
+          if (role === "admin") {
+            navigate("/admin/tax-identification", { replace: true });
+          } else {
+            navigate("/dashboard/tax-identification", { replace: true });
+          }
+          
+        } catch (err) {
+          console.error("Error parsing user data from localStorage:", err);
+        }
+      } else {
+    
+        navigate("/login");
+      }
+    }, 0);
+  };
   return (
     <div className="bg-[#709ec9] text-white py-6 mt-12">
       <div className="max-w-8xl mx-auto px-4 flex flex-wrap justify-between gap-5">
@@ -17,7 +44,7 @@ const Footer: React.FC = () => {
           <h4 className="mb-4 text-lg font-semibold">Quick Links</h4>
           <ul>
             <li><a href="/form" className="block mb-2">Forms</a></li>
-            <li><a href="/tax-identification" className="block mb-2">Tax Identification</a></li>
+            <li><a onClick={handleTaxNavigation} className="hover:cursor-pointer block mb-2">Tax Identification</a></li>
             <li><a href="#" className="block mb-2">Civil Status</a></li>
             <li><a href="#" className="block mb-2">Contact Us</a></li>
             <li><a href="#" className="block mb-2">Privacy Policy</a></li>

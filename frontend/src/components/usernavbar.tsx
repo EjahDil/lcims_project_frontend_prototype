@@ -13,10 +13,14 @@ const UserNavbar: React.FC = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the token from localStorage
-    setIsLoggedIn(false);
-    window.location.reload();
-  };
+    const isConfirmed = window.confirm("Are you sure you want to log out?");
+
+    if (isConfirmed) {
+        localStorage.removeItem("token"); // Remove the token from localStorage
+        setIsLoggedIn(false);
+        window.location.reload();
+    }
+};
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -60,7 +64,7 @@ const UserNavbar: React.FC = () => {
             </a>
           </div>
 
-          <div className="flex items-center ml-auto lg-1360:hidden space-x-2 sm-168:hidden">
+          <div className="flex items-center ml-auto lg-1399:hidden space-x-2 sm-168:hidden">
             {isLoggedIn && !isOpen && (
               <button
                 onClick={handleLogout}
@@ -151,7 +155,7 @@ const UserNavbar: React.FC = () => {
               {isLoggedIn && (
                 <button
                   onClick={handleLogout}
-                  className="flex items-center justify-center block text-gray-700 text-white bg-[#709ec9] hover:bg-[#575447] font-bold py-2 px-6 rounded ml-auto nav-md:ml-0"
+                  className="flex items-center justify-center text-white bg-[#709ec9] hover:bg-[#575447] font-bold py-2 px-6 rounded ml-auto nav-md:ml-0"
                 >
                   Logout
 
