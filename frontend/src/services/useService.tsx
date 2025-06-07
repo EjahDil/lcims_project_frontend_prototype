@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Property } from '../tables/propertiesTable';
 
-const API_URL = 'https://lcims-backend-2.onrender.com/api/v1/admin';
+const BASE_URL = process.env.REACT_APP_API_URL
+
+const API_URL = `${BASE_URL}/api/v1/admin`;
 
 export const fetchUsers = async (params: Record<string, any>) => {
   try {
@@ -117,7 +119,7 @@ export const deleteUser = async (userId: string) => {
 };
 
 
-const API_URL_One = 'https://lcims-backend-2.onrender.com/api/v1/properties';
+const API_URL_One = `${BASE_URL}/api/v1/properties`;
 
 // Fetch properties with advanced filtering, sorting, and pagination
 export const fetchProperties = async (params: Record<string, any>): Promise<{ total: number; data: Property[] }> => {
@@ -292,7 +294,7 @@ export const deleteProperty = async (propertyId: string | number): Promise<any> 
 
 
 
-const API_URL_Three = 'https://lcims-backend-2.onrender.com/api/v1/streets';
+const API_URL_Three = `${BASE_URL}/api/v1/streets`;
 
 interface Street {
   street_id: number;
@@ -333,7 +335,7 @@ export const fetchStreets = async (params: Record<string, any>): Promise<FetchSt
 };
 
 
-const API_URL_four = 'https://lcims-backend-2.onrender.com/api/v1/categories';
+const API_URL_four = `${BASE_URL}/api/v1/categories`;
 
 interface Category {
   category_id: string;
@@ -391,7 +393,7 @@ export const fetchCategories = async (params: Record<string, any> = {}): Promise
 };
 
 
-const API_URL_five = "https://lcims-backend-2.onrender.com/api/v1/tax";
+const API_URL_five = `${BASE_URL}/api/v1/tax`;
 
 // Fetch all category rates
 export const fetchCategoryRates = async () => {

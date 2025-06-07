@@ -18,6 +18,8 @@ type LoginResponse = {
   };
 };
 
+const BASE_URL = process.env.REACT_APP_API_URL
+
 // Type guard to check if the response is of type LoginResponse
 const isLoginResponse = (response: any): response is LoginResponse => {
   return response && response.token && response.user;
@@ -59,7 +61,7 @@ export const UseLogin = () => {
     //setLoggedIn(false);
 
     try {
-      const response = await fetch('https://lcims-backend-2.onrender.com/api/v1/auth/login', {
+      const response = await fetch(`${BASE_URL}/api/v1/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
