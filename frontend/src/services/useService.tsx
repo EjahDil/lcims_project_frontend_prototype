@@ -1,27 +1,27 @@
 import axios from 'axios';
 import { Property } from '../tables/propertiesTable';
 
-let API_BASE_URL = '';
+const BASE_URL = 'http://localhost:3000';
 
-export const loadConfig = async (): Promise<void> => {
-  if (!API_BASE_URL) {
-    const res = await fetch('/config.json');
-    const config = await res.json();
-    API_BASE_URL = config.API_URL;
-  }
-};
+const API_URL = `${BASE_URL}/api/v1/admin`;
 
-export const getApiBaseUrl = (): string => {
-  if (!API_BASE_URL) {
-    throw new Error('API_BASE_URL is not loaded. Did you forget to call loadConfig()?');
-  }
-  return API_BASE_URL;
-};
+// export const loadConfig = async (): Promise<void> => {
+//   if (!API_BASE_URL) {
+//     const res = await fetch('/config.json');
+//     const config = await res.json();
+//     API_BASE_URL = config.API_URL;
+//   }
+// };
+
+// export const getApiBaseUrl = (): string => {
+//   if (!API_BASE_URL) {
+//     throw new Error('API_BASE_URL is not loaded. Did you forget to call loadConfig()?');
+//   }
+//   return API_BASE_URL;
+// };
 
 export const fetchUsers = async (params: Record<string, any>) => {
   try {
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
 
     // Retrieve the token from localStorage (or another secure storage method)
     const token = localStorage.getItem('token'); // Adjust this based on your token storage method
@@ -50,9 +50,6 @@ export const createUser = async (userData: {
   digital_address?: string;
 }) => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
     // Retrieve the token from localStorage or other secure storage
     const token = localStorage.getItem('token'); // Adjust based on your token storage method
 
@@ -90,9 +87,6 @@ export const updateUser = async (
   }
 ) => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
     // Retrieve the token from localStorage or other secure storage
     const token = localStorage.getItem('token'); // Adjust based on your token storage method
 
@@ -119,9 +113,6 @@ export const updateUser = async (
 // Function to delete (deactivate) a user
 export const deleteUser = async (userId: string) => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
     // Retrieve the token from localStorage or other secure storage
     const token = localStorage.getItem('token'); // Adjust based on your token storage method
 
@@ -144,12 +135,12 @@ export const deleteUser = async (userId: string) => {
 };
 
 
+const API_URL_One = `${BASE_URL}/api/v1/properties`;
+
 // Fetch properties with advanced filtering, sorting, and pagination
 export const fetchProperties = async (params: Record<string, any>): Promise<{ total: number; data: Property[] }> => {
   try {
 
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_One = `${BASE_URL}/api/v1/properties`;
 
     // Retrieve the token from localStorage (or another secure storage method)
     const token = localStorage.getItem('token'); // Adjust this based on your token storage method
@@ -170,9 +161,6 @@ export const fetchProperties = async (params: Record<string, any>): Promise<{ to
 
 export const fetchPropertyDetails = async (propertyId: string): Promise<any> => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_One = `${BASE_URL}/api/v1/properties`;
 
     const token = localStorage.getItem('token'); // Get token from localStorage
 
@@ -212,8 +200,6 @@ export const createProperty = async (propertyData: {
   };
 }): Promise<{ message: string; property: Property }> => {
   try {
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_One = `${BASE_URL}/api/v1/properties`;
 
     const token = localStorage.getItem('token'); // Retrieve token from storage
 
@@ -267,9 +253,6 @@ export const updateProperty = async (
 ): Promise<any> => {
   try {
 
-    const BASE_URL = getApiBaseUrl(); // Get the base API URL
-    const API_URL_One = `${BASE_URL}/api/v1/properties`;
-
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
     if (!token) {
@@ -306,9 +289,6 @@ export const updateProperty = async (
 // Function to delete a property
 export const deleteProperty = async (propertyId: string | number): Promise<any> => {
   try {
-
-    const BASE_URL = getApiBaseUrl(); // Get the base API URL
-    const API_URL_One = `${BASE_URL}/api/v1/properties`;
     
     // Retrieve token from localStorage
     const token = localStorage.getItem('token');
@@ -352,11 +332,10 @@ interface FetchStreetsResponse {
   data: Street[];
 }
 
+const API_URL_Three = `${BASE_URL}/api/v1/streets`;
+
 export const fetchStreets = async (params: Record<string, any>): Promise<FetchStreetsResponse> => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_Three= `${BASE_URL}/api/v1/streets`;
 
     // Retrieve the token from localStorage (or another secure storage method)
     const token = localStorage.getItem('token'); // Adjust this based on your token storage method
@@ -415,11 +394,10 @@ interface FetchCategoriesResponse {
 //   }
 // }
 
+const API_URL_four = `${BASE_URL}/api/v1/categories`;
+
 export const fetchCategories = async (params: Record<string, any> = {}): Promise<FetchCategoriesResponse> => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_four = `${BASE_URL}/api/v1/categories`;
 
     const token = localStorage.getItem('token');
     const response = await axios.get<FetchCategoriesResponse>(API_URL_four, {
@@ -437,13 +415,11 @@ export const fetchCategories = async (params: Record<string, any> = {}): Promise
 };
 
 
+const API_URL_five = `${BASE_URL}/api/v1/tax`;
 
 // Fetch all category rates
 export const fetchCategoryRates = async () => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_five = `${BASE_URL}/api/v1/tax`;
 
     const token = localStorage.getItem("token"); // Retrieve the token from localStorage
     if (!token) {
@@ -480,10 +456,6 @@ export const updateCategoryRate = async (
   data: CategoryRateData
 ): Promise<any> => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_five = `${BASE_URL}/api/v1/tax`;
-
     const token = localStorage.getItem('token');
 
     if (!token) {

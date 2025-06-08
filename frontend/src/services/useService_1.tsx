@@ -1,28 +1,26 @@
 import axios from 'axios';
 
-let API_BASE_URL = '';
+const BASE_URL = 'http://localhost:3000';
 
-export const loadConfig = async (): Promise<void> => {
-  if (!API_BASE_URL) {
-    const res = await fetch('/config.json');
-    const config = await res.json();
-    API_BASE_URL = config.API_URL;
-  }
-};
+const API_URL = `${BASE_URL}/api/v1/admin`
+// export const loadConfig = async (): Promise<void> => {
+//   if (!API_BASE_URL) {
+//     const res = await fetch('/config.json');
+//     const config = await res.json();
+//     API_BASE_URL = config.API_URL;
+//   }
+// };
 
-export const getApiBaseUrl = (): string => {
-  if (!API_BASE_URL) {
-    throw new Error('API_BASE_URL is not loaded. Did you forget to call loadConfig()?');
-  }
-  return API_BASE_URL;
-};
+// export const getApiBaseUrl = (): string => {
+//   if (!API_BASE_URL) {
+//     throw new Error('API_BASE_URL is not loaded. Did you forget to call loadConfig()?');
+//   }
+//   return API_BASE_URL;
+// };
 
 
 export const fetchRoles = async () => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
 
     // Retrieve token from localStorage
     const token = localStorage.getItem('token');
@@ -56,8 +54,6 @@ export const fetchRoles = async () => {
 export const createRole = async (roleData: { role_name: string; description: string }) => {
   try {
 
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
     // Get token from localStorage
     const token = localStorage.getItem("token");
 
@@ -86,9 +82,6 @@ export const updateRole = async (
 ) => {
   try {
 
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
-
     // Retrieve token from localStorage
     const token = localStorage.getItem("token");
 
@@ -115,9 +108,6 @@ export const updateRole = async (
 export const deleteRole = async (roleId: string): Promise<any> => {
   try {
 
-    const BASE_URL = getApiBaseUrl();
-    const API_URL = `${BASE_URL}/api/v1/admin`;
-
     const token = localStorage.getItem('token'); // Get the token from localStorage
 
     if (!token) {
@@ -137,13 +127,11 @@ export const deleteRole = async (roleId: string): Promise<any> => {
   }
 };
 
-
+const API_URL_Six = `${BASE_URL}/api/v1/tax`;
 
 
 export const fetchTaxBill = async (propertyId: string): Promise<any> => {
     try {
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_Six = `${BASE_URL}/api/v1/tax`;
 
       // Retrieve token from localStorage
       const token = localStorage.getItem('token');
@@ -170,10 +158,6 @@ export const fetchTaxBill = async (propertyId: string): Promise<any> => {
 
   export const processPropertyPayment = async (propertyId: string, amountPaid: number): Promise<any> => {
     try {
-
-      const BASE_URL = getApiBaseUrl();
-      const API_URL_Six = `${BASE_URL}/api/v1/tax`;
- 
       
         // Retrieve token from localStorage
         const token = localStorage.getItem('token');
@@ -238,7 +222,7 @@ export const getPropertyPaymentHistory = async (propertyId: string): Promise<any
   }
 };
 
-
+const API_URL_Three = `${BASE_URL}/api/v1/streets`;
 
 export const createStreet = async (streetData: {
   street_name: string;
@@ -246,9 +230,6 @@ export const createStreet = async (streetData: {
   description?: string;
 }): Promise<any> => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_Three = `${BASE_URL}/api/v1/streets`;
 
     // Retrieve token from localStorage
     const token = localStorage.getItem("token");
@@ -286,9 +267,6 @@ export const createStreet = async (streetData: {
     }
   ) => {
     try {
-
-      const BASE_URL = getApiBaseUrl();
-      const API_URL_Three = `${BASE_URL}/api/v1/streets`;
       
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
   
@@ -325,9 +303,6 @@ export const createStreet = async (streetData: {
   export const deleteStreet = async (streetId: number): Promise<any> => {
     try {
 
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_Three = `${BASE_URL}/api/v1/streets`;
-
       // Retrieve the token from localStorage
       const token = localStorage.getItem('token');
       
@@ -353,13 +328,11 @@ export const createStreet = async (streetData: {
   }
 };
 
-
+const API_URL_four = `${BASE_URL}/api/v1/categories`;
 
 export const fetchCategories = async (page: number = 1, limit: number = 10, search?: string, status?: string, sort_by: string = 'category_name', sort_order: string = 'ASC') => {
   try {
 
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_four = `${BASE_URL}/api/v1/categories`;
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
     
@@ -397,9 +370,6 @@ export const fetchCategories = async (page: number = 1, limit: number = 10, sear
 export const createCategory = async (data: { category_name: string; description?: string }) => {
   try {
 
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_four = `${BASE_URL}/api/v1/categories`;
-
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('User is not authenticated');
@@ -420,10 +390,6 @@ export const createCategory = async (data: { category_name: string; description?
 
 export const updateCategory = async (categoryId: number, categoryData: Record<string, any>) => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_four = `${BASE_URL}/api/v1/categories`;
-
 
     // Get the token from localStorage
     const token = localStorage.getItem('token');
@@ -454,9 +420,6 @@ export const updateCategory = async (categoryId: number, categoryData: Record<st
 
 export const deleteCategory = async (categoryId: number): Promise<any> => {
   try {
-
-    const BASE_URL = getApiBaseUrl();
-    const API_URL_four = `${BASE_URL}/api/v1/categories`;
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
     
