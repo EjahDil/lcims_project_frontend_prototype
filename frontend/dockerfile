@@ -27,7 +27,7 @@ FROM nginx:stable-alpine
 COPY --from=build /lcimsapp/dist /usr/share/nginx/html
 
 # Expose port 80 for the web server
-EXPOSE 80
+EXPOSE 8000
 
 # Start the Nginx server
 CMD ["nginx", "-g", "daemon off;"]

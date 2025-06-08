@@ -18,16 +18,26 @@ type LoginResponse = {
   };
 };
 
-const BASE_URL = process.env.REACT_APP_API_URL
+let BASE_URL = '';
 
 // Type guard to check if the response is of type LoginResponse
 const isLoginResponse = (response: any): response is LoginResponse => {
   return response && response.token && response.user;
 };
 
+// Load config.json at runtime
+const loadConfig = async (): Promise<void> => {
+  if (!BASE_URL) {
+    const res = await fetch('/config.json');
+    const config = await res.json();
+    BASE_URL = config.API_URL;
+  }
+};
+
     
 
 export const UseLogin = () => {
+
   const [error, setError] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -55,6 +65,9 @@ export const UseLogin = () => {
 
 
   const login = async ({ username, password }: LoginCredentials) => {
+
+    await loadConfig();
+    
     setIsLoading(true);
     setError(null);
     setSuccess(false);
