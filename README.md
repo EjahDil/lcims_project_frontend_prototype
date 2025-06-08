@@ -6,8 +6,8 @@
 - Open your terminal and clone the github repository with the command below
 
   `
-   git clone https://github.com/EjahDil/lcims_project_frontend.git
-
+   git clonehttps://github.com/EjahDil/lcims_project_frontend_prototype.git
+  `
 - Still in the terminal use type the command below to be sure you will run the project from the main branch
 
   
