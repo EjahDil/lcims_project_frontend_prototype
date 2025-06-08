@@ -18,7 +18,7 @@
 - navigate to the folder having the same name as the github repository cloned above using the command
 
   `
-   cd lcims_project_frontend
+   cd lcims_project_frontend_prototype
   `
  - Once inside the folder above navigate to the frontend using the command
 
