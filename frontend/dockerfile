@@ -23,7 +23,7 @@ FROM nginx:stable-alpine
 COPY --from=build /lcimsapp/dist /usr/share/nginx/html
 
 # Expose port 8000 (you may need to also modify nginx.conf)
-EXPOSE 8000
+EXPOSE 80
 
 # Start nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
